@@ -1,0 +1,3 @@
+github: publish
+	ghp-import -b $(GITHUB_PAGES_BRANCH) $(OUTPUTDIR)
+	git push origin $(GITHUB_PAGES_BRANCH)
