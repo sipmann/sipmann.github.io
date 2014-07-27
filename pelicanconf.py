@@ -7,10 +7,11 @@ SITENAME = 'Sipmann'
 SITEURL = ''
 
 PATH = './content'
+STATIC_PATHS = ['images']
 
 TIMEZONE = 'Europe/Paris'
 
-DEFAULT_LANG = 'pt'
+DEFAULT_LANG = 'pt-br'
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None

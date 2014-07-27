@@ -112,7 +112,7 @@ Abaixo o html do nosso template a ser renderizado, este deve estar dentro da pas
     
 Com tudo isto feito, basta subir o seu servidor e ver o resultado final, que pode ser visto na imagem abaixo.
 
-.. image:: images/sipmann/admin_modificado.png
+.. image:: images/admin_modificado.png
 	:alt: Resultado final
 
 Lembrando que aqui apenas mostrei como modificar o index do admin, para apenas listar dados do banco, mas você pode ir muito mais além. Abaixo fica a estrutura de diretórios final e um link para download do projeto funcionando.
