@@ -6,7 +6,7 @@ AUTHOR = 'Sipmann'
 SITENAME = 'Sipmann'
 SITEURL = ''
 
-PATH = 'content'
+PATH = './content'
 
 TIMEZONE = 'Europe/Paris'
 
