@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-BRANCH=gh-master
+BRANCH=master
 TARGET_REPO=sipmann/sipmann.github.io
 PELICAN_OUTPUT_FOLDER=output
 
