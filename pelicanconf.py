@@ -38,6 +38,8 @@ PLUGINS = [
 	'gzip_cache'
 ]
 
+ADDTHIS_PROFILE = 'ra-53d5af0d0caa9bff'
+
 SITEMAP = {
     'format': 'xml',
     'priorities': {
