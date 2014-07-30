@@ -21,6 +21,8 @@ CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 
 GOOGLE_ANALYTICS = 'UA-8072083-2'
+TWITTER_USERNAME  = 'msipmann'
+AVATAR = 'https://secure.gravatar.com/avatar/7f717d69fb6d3dbc5490d47369aca3e0';
 
 # Blogroll
 LINKS = (('PythonClub', 'http://pythonclub.com.br/'),)
@@ -34,6 +36,7 @@ DEFAULT_PAGINATION = 10
 PLUGIN_PATHS = ['plugins']
 
 PLUGINS = [
+	'related_posts',
 	'sitemap',
 	'gzip_cache'
 ]
