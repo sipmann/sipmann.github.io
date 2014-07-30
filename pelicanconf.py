@@ -4,16 +4,16 @@ from __future__ import unicode_literals
 
 AUTHOR = 'Sipmann'
 SITENAME = 'Sipmann'
-SITEURL = ''
+SITEURL = 'http://www.sipmann.com'
 
 PATH = './content'
 STATIC_PATHS = ['images']
 
-TIMEZONE = 'Europe/Paris'
+TIMEZONE = 'America/Sao_Paulo'
 
 THEME = 'theme'
 
-DEFAULT_LANG = 'pt-br'
+DEFAULT_LANG = 'pt'
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None

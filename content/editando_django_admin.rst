@@ -2,7 +2,7 @@ Editando o Admin do Django
 ##############################
 
 :date: 2014-05-15 18:00
-:tags: django, django-admin
+:tags: python, django, django-admin
 :category: Django
 :slug: editando-o-admin-do-django
 :author: Maurício Camargo Sipmann
