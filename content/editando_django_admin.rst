@@ -3,13 +3,13 @@ Editando o Admin do Django
 
 :date: 2014-05-15 18:00
 :tags: python, django, django-admin
-:category: Django
+:category: Python
 :slug: editando-o-admin-do-django
 :author: Maurício Camargo Sipmann
 :email:  sipmann@gmail.com
 :linkedin: sipmann
 
-Vamos falar um pouco sobre como customizar o admin do Django. Primeiramente porque? A resposta é bem simples, quero mostrar algo para o usuário sem que ele precise entrar nas apps e fazer alguma consulta para então tomar alguma ação. Alguns exêmplos para isto seriam:
+Este artigo foi re-postado no grupo `PythonClub <http://pythonclub.com.br/editando-o-admin-do-django.html>`_. Vamos falar um pouco sobre como customizar o admin do Django. Primeiramente porque? A resposta é bem simples, quero mostrar algo para o usuário sem que ele precise entrar nas apps e fazer alguma consulta para então tomar alguma ação. Alguns exêmplos para isto seriam:
 
     - Exibir as vendas do mês em forma de gráfico por região do país
     - Exibir os últimos comentários adicionados

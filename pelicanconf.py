@@ -29,7 +29,8 @@ LINKS = (('PythonClub', 'http://pythonclub.com.br/'),)
 
 # Social widget
 SOCIAL = (('Twitter', 'https://twitter.com/MSipmann'),
-		('Github', 'https://github.com/sipmann'),)
+		('Github', 'https://github.com/sipmann'),
+		('Linkedin', 'http://br.linkedin.com/in/sipmann'))
 
 DEFAULT_PAGINATION = 10
 
@@ -46,9 +47,9 @@ ADDTHIS_PROFILE = 'ra-53d5af0d0caa9bff'
 SITEMAP = {
     'format': 'xml',
     'priorities': {
-        'articles': 0.5,
-        'indexes': 0.5,
-        'pages': 0.5
+        'articles': 0.8,
+        'indexes': 0.4,
+        'pages': 0.4
     },
     'changefreqs': {
         'articles': 'monthly',
@@ -58,4 +59,4 @@ SITEMAP = {
 }
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
+RELATIVE_URLS = True
