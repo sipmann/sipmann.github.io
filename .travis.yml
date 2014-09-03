@@ -3,7 +3,7 @@ branches:
   only:
   - pelican
 install:
-- pip install pelican ghp-import unidecode
+- pip install pelican Markdown ghp-import unidecode
 script:
 - make html
 env:
