@@ -8,7 +8,7 @@ Email: sipmann@gmail.com
 
 ### Requisitos mínimos?
 
-Para seguir este tutorial você precisará do [Nodejs](http://nodejs.org/). Utilizaremos ele para automatizar algumas tarefas, como a criação do nosso projeto e até mesmo o empacotamento da app. Estas automatizações se darão pela utilização de algumas aplicações como o [Yeoman](yeoman.io/) e o [Grunt](gruntjs.com/).
+Para seguir este tutorial você precisará do [Nodejs](http://nodejs.org/). Utilizaremos ele para automatizar algumas tarefas, como a criação do nosso projeto e até mesmo o empacotamento da app. Estas automatizações se darão pela utilização de algumas aplicações como o [Yeoman](http://yeoman.io/) e o [Grunt](http://gruntjs.com/) .
 
 Também será necessário o emulador do [FirefoxOS](https://www.mozilla.org/pt-BR/firefox/os/), ele roda através do seu navegador Firefox. Para instalá-lo basta ir no menu `Ferramentas > Desenvolvedor web > App Manager`, nesta tela basta tentar iniciar o emulador, se não possuir um já instalado, você será solicitado a fazê-lo. Neste tutorial irei utilizar a versão 1.4.
 
