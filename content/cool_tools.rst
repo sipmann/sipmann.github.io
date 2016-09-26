@@ -12,15 +12,9 @@ Cool Tools
 Com o passor do tempo você vai "achando" - e as vezes até mesmo desenvolvendo - algumas ferramentas que tornam o seu dia a dia como desenvolvedor mais fácil. Abaixo seguem algumas das minhas ferramentas que costumo usar. Ressalto que essa lista será (provavelmente) atualizada com o passar do tempo.
 
 `GitKreaken<https://www.gitkraken.com>`_
--------------------
+-----------------
 
 Eu gosto muito de usar git, mas as vezes fico cansado de ter que usar só linha de comando, e achei no GitKreaken uma interface muito legal de se usar. Ele tem um 
-
-
-`Wagon<https://www.wagonhq.com>`_
--------------------
-
-Rodar SQLs e analisar os resultado através de gráficos?? Esse cara vai agilizar esse processo para você. Interface simples, assim como todo aplicativo deveria ser.
 
 
 `Paletton<http://paletton.com>`_
