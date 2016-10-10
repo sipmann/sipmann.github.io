@@ -29,7 +29,7 @@ Toda vez que você vai fazer um novo sistema/site, ou até mesmo trocar o layout
 Querendo usar icones como fontes? Vai ai e gere apenas os arquivos que você vai realmente utilizar e economize alguns kbs.
 
 https://syncthing.net/
--------------------
+-------------------------
 
 Se você procura algum meio de sincronizar seus arquivos entre vários pcs e por algum motivo não quer usar um Google Drive ou DropBox, fica aqui a indicação deste cara.
 
