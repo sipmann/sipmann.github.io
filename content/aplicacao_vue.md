@@ -11,7 +11,7 @@ Status: draft
 
 ![Resultado final](images/Resultado.PNG)
 
-A idéia é termos duas abas, uma para lançar os valores recebidos e outra para os valores pagos. Para lançar um novo valor vamos usar o evento de blur do campo. E ao final da listagem um somatório dos valores. Nessa parte não vou criar nenhum componente, nem nada muito complexo. Vai ser o mais básico o possível. O css você pode pegar [aqui](http://embed.plnkr.co/r5xCzF7bpf1QNSIYrXHO/) (no exêmplo mesmo).
+A idéia é termos duas abas, uma para lançar os valores recebidos e outra para os valores pagos. Para lançar um novo valor vamos usar o evento de blur do campo. E ao final da listagem um somatório dos valores. Nessa parte não vou criar nenhum componente, nem nada muito complexo. Vai ser o mais básico o possível. O css você pode pegar [aqui](http://embed.plnkr.co/r5xCzF7bpf1QNSIYrXHO/) (no exemplo mesmo).
 
 Vamos começar com o HTML abaixo onde temos algumas coisas a serem explicadas logo de início. Logo de início temos uma div com o id `app`, este id é o que fara a ligação com o Vue (veremos mais a frente). E mais abaixo temos o `li` que fará a exibição dos itens lançados. 
 
@@ -50,12 +50,12 @@ Vamos começar com o HTML abaixo onde temos algumas coisas a serem explicadas lo
 </html>
 ```
 
-Para fazer a listagem dos items, usamos a diretiva `v-for` que recebe como parâmetro um nome de váriavel que receberá os itens de um objeto. No exêmplo, estamos atribuindo cada item da nossa variável itens à uma variável de mesmo nome. 
+Para fazer a listagem dos itens, usamos a diretiva `v-for` que recebe como parâmetro um nome de variável que receberá os itens de um objeto. No exemplo, estamos atribuindo cada item da nossa variável itens à uma variável de mesmo nome. 
 
 Para exibir um valor de algum objeto, usamos duas chaves ao redor do nome do objeto a ser exibido.
-Para termos um exêmplo já funcionando vamos usar um código bem simples. Abaixo temos a declaração e inicialização do Vue, onde passamos o id do elemento que será a base da aplicação (ai que entra o id `app` da div). 
+Para termos um exemplo já funcionando vamos usar um código bem simples. Abaixo temos a declaração e inicialização do Vue, onde passamos o id do elemento que será a base da aplicação (aí que entra o id `app` da div). 
 
-Para termos testar a diretiva for do Vue, adicionas um array de nome `itens` com alguns dados iniciais. Preste atenção que estes itens ficam dentro da propriedade `data` do Vue, é nela que armazenaremos os dados base da aplicação. 
+Para podermos testar a diretiva for do Vue, adicionas um array de nome `itens` com alguns dados iniciais. Preste atenção que estes itens ficam dentro da propriedade `data` do Vue, é nela que armazenaremos os dados base da aplicação. 
 
 ```javascript
 
@@ -74,7 +74,7 @@ new Vue({
 Adicionando Itens
 -----------
 
-Com isso, ao testarmos nosso código, devemos ver já a exibição dos itens fixos que definimos. Vamos agora adicionar a possibilidade de inserir mais itens na nossa listagem. Para isso, no HTML, vamos usar a diretiva `v-on:blur` no elemento input. Essa diretiva vai disparar o metodo cujo nome foi atribuido ao atributo, no evento de blur do campo. O método podemos ver abaixo, ele deve ficar localizado na propriedade `methods` do Vue.
+Com isso, ao testarmos nosso código, devemos ver já a exibição dos itens fixos que definimos. Vamos agora adicionar a possibilidade de inserir mais itens na nossa listagem. Para isso, no HTML, vamos usar a diretiva `v-on:blur` no elemento input. Essa diretiva vai disparar o método cujo nome foi atribuido ao atributo, no evento de blur do campo. O método podemos ver abaixo, ele deve ficar localizado na propriedade `methods` do Vue.
 
 Também adicionamos o atributo `v-model` no input. O valor deste atributo faz referência à propriedade de mesmo nome que fica na propriedade `data` da nossa aplicação.
 
@@ -107,7 +107,7 @@ new Vue({
 });
 ```
 
-O código dele é bem simples de se entender já que não temos nada que faça referêcia ao framework. É justamente nesse ponto que esta a beleza de utilizar frameworks como o este, eles nos facilitam muito o processo de interação entre o view do nosso app e o control dele. 
+O código dele é bem simples de se entender já que não temos nada que faça referêcia ao framework. É justamente nesse ponto que esta a beleza de utilizar frameworks como este, eles nos facilitam muito o processo de interação entre o view do nosso app e o control dele. 
 
 Por mais simples que seja, vale ressaltar alguns pontos. Primeiro que não acessamos nossas variáveis dentro do data referênciando `data` em si, acessamos diretamente tanto `itens` quanto `vlr`. E sim, já pode testar e verá que esta funcionando conforme o esperado.
 
@@ -149,7 +149,7 @@ Para atualizar essa variável, vamos adicionar eventos de click nos nossos `a`. 
             <a v-on:click="aba = 'rc'" v-bind:class="abaAtiva('rc')">Receber</a>
 ```
 
-Vemos também que atribuimos mais a diretiva `v-bind:class`, com ela podemos relacionador o valor de um atributo do elemento html com uma variável, metodo ou campo calculado. No caso relacionamos à um método que irá nos dizer se a aba esta ativa ou não, para assim adicionarmos uma classe css.
+Vemos também que atribuímos mais a diretiva `v-bind:class`, com ela podemos relacionador o valor de um atributo do elemento html com uma variável, método ou campo calculado. No caso relacionamos à um método que irá nos dizer se a aba esta ativa ou não, para assim adicionarmos uma classe css.
 
 ```javascript
     abaAtiva: function (aba) {
@@ -157,7 +157,7 @@ Vemos também que atribuimos mais a diretiva `v-bind:class`, com ela podemos rel
     }
 ```
 
-O código da aba também é muito simples. Mas ainda falta acertarmos a adição de itens na listagem e o totalizador da nossa aplicação. Para diferenciarmos os itens entre pg e rc, vamos transformar o nosso array de numéricos em um array de objetos. Vamos compor cada item de um vlr e uma aba, ficando algo como: `{ vlr: 1.1, aba: 'pg' }`. Então vamos começar alterando nosso html que irá listar tanto os itens quanto o talizador para que ambos passem a acessar a propriedade vlr de cada item.
+O código da aba também é muito simples. Mas ainda falta acertarmos a adição de itens na listagem e o totalizador da nossa aplicação. Para diferenciarmos os itens entre pg e rc, vamos transformar o nosso array de numéricos em um array de objetos. Vamos compor cada item de um vlr e uma aba, ficando algo como: `{ vlr: 1.1, aba: 'pg' }`. Então vamos começar alterando nosso html que irá listar tanto os itens quanto o totalizador para que ambos passem a acessar a propriedade vlr de cada item.
 
 ```html
             <li v-for="item in itensAba">
