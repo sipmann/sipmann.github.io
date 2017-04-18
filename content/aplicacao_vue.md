@@ -50,12 +50,12 @@ Vamos começar com o HTML abaixo onde temos algumas coisas a serem explicadas lo
 </html>
 ```
 
-Para fazer a listagem dos items, usamos a diretiva `v-for` que recebe como parâmetro um nove de váriavel que receberá os itens de um objeto. No exêmplo estamos atribuindo cada item da nossa variável itens à uma variável de mesmo nome. 
+Para fazer a listagem dos items, usamos a diretiva `v-for` que recebe como parâmetro um nome de váriavel que receberá os itens de um objeto. No exêmplo, estamos atribuindo cada item da nossa variável itens à uma variável de mesmo nome. 
 
-Para exibir um valor de algum objeto, usamos duas chaves ao redor do nome do ojbeto a ser exibido.
+Para exibir um valor de algum objeto, usamos duas chaves ao redor do nome do objeto a ser exibido.
 Para termos um exêmplo já funcionando vamos usar um código bem simples. Abaixo temos a declaração e inicialização do Vue, onde passamos o id do elemento que será a base da aplicação (ai que entra o id `app` da div). 
 
-Para termos testar a diretiva for do Vue, adicionas um array de nome `itens` com alguns dados iniciais. Preste atenção que esses itens ficam dentro da propriedade `data` do Vue, é nela que armazenaremos os dados base da aplicação. 
+Para termos testar a diretiva for do Vue, adicionas um array de nome `itens` com alguns dados iniciais. Preste atenção que estes itens ficam dentro da propriedade `data` do Vue, é nela que armazenaremos os dados base da aplicação. 
 
 ```javascript
 
@@ -74,7 +74,7 @@ new Vue({
 Adicionando Itens
 -----------
 
-Com isso, ao testarmos nosso código, devemos ver já a exibição dos itens fixos que definimos. Vamos agora adicionar a possibilidade de inserir mais itens na nossa listagem. Para isso, no HTML vamos usar a diretiva `v-on:blur` no elemento input. Essa diretiva vai disparar o metodo atribuido à mesma no evento de blur do campo. O método podemos ver abaixo, ele deve ficar localizado na propriedade `methods` do Vuejs. 
+Com isso, ao testarmos nosso código, devemos ver já a exibição dos itens fixos que definimos. Vamos agora adicionar a possibilidade de inserir mais itens na nossa listagem. Para isso, no HTML, vamos usar a diretiva `v-on:blur` no elemento input. Essa diretiva vai disparar o metodo cujo nome foi atribuido ao atributo, no evento de blur do campo. O método podemos ver abaixo, ele deve ficar localizado na propriedade `methods` do Vue.
 
 Também adicionamos o atributo `v-model` no input. O valor deste atributo faz referência à propriedade de mesmo nome que fica na propriedade `data` da nossa aplicação.
 
@@ -157,7 +157,7 @@ Vemos também que atribuimos mais a diretiva `v-bind:class`, com ela podemos rel
     }
 ```
 
-O código da aba também é muito simples. Mas ainda falta acertarmos a adicição de itens, a listagem e o totalizador da nossa aplicação. Para diferenciarmos os itens entre pg e rc, vamos transformar o nosso array de numéricos em um array de objetos. Vamos compor cada item de um vlr e uma aba, ficando algo como: `{ vlr: 1.1, aba: 'pg' }`. Então vamos começar alterando nosso html que irá listar tanto os itens quanto o talizador para que ambos passem a acessar a propriedade vlr de cada item.
+O código da aba também é muito simples. Mas ainda falta acertarmos a adição de itens na listagem e o totalizador da nossa aplicação. Para diferenciarmos os itens entre pg e rc, vamos transformar o nosso array de numéricos em um array de objetos. Vamos compor cada item de um vlr e uma aba, ficando algo como: `{ vlr: 1.1, aba: 'pg' }`. Então vamos começar alterando nosso html que irá listar tanto os itens quanto o talizador para que ambos passem a acessar a propriedade vlr de cada item.
 
 ```html
             <li v-for="item in itensAba">
