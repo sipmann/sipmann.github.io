@@ -26,6 +26,7 @@ Vamos começar com o HTML abaixo onde temos algumas coisas a serem explicadas lo
 </head>
 
 <body>
+    
     <div id="app">
         <nav>
             <a class="ativa">Pagar</a>
