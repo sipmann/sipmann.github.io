@@ -8,7 +8,7 @@ Cool Tools
 :author: Maurício Camargo Sipmann
 :email:  sipmann@gmail.com
 
-Com o passor do tempo você vai "encontrando" - e às vezes até mesmo desenvolvendo - algumas ferramentas que tornam o seu dia a dia como desenvolvedor mais fácil. Abaixo seguem algumas das minhas ferramentas que costumo usar. Ressalto que essa lista será (provavelmente) atualizada com o passar do tempo.
+Com o passar do tempo você vai "encontrando" - e às vezes até mesmo desenvolvendo - algumas ferramentas que tornam o seu dia a dia como desenvolvedor mais fácil. Abaixo seguem algumas das minhas ferramentas que costumo usar. Ressalto que essa lista será (provavelmente) atualizada com o passar do tempo.
 
 https://www.gitkraken.com
 -------------------------------------------
