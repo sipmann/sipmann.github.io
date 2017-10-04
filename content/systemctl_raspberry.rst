@@ -1,7 +1,7 @@
 Scripts de inicialização no raspberry pi
-##############################
+########################################
 
-:date: 2017-11-20 18:00
+:date: 2017-10-7 18:00
 :tags: Shell, raspberry
 :category: Shell
 :slug: script-de-inicializacao-raspberry
