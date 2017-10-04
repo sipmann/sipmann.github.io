@@ -16,6 +16,7 @@ Vamos começa criando um arquivo de serviço dentro da pasta `/etc/systemd/syste
 Vamos criar o arquivo com o nome `gitea.service` dentro da pasta antes mencionada. Abaixo podemos ver como ficou o arquivo e um detalhamento após ele.
 
 .. code-block:: bash
+
   [Unit]
   Description=Gitea Service
   After=network.target
@@ -40,7 +41,8 @@ Após reacarregar os serviços, vamos habilitar o serviço que criamos rodando `
 
 O comando de status pode ser visto como exemplo abaixo.
 
-.. code-block:: bash
+.. code-block:: 
+
   ● gitea.service - Gitea Service
     Loaded: loaded (/etc/systemd/system/gitea.service; enabled; vendor preset: enabled)
     Active: active (running) since Wed 2017-10-04 00:37:34 UTC; 52min ago
