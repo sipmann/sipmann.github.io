@@ -41,7 +41,7 @@ Após reacarregar os serviços, vamos habilitar o serviço que criamos rodando `
 
 O comando de status pode ser visto como exemplo abaixo.
 
-.. code-block:: 
+.. code-block:: bash
 
   ● gitea.service - Gitea Service
     Loaded: loaded (/etc/systemd/system/gitea.service; enabled; vendor preset: enabled)
