@@ -33,7 +33,10 @@ https://syncthing.net/
 Se você procura algum meio de sincronizar seus arquivos entre vários pcs e por algum motivo não quer usar um Google Drive ou DropBox, fica aqui a indicação deste cara.
 
 
+http://sqitch.org/
+-----------------------
 
+Gerenciamento de versões de um banco de dados pode ser bem complicado e trabalhoso... Manter diversos ambientes (desenvolvimento, homologação, produção) vai dar um trabalho se não utilizar alguma ferramenta. Porque não usar o melhor de gerenciamento de versão (git) e uma ferramenta que se adequa ao que você precisa? sqitch é o cara nessas horas.
 
 
 
