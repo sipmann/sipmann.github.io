@@ -79,43 +79,36 @@ Algumas ressalvas para o que foi feito, por questões de praticidade para uso po
 .. code-block:: html
 
     {% if not lst_apps %}
-			<p>Nenhuma app</p>
-		{% else %}
-			<ul>
-				{% for app in lst_apps %}
-					{% with app.name|add:":listagem" as link %}
-						{% url link as the_url %}
-							{% if the_url %}
-							<li>
-								<a href="{% url link %}">{{ app.verbose_name|truncatechars:30 }}</a>
-							</li>
-							{% endif %}
-					{% endwith %}
-				{% endfor %}
-			</ul>
-		{% endif %}
+        <p>Nenhuma app</p>
+    {% else %}
+        <ul>
+            {% for app in lst_apps %}
+                {% with app.name|add:":listagem" as link %}
+                    {% url link as the_url %}
+                    {% if the_url %}
+                    <li>
+                        <a href="{% url link %}">{{ app.verbose_name|truncatechars:30 }}</a>
+                    </li>
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+        </ul>
+    {% endif %}
 
 
-.. image:: images/menu_apps.png
+Feito todo estas tags, agora só precisamos realizar a chamada da tag no template `base.html`. Isso é bem simples, colocamos na primeira linha `{% load menus_tag %}` para então, onde desejamos que seja renderizado o menu, realizamos a chamada para a tag em si com `{% menus_por_app %}`. Estes caras, nós colocamos no nosso template `base.html` e assim vamos obter o resultado final.
+
+.. image:: ../images/menu_apps.png
 	:alt: Resultado final
 
-No final, o resultado obtido deve ser semelhante ao acima. Repare que esta listando as duas aplicações. E acima de tudo, repare que só serão exibidos os links cuja app tenha um namespace de mesmo nome e uma url de nome `listagem`.
+No final, o resultado obtido deve ser semelhante ao acima. Repare que esta listando as duas aplicações, `core` e `comentarios`. E acima de tudo, repare que só serão exibidos os links cuja app tenha um namespace de mesmo nome e uma url de nome `listagem`, este é um dos meios de se limiar quais apps você quer que liste.
 A estrutura final pode ser visto abaixo. Atente-se aos nomes tanto das pastas quanto dos arquivos, pois qualquer diferença pode causar o não funcionamento.
 
 .. code-block:: bash
 
 	../menusapp/
 	├── comentarios
-	│   ├── templates
-	│   │   └── comentarios
-	│   │      └── listagem.html
-	│   ├── __init__.py
-	│   ├── admin.py
-	│   ├── apps.py
-	│   ├── models.py
-	│   ├── tests.py
-	│   ├── urls.py
-	│   └── views.py
+	│   ├── ...
 	├── core
 	│   ├── templates
 	│   │   └── core
@@ -133,10 +126,7 @@ A estrutura final pode ser visto abaixo. Atente-se aos nomes tanto das pastas qu
 	│   ├── urls.py
 	│   └── views.py
 	├── menusapp
-	│   ├── __init__.py
-	│   ├── settings.py
-	│   ├── urls.py
-	│   └── wsgi.py
+	│   ├── ...
 	└── manage.py
 
 
