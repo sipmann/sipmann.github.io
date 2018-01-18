@@ -98,6 +98,8 @@ Algumas ressalvas para o que foi feito, por questões de praticidade para uso po
 
 Feito todo estas tags, agora só precisamos realizar a chamada da tag no template `base.html`. Isso é bem simples, colocamos na primeira linha `{% load menus_tag %}` para então, onde desejamos que seja renderizado o menu, realizamos a chamada para a tag em si com `{% menus_por_app %}`. Estes caras, nós colocamos no nosso template `base.html` e assim vamos obter o resultado final.
 
+É algo simples, mas que em uma empresa que trabalha muito com Django, isso pode acabar ajudando na velocidade de entrega e na padronização dos projetos.
+
 .. image:: ../images/menu_apps.png
 	:alt: Resultado final
 
