@@ -15,6 +15,8 @@ THEME = 'theme'
 
 DEFAULT_LANG = 'pt'
 
+DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
+
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
@@ -57,8 +59,6 @@ SITEMAP = {
         'pages': 'monthly'
     }
 }
-
-SENNA = False
 
 DISQUS_SITENAME = 'sipmann'
 
