@@ -39,4 +39,7 @@ http://sqitch.org/
 Gerenciamento de versões de um banco de dados pode ser bem complicado e trabalhoso... Manter diversos ambientes (desenvolvimento, homologação, produção) vai dar um trabalho se não utilizar alguma ferramenta. Porque não usar o melhor de gerenciamento de versão (git) e uma ferramenta que se adequa ao que você precisa? sqitch é o cara nessas horas.
 
 
+http://www.setupmyproject.com/
+-------------------------------
 
+Preparação de projetos java, com frameworks, bibliotecas, nomenclatura, etc... Rende uma economia de tempo grandiosa e já vem tudo pronto :).
