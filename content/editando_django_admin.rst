@@ -8,6 +8,7 @@ Editando o Admin do Django
 :author: Maurício Camargo Sipmann
 :email:  sipmann@gmail.com
 :linkedin: sipmann
+:related_posts: menu-dinamico-com-apps-do-django
 
 Este artigo foi re-postado no grupo `PythonClub <http://pythonclub.com.br/editando-o-admin-do-django.html>`_. Vamos falar um pouco sobre como customizar o admin do Django. Primeiramente porque? A resposta é bem simples, quero mostrar algo para o usuário sem que ele precise entrar nas apps e fazer alguma consulta para então tomar alguma ação. Alguns exêmplos para isto seriam:
 
@@ -77,6 +78,14 @@ Tire um tempo e brinque um pouco com este template e veja o que acontece se voc�
 Esta template trata-se da responsável por fazer a consulta na base de dados e renderizar a nossa lista, portanto ela é uma 'inclusion tag'. Se você não esta familiarizado com 'template tags', talvez queira dar uma olhada na `documentação do django <https://docs.djangoproject.com/en/dev/howto/custom-template-tags/>`_.
 
 Vamos então criar nossa template tag 'comentarios_n_liberados'. Primeiro devemos criar uma pasta chamada templatetags, dentro da nossa app core. Dentro ta pasta vamos inicializar um pacote python e criar o arquivo comentarios_tag.py. Nele precisamos declarar nosso metodo que deve se chamar 'comentarios_n_liberados' e nele fazer uma simples consulta ao banco buscando os comentários não liberados e por fim registrar a tag apontando para o template que será renderizado. Abaixo o código mais explicado.
+
+.. raw:: html
+
+	<div class="livros">
+		<div class="recomendacoes">Recomendações</div>
+		<a href="https://www.amazon.com.br/gp/product/8575225081/ref=as_li_ss_il?ie=UTF8&linkCode=li2&tag=sipmann-20&linkId=c17fa3ac84e734741a3761e874d7d286" target="_blank"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=8575225081&Format=_SL160_&ID=AsinImage&MarketPlace=BR&ServiceVersion=20070822&WS=1&tag=sipmann-20" ></a><img src="https://ir-br.amazon-adsystem.com/e/ir?t=sipmann-20&l=li2&o=33&a=8575225081" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+		<a href="https://www.amazon.com.br/gp/product/B074ZTLKHB/ref=as_li_ss_il?ie=UTF8&linkCode=li2&tag=sipmann-20&linkId=e2f37c07da2dc4111ae47854b205d01a" target="_blank"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B074ZTLKHB&Format=_SL160_&ID=AsinImage&MarketPlace=BR&ServiceVersion=20070822&WS=1&tag=sipmann-20" ></a><img src="https://ir-br.amazon-adsystem.com/e/ir?t=sipmann-20&l=li2&o=33&a=B074ZTLKHB" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+	</div>
 
 .. code-block:: python
 
