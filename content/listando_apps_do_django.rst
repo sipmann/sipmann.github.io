@@ -1,18 +1,18 @@
 Menu dinâmico com as apps do django
 ####################################
 
-:date: 2018-01-17 18:00
+:date: 2018-01-21 21:17
 :tags: python, django
 :category: Python
 :slug: menu-dinamico-com-apps-do-django
 :author: Maurício Camargo Sipmann
 :email:  sipmann@gmail.com
 :linkedin: sipmann
-:status: draft
+:related_posts: editando-o-admin-do-django
 
-Digamos que sua empresa trabalha com Django desenvolvendo aplicações cujas apps são plugaveis e reutilizáveis. Por que não, se aproveitar de um certo padrão de desenvolvimento para desenvolver menus que se modificam de acordo com as apps que estão no projeto? Como o objetivo aqui, não é desenvolver uma app em si, vamos utilizar um projeto com algumas de modelo. Se desejar estudar mais sobre desenvolvimento django, a documentação é muito boa mas também temos blogs e sites excelentes sobre o assunto.
+Digamos que sua empresa trabalha com Django desenvolvendo aplicações cujas apps são plugaveis e reutilizáveis. Por que não se aproveitar de um certo padrão de desenvolvimento para desenvolver menus que se modificam de acordo com as apps que estão no projeto? Como o objetivo aqui não é desenvolver uma app em si, vamos utilizar um projeto com algumas de modelo. Se desejar estudar mais sobre desenvolvimento Django, a documentação é muito boa, mas também temos blogs e sites excelentes sobre o assunto.
 
-Para conseguirmos atingir esse objetivo, vamos utilizar a api `django.apps <https://docs.djangoproject.com/en/2.0/ref/settings/#installed-apps>`_ que esta disponível a partir da versão 1.7.
+Para conseguirmos atingir esse objetivo, vamos utilizar a api `Django.apps <https://docs.djangoproject.com/en/2.0/ref/settings/#installed-apps>`_ que está disponível a partir da versão 1.7.
 Com esta api, vamos percorrer as apps e se possível, criar um link para uma URL base de cada uma delas. Para começo, baixe os fontes do `projeto aqui <https://github.com/sipmann/menusapp-django/releases/tag/v1>`_, rode o pip install do projeto e no fim, sua estrutura de pastas deve ficar como abaixo.
 
 .. code-block:: bash
@@ -50,10 +50,10 @@ Com esta api, vamos percorrer as apps e se possível, criar um link para uma URL
 
 
 Rode o projeto e veja como é o seu funcionamento. É na app core que temos a base do nosso HTML, então será nele que iremos trabalhar. Quando se trata de algo que será renderizado no template base, eu gosto muito de utilizar 'template tags' para facilitar. 
-Neste `link <http://www.sipmann.com/editando-o-admin-do-django.html>`_ tem mais um exêmplo de utilização de 'template tag' caso esteja interessado.
+Neste `link <http://www.sipmann.com/editando-o-admin-do-django.html>`_ tem mais um exemplo de utilização de 'template tag' caso esteja interessado.
 
-Vamos então criar uma pasta chamada template_tag e dentro dela o nossa tag. Vamos chamá-la de menus_tag.py. Abaixo vamos ver um pouco da nossa tag.
-O código é bem simples e auto explicativo, importamos as bibliotecas necessárias e realizaos o @register da tag com o nome do template que será renderizado.
+Vamos então criar uma pasta chamada template_tag e dentro dela a nossa tag. Vamos chamá-la de menus_tag.py. Abaixo vamos ver um pouco da nossa tag.
+O código é bem simples e auto explicativo, importamos as bibliotecas necessárias e realizamos o @register da tag com o nome do template que será renderizado.
 E por ultimo, retornamos uma tupla de dados para o template.
 
 .. raw:: html
@@ -78,8 +78,8 @@ E por ultimo, retornamos uma tupla de dados para o template.
     	lst = apps.get_app_configs()
     	return { 'lst_apps' : lst }
 
-O template esta abaixo e é simplesmente um for percorrendo as apps e gerando uma lista com os seus menus. As outras propriedades você pode ver direto na `documentação <https://docs.djangoproject.com/en/2.0/ref/applications/#django.apps.AppConfig>`_.
-Algumas ressalvas para o que foi feito, por questões de praticidade para uso posterior, utilizei um with para concatenar e gerar a url e criei um apelido para a url para validar a existencia da mesma. Fora isto, nada de novo.
+O template está abaixo e é simplesmente um for percorrendo as apps e gerando uma lista com os seus menus. As outras propriedades você pode ver direto na `documentação <https://docs.djangoproject.com/en/2.0/ref/applications/#django.apps.AppConfig>`_.
+Algumas ressalvas para o que foi feito por questões de praticidade para uso posterior, utilizei um with para concatenar e gerar a url e criei um apelido para a url para validar a existência da mesma. Fora isto, nada de novo.
 
 .. code-block:: html
 
@@ -104,8 +104,8 @@ Algumas ressalvas para o que foi feito, por questões de praticidade para uso po
 .. image:: images/menu_apps.png
 	:alt: Resultado final
 
-No final, o resultado obtido deve ser semelhante ao acima. Repare que esta listando as duas aplicações. E acima de tudo, repare que só serão exibidos os links cuja app tenha um namespace de mesmo nome e uma url de nome `listagem`.
-A estrutura final pode ser visto abaixo. Atente-se aos nomes tanto das pastas quanto dos arquivos, pois qualquer diferença pode causar o não funcionamento.
+No final, o resultado obtido deve ser semelhante ao acima. Repare que está listando as duas aplicações. E acima de tudo, repare que só serão exibidos os links cuja app tenha um namespace de mesmo nome e uma url de nome `listagem`.
+A estrutura final pode ser vista abaixo. Atente-se aos nomes tanto das pastas quanto dos arquivos, pois qualquer diferença pode causar o não funcionamento.
 
 .. code-block:: bash
 
@@ -145,5 +145,4 @@ A estrutura final pode ser visto abaixo. Atente-se aos nomes tanto das pastas qu
 	└── manage.py
 
 
-
-Espero que tenham gostado, criticas/sugestões são bem-vindas. `Fontes do Projeto <https://github.com/sipmann/menusapp-django/releases/tag/v2>`_
+Espero que tenham gostado, críticas e sugestões são bem-vindas. `Fontes do Projeto <https://github.com/sipmann/menusapp-django/releases/tag/v2>`_
