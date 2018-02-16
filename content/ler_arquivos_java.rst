@@ -35,7 +35,7 @@ Quando você for interagir com arquivos, surge a possibilidade de "ler" todos os
         }
     }
 
-Tendo isto em mente, avalie se não é melhor você ler chucks de bytes e trabalhar sob demanda ao invez de carregar todo o arquivo para memória ;). Abaixo um exêmplo simples de como pode realizar a leitura por partes.
+Tendo isto em mente, avalie se não é melhor você ler chucks de bytes e trabalhar sob demanda ao invez de carregar todo o arquivo para memória ;). Abaixo um exemplo simples de como pode realizar a leitura por partes.
 
 .. code-block:: java
 
