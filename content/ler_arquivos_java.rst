@@ -1,7 +1,7 @@
 Lendo arquivos com Java
 ##################################
 
-:date: 2018-02-17 18:00
+:date: 2018-02-16 21:50
 :tags: Java, Files.readAllBytes, outOfMemory
 :category: Java
 :slug: lendo-arquivos-java-outofmemory
