@@ -37,7 +37,7 @@ Quando você for interagir com arquivos, surge a possibilidade de "ler" todos os
 
 Tendo isto em mente, avalie se não é melhor você ler chucks de bytes e trabalhar sob demanda ao invés de carregar todo o arquivo para memória ;). Abaixo um exemplo simples de como pode realizar a leitura por partes.
 
-.. code-block::java
+.. code-block:: java
 
     byte[] buffer = new byte[1024];
     FileInputStream in = new FileInputStream(file);
