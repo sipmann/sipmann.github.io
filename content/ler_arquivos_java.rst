@@ -1,10 +1,10 @@
-Lendo arquivos com Java
-##################################
+Java - Files.readAllBytes throws OutOfMemory
+#############################################
 
 :date: 2018-02-16 21:50
 :tags: Java, Files.readAllBytes, outOfMemory
 :category: Java
-:slug: lendo-arquivos-java-outofmemory
+:slug: lendo-files-readAllBytes-outofmemory
 :author: Maurício Camargo Sipmann
 :email:  sipmann@gmail.com
 :linkedin: sipmann
