@@ -11,7 +11,7 @@ Lendo arquivos com Java
 :status: draft
 
 
-Quando você for interagir com arquivos, surge a possibilidade de "ler" todos os bytes de uma vez só com o Files.readAllBytes. Mas preste bem atenção a que tipos de arquivos sua aplicação irá lidar, pois o java possui um limite que esta definido como `Integer.MAX_VALUE` como você pode ver abaixo ou nos sources da OpenJDK.
+Quando você for interagir com arquivos, surge a possibilidade de "ler" todos os bytes de uma vez só com o Files.readAllBytes. Mas preste bem atenção a que tipos de arquivos sua aplicação irá lidar, pois o java possui um limite que está definido como `Integer.MAX_VALUE` como você pode ver abaixo ou nos sources da OpenJDK.
 
 .. code-block:: java
 
@@ -35,9 +35,9 @@ Quando você for interagir com arquivos, surge a possibilidade de "ler" todos os
         }
     }
 
-Tendo isto em mente, avalie se não é melhor você ler chucks de bytes e trabalhar sob demanda ao invez de carregar todo o arquivo para memória ;). Abaixo um exemplo simples de como pode realizar a leitura por partes.
+Tendo isto em mente, avalie se não é melhor você ler chucks de bytes e trabalhar sob demanda ao invés de carregar todo o arquivo para memória ;). Abaixo um exemplo simples de como pode realizar a leitura por partes.
 
-.. code-block:: java
+.. code-block::java
 
     byte[] buffer = new byte[1024];
     FileInputStream in = new FileInputStream(file);
