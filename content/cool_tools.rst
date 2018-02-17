@@ -43,3 +43,9 @@ http://www.setupmyproject.com/
 -------------------------------
 
 Preparação de projetos java, com frameworks, bibliotecas, nomenclatura, etc... Rende uma economia de tempo grandiosa e já vem tudo pronto :).
+
+
+https://www.pexels.com/ 
+----------------------- 
+ 
+Bom site para imagens free stock. Excelente local para conseguir imagens de alta qualidade. 
