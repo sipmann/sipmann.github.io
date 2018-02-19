@@ -8,8 +8,6 @@ Java - Files.readAllBytes throws OutOfMemory
 :author: Maurício Camargo Sipmann
 :email:  sipmann@gmail.com
 :linkedin: sipmann
-:lang: en
-:status: draft
 
 When you need to interact with files, there's the possibility to read all bytes from the file with `Files.readAllBytes`. But be aware of the kinds of files your application will deal with because the Java API files have a limit for the buffer that is defined as `Integer.MAX_VALUE` as you can see above or at the OpenJDK sources.
 
@@ -37,7 +35,7 @@ When you need to interact with files, there's the possibility to read all bytes 
 
 With that in mind, check if isn't better read chunks of bytes e work with that slice in exchange of loading the whole file into the memory ;). Above a simple example of how you can read chunks of bytes from the file.
 
-.. code-block::java
+.. code-block:: java
 
     byte[] buffer = new byte[1024];
     FileInputStream in = new FileInputStream(file);
