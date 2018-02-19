@@ -8,6 +8,7 @@ Java - Files.readAllBytes throws OutOfMemory
 :author: Maurício Camargo Sipmann
 :email:  sipmann@gmail.com
 :linkedin: sipmann
+:status: draft
 
 Quando você for interagir com arquivos, surge a possibilidade de "ler" todos os bytes de uma vez só com o `Files.readAllBytes`. Mas preste bem atenção com que tipos de arquivos sua aplicação irá lidar, pois este metodo java possui um limite que está definido como `Integer.MAX_VALUE` como você pode ver abaixo ou nos sources da OpenJDK.
 
