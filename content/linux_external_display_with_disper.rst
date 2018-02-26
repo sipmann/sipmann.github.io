@@ -1,5 +1,5 @@
 Change display settings on linux with Disper
-#############################################
+###############################################
 
 :date: 2018-02-25 19:00
 :tags: Linux
@@ -8,6 +8,7 @@ Change display settings on linux with Disper
 :author: Maurício Camargo Sipmann
 :email:  sipmann@gmail.com
 :linkedin: sipmann
+:lang: en
 :status: draft
 
 From time to time, I change the Linux distro on my laptop or just do a fresh install on it. And once in a while, have random problems with external displays. It can be something really simple like don't detecting the external monitor or something crazy like the image below. 
