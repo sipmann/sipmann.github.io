@@ -1,7 +1,7 @@
 Change display settings on linux with Disper
 #############################################
 
-:date: 2018-02-28 19:00
+:date: 2018-02-25 19:00
 :tags: Linux
 :category: Linux
 :slug: reading-files-java-readAllBytes-outofmemory
