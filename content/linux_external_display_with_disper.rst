@@ -2,9 +2,9 @@ Change display settings on linux with Disper
 ###############################################
 
 :date: 2018-02-25 19:00
-:tags: Linux
+:tags: Linux, external display, disper
 :category: Linux
-:slug: reading-files-java-readAllBytes-outofmemory
+:slug: linux-external-display-with-disper
 :author: Maurício Camargo Sipmann
 :email:  sipmann@gmail.com
 :linkedin: sipmann
