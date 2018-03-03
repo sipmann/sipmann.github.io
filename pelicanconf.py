@@ -14,6 +14,7 @@ TIMEZONE = 'America/Sao_Paulo'
 THEME = 'theme'
 
 DEFAULT_LANG = 'pt'
+DEFAULT_IMAGE = 'images/sipmann.com.png'
 
 DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
 
