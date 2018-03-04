@@ -11,7 +11,6 @@ Solving java.net.SocketException: Protocol family unavailable on a Java + Docker
 :lang: en
 :related_posts: reading-files-java-readAllBytes-outofmemory
 :image: images/og/java-wildfly.png
-:status: draft
 
 On the last days I've been playing with `WildFly Swarm<http://wildfly-swarm.io/>` and I decided to deploy a simple app with Docker. Should work fine, at least that was what I thought. Built a container with the following Dockerfile and instead of a working web app, all that I got was the error `java.net.SocketException: Protocol family unavailable`.
 
