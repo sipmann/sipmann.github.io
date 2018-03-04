@@ -2,7 +2,7 @@ Solving java.net.SocketException: Protocol family unavailable on a Java + Docker
 ###########################################################################################
 
 :date: 2018-03-04 17:40
-:tags: Java, WildFly, Docker
+:tags: Java, WildFly, Docker, java.net.SocketException, Protocol family unavailable
 :category: Java
 :slug: socketException-protocol-family-unavailable-java-docker-wildfly
 :author: Maurício Camargo Sipmann
@@ -10,9 +10,10 @@ Solving java.net.SocketException: Protocol family unavailable on a Java + Docker
 :linkedin: sipmann
 :lang: en
 :related_posts: reading-files-java-readAllBytes-outofmemory
+:image: images/og/java-wildfly.png
 :status: draft
 
-On the last days I've been playing with WildFly Swarm and I decided to deploy a simple app with it inside a Docker. Should work fine, at least that was what I thought. Built a container with the following Dockerfile and instead of a working web app, all that I got was the error `java.net.SocketException: Protocol family unavailable`.
+On the last days I've been playing with `WildFly Swarm<http://wildfly-swarm.io/>` and I decided to deploy a simple app with Docker. Should work fine, at least that was what I thought. Built a container with the following Dockerfile and instead of a working web app, all that I got was the error `java.net.SocketException: Protocol family unavailable`.
 
 .. code-block:: Dockerfile
 
@@ -42,14 +43,14 @@ For some reason, WildFly and Java decided to use the IPv6 network interface from
 		</configuration>
 
  
-Actually, you can solve this adding the same properties to the run command at the Dockerfile, so you choose where you'll add it. Bellow the Dockerfile solution.
+Another way to solve is adding the same properties to the run command at the Dockerfile, so you choose where you'll add it. Bellow the Dockerfile solution.
 
 .. code-block:: Dockerfile
 
 	FROM java:openjdk-8-jdk
 	ENV JAVA_OPTS="-Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true"
 
-	#COPY target/issues.jar /opt/issues.jar
+	COPY target/issues.jar /opt/issues.jar
 	
 	EXPOSE 8080
 

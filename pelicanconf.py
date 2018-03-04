@@ -18,9 +18,8 @@ DEFAULT_IMAGE = 'images/sipmann.com.png'
 
 DISPLAY_RECENT_POSTS_ON_SIDEBAR = True
 
-# Feed generation is usually not desired when developing
-FEED_ALL_ATOM = None
-CATEGORY_FEED_ATOM = None
+FEED_ALL_ATOM = 'feeds/all.atom.xml'
+CATEGORY_FEED_ATOM = 'feeds/%s.atom.xml'
 TRANSLATION_FEED_ATOM = None
 
 #GOOGLE_ADS_CLIENT = "ca-pub-3097623931513783"
@@ -66,3 +65,10 @@ DISQUS_SITENAME = 'sipmann'
 
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = False
+
+
+
+
+#js -- monokai
+#xml -- 3024
+#sql -- hopscotch

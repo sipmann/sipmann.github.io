@@ -10,14 +10,10 @@ Could not open connection with MySQL and Hibernate
 :linkedin: sipmann
 :lang: en
 :related_posts: socketException-protocol-family-unavailable-java-docker-wildfly
+:image: images/og/mysql-permission.png
 :status: draft
 
 I decided to deploy a MySQL Docker image to work with my Java application. I've been using PostgreSQL instead and have no problems at all, but after I moved to MySQL, the app didn't connect anymore with the database and throw some "Could not open connection" at my face, but why? I've tried to connect to it manually and got the same problem.
-
-.. code-block:: shell
-
-	mysql -h 172.17.0.3 -uroot -psupersecretpasswordhere
-	
 	
 After some research I found that the true error should be `java.sql.SQLException: null,  message from server: "Host '172.17.0.4' is not allowed to connect to this MySQL server"` but it wasn't showing to me...
 
@@ -28,7 +24,7 @@ After all, be aware that with the docker image MySQL:5.7.21 (latest version righ
 .. code-block:: SQL
 
 
-	-- No access to user root on any other IP
+	#No access to user root on any other IP
 	SELECT User, Host FROM mysql.user;
 	+---------------+-----------+
 	| User          | Host      |
@@ -37,8 +33,11 @@ After all, be aware that with the docker image MySQL:5.7.21 (latest version righ
 	| root          | localhost |
 	+---------------+-----------+
 	2 rows in set (0.01 sec)
+	
+	CREATE USER 'newuser'@'%' IDENTIFIED BY 'password'; #% mean any IP
+	GRANT ALL PRIVILEGES ON *.* TO 'newuser'@'%';   #*.* mean database.table ;)
 
 
 2) Use MariaDB instead, witch come (at least on the version 10.2.13) with root allowed to do remote connections and will work like MySQL :)
 
-I changed to `MariaDB<https://mariadb.org/>` as it's a more simple solution and work without any changes on the Java code neiter the `docker run command`.
+I changed to `MariaDB<https://mariadb.org/>` as it work without creating user or any changes on the Java code or the `docker run command`.
