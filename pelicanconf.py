@@ -28,7 +28,9 @@ TWITTER_USERNAME  = 'msipmann'
 AVATAR = 'https://secure.gravatar.com/avatar/7f717d69fb6d3dbc5490d47369aca3e0';
 
 # Blogroll
-LINKS = (('PythonClub', 'http://pythonclub.com.br/'), ('Eduardo AW', 'https://eduardoaw.github.io/'))
+LINKS = (('Eduardo AW', 'https://eduardoaw.github.io/') , 
+	('Grepora', 'https://www.grepora.com'),
+	('PythonClub', 'http://pythonclub.com.br/'))
 
 # Social widget
 SOCIAL = (('Twitter', 'https://twitter.com/MSipmann'),
