@@ -11,6 +11,7 @@ Could not open connection with MySQL and Hibernate
 :lang: en
 :related_posts: socketException-protocol-family-unavailable-java-docker-wildfly
 :image: images/og/mysql-permission.png
+:description: Author: Maurício Sipmann, How allow a remote connection on a MySQL server.
 
 Last day I decided to deploy a MySQL Docker image to work with my Java application. I've been using PostgreSQL instead and have no problems at all, but after I moved to MySQL, the app didn't connect anymore with the database and throw some "Could not open connection" at my face, but why? I've tried to connect to it manually and got the same problem.
 
