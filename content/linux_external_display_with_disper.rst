@@ -34,7 +34,7 @@ After that, you can start using it... There are a few options that will serve yo
 
 .. code-block:: shell
 
-  displer -s #only your external display
+  disper -s #only your external display
 
 
 .. _Disper: http://willem.engen.nl/projects/disper/
