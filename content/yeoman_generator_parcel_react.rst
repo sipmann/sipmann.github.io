@@ -11,7 +11,6 @@ Scaffolding a React app with Parcel and Yeoman
 :lang: en
 :image: /images/og/yo-reac-gen.png
 :description: Author: Maurício Sipmann, I created a React + Parcel generator for Yeoman. Now you can scaffold a React app with SASS and React Router in a few seconds
-:status: draft
 
 Since `Parcel JS <https://parceljs.org/>`_ arrived, I've been using it a lot as an awesome alternative for WebPack. Webpack isn't bad but IMO it's too complex for the job and parcel do the same (at least the basic) with almost zero configuration. But if you need to create many apps (like a react app) over and over again, it get's a lil boring following the basic steps.
 
