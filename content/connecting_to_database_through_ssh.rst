@@ -1,7 +1,7 @@
 Connecting to a database through SSH
 ######################################
 
-:date: 2018-03-29 11:30
+:date: 2018-03-29 10:03
 :tags: openssh, tunnel, ssh tunnel, ssh, through firewall
 :category: Linux
 :slug: connecting_to_database_through_ssh
@@ -11,7 +11,6 @@ Connecting to a database through SSH
 :related_posts: linux-external-display-with-disper
 :description: Tunneling a database connection through ssh.
 :lang: en
-:status: draft
 
 If someday, for some reason, you need to establish a connection with a database which is behind a firewall and you only have SSH access on that server (and you don't want to use a CLI) you can do an SSH tunnel. It's pretty simple, bellow has a sample of how to allow connections to a remote Firebird database.
 
