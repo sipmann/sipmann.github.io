@@ -45,7 +45,8 @@ PLUGIN_PATHS = ['plugins']
 PLUGINS = [
 	'related_posts',
 	'sitemap',
-	'gzip_cache'
+	'gzip_cache',
+	'series'
 ]
 
 ADDTHIS_PROFILE = 'ra-53d5af0d0caa9bff'
