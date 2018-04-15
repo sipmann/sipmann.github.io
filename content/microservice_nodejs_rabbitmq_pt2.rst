@@ -11,7 +11,6 @@ Microservices with NodeJS, Express.js and RabbitMQ Part 2
 :lang: en
 :series: MICROSERVICES_NODEJS_RABBITMQ
 :image: /images/microservices_rabit_pt1.png
-:status: draft
 
 If you haven't read the `part 1 <https://www.sipmann.com/microservices_nodejs_express_rabbitmq_part_1-en.html>`_ go ahead and read it... It can be useful :). Or if for some reason you want to start now, you can grab the project where we stopped `here <https://github.com/sipmann/imagecompacter/releases/tag/v1>`_ and get along. On this part, we'll implement the RabbitMQ queue and see how we can get the best of our app and server with that.
 
