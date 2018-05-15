@@ -14,7 +14,7 @@ Parcel ENOSPC error
 
 This week I was trying to run a parcel project and for some reason, 
 I was getting the message "Error: ENOSPC" from the "watcher" part of Parcel. 
-After some research I found that `"listen" project <https://github.com/guard/listen>`_ has a `wiki page <https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers#the-technical-details>`_ talking about this kind of problem, related with the inotify, you can read about it here.
+After some research I found that `"listen" project <https://github.com/guard/listen>`_ has a wiki page talking about this kind of problem, related with the inotify, you can read about it `here <https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers#the-technical-details>`_.
 
 The short answer is run the following command on your Linux and be happy.
 
