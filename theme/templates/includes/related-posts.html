@@ -1,0 +1,31 @@
+{% if article.related_posts %}
+<hr>
+<section class="w3-padding" id="related-posts">
+    <h4>{{ RELATED_POSTS_TEXT|default('Related Posts:') }}</h4>
+    <ul>
+    {% for related_post in article.related_posts %}
+        <li><a href="{{ SITEURL }}/{{ related_post.url }}">{{ related_post.title }}</a></li>
+    {% endfor %}
+    </ul>
+
+    <script type="application/ld+json">
+        {
+          "@context":"http://schema.org",
+          "@type":"ItemList",
+          "itemListElement":[
+            {% for related_post in article.related_posts %}
+            {
+              "@type":"ListItem",
+              "position":{{loop.index}},
+              "url":"{{ SITEURL }}/{{ related_post.url }}"
+            }
+            {% if not loop.last %}
+            ,
+            {% endif %}
+            {% endfor %}
+          ]
+        }
+        </script>
+
+</section>
+{% endif %}

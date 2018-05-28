@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ page.title }} - {{ SITENAME }}{% endblock %}
+
+{% block content %}
+    <section id="content" class="body">
+        <h1 class="entry-title">{{ page.title }}</h1>
+        {% import 'includes/translations.html' as translations with context %}
+        {{ translations.translations_for(page) }}
+        <div class="entry-content">
+            {{ page.content }}
+            {% if page.comments == 'enabled' %}
+                {% include 'includes/comments.html' %}
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

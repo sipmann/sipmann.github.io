@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %}{{ article.title|striptags }} - {{ SITENAME }}{% endblock %}
+
+{% block content %}
+    <article class="w3-card-4 w3-margin w3-white">
+        <div class="w3-container">
+            <h2><b><a href="/{{ article.url }}" title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></b></h2>
+            <h5>
+                <i class="fa fa-calendar"></i><time class="w3-opacity" datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }}</time>
+            </h5>
+        </div>
+        
+        <div class="w3-container">
+            <p>{{ article.content }}</p>
+        </div>
+
+        {% include 'includes/related-posts.html' %}
+        {% include 'includes/addthis.html' %}
+    </article>
+    <div class="w3-card-4 w3-margin w3-padding w3-white">
+        {% include 'includes/comments.html' %}
+    </div>
+    <hr>
+
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+            "@id": "{{ SITEURL }}",
+            "name": "Article"
+        }
+        },{
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+            "@id": "{{ SITEURL }}/{{ article.category.url }}",
+            "name": "{{ article.category }}"
+        }
+        },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+            "@id": "{{ SITEURL }}/{{ article.url }}",
+            "name": "{{ article.title }}"
+        }
+        }]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "NewsArticle",
+        "@id" : "{{ SITEURL }}/{{ article.url }}",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://google.com/article"
+        },
+        "headline": "{{ article.title }}",
+        {% if article.image %}
+        "image": ["{{ SITEURL }}/{{ article.image }}"],
+        {% elif DEFAULT_IMAGE %}
+        "image": ["{{ SITEURL }}/{{ DEFAULT_IMAGE }}"],
+        {% else %}
+        "image": [],
+        {% endif %}
+        "datePublished": "{{ article.date }}",
+        "dateModified": "{{ article.date }}",
+        "author": {
+            "@type": "Person",
+            "name": "{{ article.author.name }}"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "{{ article.author.name }}"
+            {% if AUTHOR_IMAGE %}
+            ,
+            "logo": "{{ AUTHOR_IMAGE }}"
+            {% endif %}
+        }
+    }
+    </script>
+{% endblock content %}

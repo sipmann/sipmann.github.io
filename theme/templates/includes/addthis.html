@@ -1,0 +1,10 @@
+{% if ADDTHIS_PROFILE %}
+    <hr />   
+    <!-- AddThis Button BEGIN -->
+    <div class="w3-center addthis_inline_share_toolbox"></div>
+    {% if ADDTHIS_DATA_TRACK_ADDRESSBAR|default(true) %}
+        <script type="text/javascript">var addthis_config = {"data_track_addressbar": true};</script>
+    {% endif %}
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid={{ ADDTHIS_PROFILE }}"></script>
+    <!-- AddThis Button END -->
+{% endif %}

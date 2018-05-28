@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+
+    {% if FAVICON %}
+    <link href="{{ SITEURL }}/{{ FAVICON }}" rel="icon"> {% endif %}
+
+    <meta property="og:site_name" content="{{ SITENAME }}"> {% if article %}
+    <meta property="og:type" content="article">
+
+    <meta property="og:title" content="{{ article.title|striptags }}">
+    <meta property="og:url" content="{{ SITEURL }}/{{ article.url }}">
+    <meta property="article:author" content="{{ article.author }}"> {% if article.description %}
+    <meta name="description" content="{{ article.description }}">
+    <meta property="og:description" content="{{ article.description }}"> {% else %}
+    <meta name="description" content="{{ article.summary|striptags|escape }}">
+    <meta property="og:description" content="{{ article.summary|striptags|escape }}"> {% endif %}
+    <meta property="article:published_time" content="{{ article.date.strftime(" %Y-%m-%d ") }}"> {% if article.category %}
+    <meta property="article:section" content="{{ article.category }}"> {% endif %} {% for tag in article.tags %}
+    <meta property="article:tag" content="{{ tag }}"> {% endfor %} {% if article.image %}
+    <meta property="og:image" content="{{ SITEURL }}/{{ article.image }}"> {% elif DEFAULT_IMAGE %}
+    <meta property="og:image" content="{{ SITEURL }}/{{ DEFAULT_IMAGE }}"> {% endif %} {% elif page %}
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ page.title }}">
+    <meta property="og:url" content="{{ SITEURL }}/{{ page.url }}"> {% else %}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ SITENAME }}">
+    <meta property="og:url" content="{{ SITEURL }}"> {% if SITEDESCRIPTION %}
+    <meta property="og:description" content="{{ SITEDESCRIPTION }}"> {% else %}
+    <meta property="og:description" content="{{ SITENAME }}"> {% endif %} {% if DEFAULT_IMAGE %}
+    <meta property="og:image" content="{{ SITEURL }}/{{ DEFAULT_IMAGE }}"> {% endif %} {% endif %} {% if FEED_ALL_ATOM %}
+    <link href="{{ SITEURL }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} ATOM Feed"> {% endif %} {% if FEED_ALL_RSS %}
+    <link href="{{ SITEURL }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} RSS Feed"> {% endif %} {% if MANIFEST %}
+    <link rel="manifest" href="/manifest.json"> {% endif %}
+    <link rel="stylesheet" href="/theme/css/w3.css">
+    <link href="/theme/css/pygments/{{ PYGMENTS_STYLE|default('native') }}.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: "Raleway", sans-serif
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        pre {
+            display: block;
+            padding: 9.5px;
+            margin: 0 0 10px;
+            font-size: 13px;
+            line-height: 1.428571429;
+            word-break: break-all;
+            word-wrap: break-word;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .banner_img {
+            background-position: 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            /*background-attachment: fixed;*/
+            height: 100px;
+        }
+        
+        @media (min-width: 993px) {
+            #mySidebar {
+                position: initial !important;
+                background: #f1f1f1 !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="w3-light-gray">
+    <div class="w3-top">
+        <nav class="w3-bar w3-dark-gray w3-card-4">
+            <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();">
+                <i class="fa fa-bars"></i> &nbsp;Menu</button>
+                <a href="/" class="w3-bar-item w3-button">Home</a>
+            {% for p in PAGES %}
+            <a class="w3-bar-item w3-button {% if p == page %}w3-light-gray{% endif %}" href="/{{ p.url }}">
+                {{ p.menulabel|default(p.title) }}
+            </a>
+            {% endfor %}
+        </nav>
+    </div>
+
+    <div class="w3-content w3-margin-top" style="max-width:1400px;">
+        <header class="w3-container w3-center" style="padding:22px 0 0 0;">
+            <div style="height: 130px;width:100%; background-image: url('/images/header.jpg');background-size: cover;"></div>
+        </header>
+        <div class="w3-row">
+
+            <div class="w3-col l9 s12">
+                {% block content %}{% endblock %}
+            </div>
+
+            <div class="w3-sidebar w3-col l3 w3-collapse w3-animate-right" id="mySidebar" style="right:0;">
+                {% include 'includes/side.html' %}
+            </div>
+
+        </div>
+    </div>
+    <footer class="w3-container w3-dark-gray w3-padding-32 w3-margin-top">
+        <div class="w3-bar">
+        {% for name, link in SOCIAL %}
+            {% set name_sanitized = name|lower|replace('+','-plus')|replace(' ','-') %}
+            {% if name_sanitized in ['flickr', 'spotify', 'stack-overflow'] %}
+                {% set iconattributes = '"fa fa-' ~ name_sanitized ~ ' fa-lg"' %}
+            {% else %}
+                {% set iconattributes = '"fa fa-' ~ name_sanitized ~ '-square fa-lg"' %}
+            {% endif %}
+            <a class="w3-bar-item" href="{{ link }}" target="_blank" rel="noopener"><i class={{ iconattributes }}></i> {{ name }}</a>
+        {% endfor %}
+        </div>
+    </footer>
+    {% if GOOGLE_ADS_CLIENT %}
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="{{ GOOGLE_ADS_CLIENT }}"
+        data-ad-slot="8699702701"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script> {% endif %}
+
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Person",
+        "name": "{{ AUTHOR }}",
+        "url": "{{ SITEURL }}"
+        {% if SOCIAL %}
+        , "sameAs": [
+            {% for name, link in SOCIAL %}
+                "{{ link }}"{{ "," if not loop.last }}
+            {% endfor %}
+        ]
+        {% endif %}
+    }
+    </script>
+
+    <script>
+
+        // Get the Sidebar
+        var mySidebar = document.getElementById("mySidebar");
+
+        // Get the DIV with overlay effect
+        var overlayBg = document.getElementById("myOverlay");
+
+        function w3_open() {
+            if (mySidebar.style.display === 'block') {
+                mySidebar.style.display = 'none';
+                overlayBg.style.display = "none";
+            } else {
+                mySidebar.style.display = 'block';
+                overlayBg.style.display = "block";
+            }
+        }
+
+        function w3_close() {
+            mySidebar.style.display = "none";
+            overlayBg.style.display = "none";
+        }
+
+    </script>
+
+</body>
+
+</html>
