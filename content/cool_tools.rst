@@ -55,3 +55,9 @@ https://heml.io/
 -------------------
 
 "HEML is an open source markup language for building responsive email." Melhor descrição impossível.
+
+
+https://www.mockapi.io/
+---------------------------
+
+Desenvolva mocks para testar seu front-end. Eles geram inclusive uma carga de dados para ser utilizado nos seus testes.
