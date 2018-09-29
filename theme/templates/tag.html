@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ tag }} - {{ SITENAME }}{% endblock %}
+{% block content %}
+<h1 class="entry-title">{{ tag }}</h1>
+
+<ul class="w3-ul w3-hoverable w3-white">
+    {% for article in articles %}
+    <li>
+        <a class="w3-padding" href="{{ SITEURL }}/{{ article.url }}">
+            {{ article.title }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
