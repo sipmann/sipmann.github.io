@@ -2,15 +2,24 @@
 
 {% block title %}{{ tag }} - {{ SITENAME }}{% endblock %}
 {% block content %}
-<h1 class="entry-title">{{ tag }}</h1>
 
-<ul class="w3-ul w3-hoverable w3-white">
-    {% for article in articles %}
-    <li>
-        <a class="w3-padding" href="{{ SITEURL }}/{{ article.url }}">
-            {{ article.title }}
-        </a>
-    </li>
-    {% endfor %}
-</ul>
+<div class="w3-col l9 s12">
+    <div class="w3-card-4 w3-margin w3-white">
+        <div class="w3-container">
+            <h2><b>{{ tag }}</b></h2>
+        </div>
+        
+        <div class="w3-container">
+            <ul class="w3-ul w3-hoverable w3-white">
+                {% for article in articles %}
+                <li>
+                    <a class="w3-padding" href="{{ SITEURL }}/{{ article.url }}">
+                        {{ article.title }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
 {% endblock %}
