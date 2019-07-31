@@ -9,7 +9,6 @@ Using git hooks to easy your life
 :email:  sipmann@gmail.com
 :linkedin: sipmann
 :lang: en
-:status: draft
 
 Hey folks, it's been a time since my last post. In the meantime, I moved to another state, changed job, and started learning new kinds of stuff. Today I would like to share one thing that I usually do with my small git projects. Git has many cool features, git hooks were one of them. I'll talk about the pre-commit hook today.
 
