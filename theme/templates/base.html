@@ -7,6 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
 
+    {% IF COIL_TOKEN %}
+    <meta name="monetization" content="{{ COIL_TOKEN }}">
+    {% ENDIF %}
+
     {% if FAVICON %}
     <link href="{{ SITEURL }}/{{ FAVICON }}" rel="icon"> {% endif %}
 

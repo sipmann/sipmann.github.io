@@ -70,7 +70,7 @@ DISQUS_SITENAME = 'sipmann'
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = False
 
-
+COIL_TOKEN='$coil.xrptipbot.com/b87e8303-b600-43bc-b4fc-8bd7b78a7455'
 
 
 #js -- monokai
