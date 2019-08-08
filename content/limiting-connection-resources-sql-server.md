@@ -6,14 +6,15 @@ Slug: limiting-connection-resources-sql-server
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Status: draft
-
-# Resource Governor
+Image: /images/sql-pool.png
 
 Have you ever suffered from a slow SQLServer database? Someone love to run that heavy query in the database? Resource Governor to the rescue. You can set a few rules on how users (connections actually) will use the server/database resources based on a few things.
 
 First things first, if you don't have DAC enabled, enable it now. Dealing with resource governor can lock you out of the database and leave you without action (almost... you can start the server with -c -m -f).
 
 Now to understand how Resource Governor works, we have a few keywords `resource pool`, `workload group` e  `Classifier Function`.
+
+![Pool Sample](images/sql-pool.png)
 
 ## Resource Pool
 
