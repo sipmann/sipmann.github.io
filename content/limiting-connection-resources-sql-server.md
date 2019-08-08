@@ -14,7 +14,7 @@ First things first, if you don't have DAC enabled, enable it now. Dealing with r
 
 Now to understand how Resource Governor works, we have a few keywords `resource pool`, `workload group` e  `Classifier Function`.
 
-![Pool Sample](images/sql-pool.png)
+![Pool Sample](images/sql-pool.png =100x20)
 
 ## Resource Pool
 
