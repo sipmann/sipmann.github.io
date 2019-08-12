@@ -1,11 +1,10 @@
 Title: Limiting Connection Resources on SQL Server 
-Date: 2019-08-14 19:00
+Date: 2019-08-12 12:00
 Tags: SQLServer, Resource Governor
 Category: SQL Server
 Slug: limiting-connection-resources-sql-server
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
-Status: draft
 Image: /images/sql-pool.png
 
 Have you ever suffered from a slow SQLServer database? Someone love to run that heavy query in the database? Resource Governor to the rescue. You can set a few rules on how users (connections actually) will use the server/database resources based on a few things.
