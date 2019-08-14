@@ -42,18 +42,56 @@
     <link href="{{ SITEURL }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} RSS Feed"> {% endif %} {% if MANIFEST %}
     <link rel="manifest" href="/manifest.json"> {% endif %}
     <link rel="stylesheet" href="/theme/css/w3.css">
-    <link async href="/theme/css/pygments/{{ PYGMENTS_STYLE|default('native') }}.css" rel="stylesheet">
-    <link async rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link href="/theme/css/pygments/{{ PYGMENTS_STYLE|default('native') }}.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     {% if DISQUS_SITENAME %}<link rel="preload" as="script" href="//{{ DISQUS_SITENAME }}.disqus.com">{% endif %}
     {% if ADDTHIS_PROFILE %}<link rel="preload" as="script" href="//s7.addthis.com">{% endif %}
     {% if GOOGLE_ANALYTICS %}<link rel="preload" as="script" href="https://ssl.google-analytics.com">{% endif %}
     <style>
-        body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
-        a {text-decoration: none;}
-        pre {display: block;padding: 9.5px;margin: 0 0 10px;font-size: 13px;line-height: 1.428571429;word-break: break-all;word-wrap: break-word;color: #333;border: 1px solid #ccc;border-radius: 4px;}
-        .banner_img {background-position: 50%;background-repeat: no-repeat;background-size: cover;height: 100px;}
-        article img {max-width: -webkit-fill-available;}
-        @media (min-width: 993px) {#mySidebar {position: initial !important;background: #f1f1f1 !important;}}
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: "Raleway", sans-serif
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        pre {
+            display: block;
+            padding: 9.5px;
+            margin: 0 0 10px;
+            font-size: 13px;
+            line-height: 1.428571429;
+            word-break: break-all;
+            word-wrap: break-word;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .banner_img {
+            background-position: 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            /*background-attachment: fixed;*/
+            height: 100px;
+        }
+        
+        article img {
+            max-width: -webkit-fill-available;
+        }
+        
+        @media (min-width: 993px) {
+            #mySidebar {
+                position: initial !important;
+                background: #f1f1f1 !important;
+            }
+        }
     </style>
 </head>
 
