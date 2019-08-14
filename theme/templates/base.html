@@ -42,8 +42,8 @@
     <link href="{{ SITEURL }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} RSS Feed"> {% endif %} {% if MANIFEST %}
     <link rel="manifest" href="/manifest.json"> {% endif %}
     <link rel="stylesheet" href="/theme/css/w3.css">
-    <link href="/theme/css/pygments/{{ PYGMENTS_STYLE|default('native') }}.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link async href="/theme/css/pygments/{{ PYGMENTS_STYLE|default('native') }}.css" rel="stylesheet">
+    <link async rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     {% if DISQUS_SITENAME %}<link rel="preload" as="script" href="//{{ DISQUS_SITENAME }}.disqus.com">{% endif %}
     {% if ADDTHIS_PROFILE %}<link rel="preload" as="script" href="//s7.addthis.com">{% endif %}
     {% if GOOGLE_ANALYTICS %}<link rel="preload" as="script" href="https://ssl.google-analytics.com">{% endif %}
