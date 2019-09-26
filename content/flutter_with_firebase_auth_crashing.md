@@ -10,12 +10,12 @@ Status: draft
 Hey Folks, recently I've started learning [Flutter](https://flutter.dev/) and right after a TODO List, I tried a Firebase integration. But as soon as I started setting the dependencies, my app stopped opening... just a crash. After a few logs digging, I've found the following log.
 
 ```shell
-09-25 09:21:47.919 10198 13672 13672 E AndroidRuntime: FATAL EXCEPTION: main
-09-25 09:21:47.919 10198 13672 13672 E AndroidRuntime: Process: com.example.diadocasal, PID: 13672
-09-25 09:21:47.919 10198 13672 13672 E AndroidRuntime: java.lang.NoClassDefFoundError: Failed resolution of: Landroid/support/v4/util/ArrayMap;
-09-25 09:21:47.919 10198 13672 13672 E AndroidRuntime: 	at com.google.android.gms.internal.measurement.zzca.<clinit>(Unknown Source:60)
-09-25 09:21:47.919 10198 13672 13672 E AndroidRuntime: 	at com.google.android.gms.internal.measurement.zzcm.zzr(Unknown Source:7)
-09-25 09:21:47.919 10198 13672 13672 E AndroidRuntime: 	at com.google.android.gms.measurement.internal.zzfj.<init>(Unknown Source:23)
+13672 E AndroidRuntime: FATAL EXCEPTION: main
+13672 E AndroidRuntime: Process: com.example.diadocasal, PID: 13672
+13672 E AndroidRuntime: java.lang.NoClassDefFoundError: Failed resolution of: Landroid/support/v4/util/ArrayMap;
+13672 E AndroidRuntime: 	at com.google.android.gms.internal.measurement.zzca.<clinit>(Unknown Source:60)
+13672 E AndroidRuntime: 	at com.google.android.gms.internal.measurement.zzcm.zzr(Unknown Source:7)
+13672 E AndroidRuntime: 	at com.google.android.gms.measurement.internal.zzfj.<init>(Unknown Source:23)
 ```
 
 Notice the "NoClassDefFound" of an ArrayMap. To solve that I did the following changes to the files:
