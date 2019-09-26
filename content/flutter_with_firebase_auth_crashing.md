@@ -1,4 +1,4 @@
-  Title: Flutter + firebase auth crashing
+Title: Flutter + firebase auth crashing
 Date: 2019-10-15 19:00
 Tags: flutter, firebase, ArrayMap, NoClassDefFound
 Category: Flutter
