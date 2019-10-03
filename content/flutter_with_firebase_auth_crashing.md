@@ -1,11 +1,10 @@
 Title: Flutter + firebase auth crashing
-Date: 2019-10-15 19:00
+Date: 2019-10-03 19:00
 Tags: flutter, firebase, ArrayMap, NoClassDefFound
 Category: Flutter
 Slug: flutter_with_firebase_auth_crashing
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
-Status: draft
 
 Hey Folks, recently I've started learning [Flutter](https://flutter.dev/) and right after a TODO List, I tried a Firebase integration. But as soon as I started setting the dependencies, my app stopped opening... just a crash. After a few logs digging, I've found the following log.
 
