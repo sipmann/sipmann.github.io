@@ -5,7 +5,6 @@ Category: Linux
 Slug: zabbix-server-out-of-memory-crash
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
-Image: /images/sql-data-studio.png
 
 Do you have a crashing Zabbix Server and looking through the log `/var/log/zabbix/zabbix_server.log` you see the following out of memory message?
 
