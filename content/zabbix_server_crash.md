@@ -1,6 +1,6 @@
 ﻿Title: Zabbix Server Out of Memory log
 Date: 2020-02-27 19:00
-Tags: Zabbix, Shell
+Tags: Zabbix, Shell, Out of memory, Crash
 Category: Linux
 Slug: zabbix-server-out-of-memory-crash
 Author: Maurício Camargo Sipmann
