@@ -1,11 +1,10 @@
 ﻿Title: Zabbix Server Out of Memory log
 Date: 2020-02-27 19:00
-Tags: Zabbix
+Tags: Zabbix, Shell
 Category: Linux
 Slug: zabbix-server-out-of-memory-crash
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
-Status: draft
 Image: /images/sql-data-studio.png
 
 Do you have a crashing Zabbix Server and looking through the log `/var/log/zabbix/zabbix_server.log` you see the following out of memory message?
