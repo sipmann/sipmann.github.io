@@ -78,7 +78,12 @@
             "name": "{{ article.author.name }}"
             {% if AUTHOR_IMAGE %}
             ,
-            "logo": "{{ AUTHOR_IMAGE }}"
+            "logo": {
+              "@type": "ImageObject",
+              "url": "{{ AUTHOR_IMAGE }}",
+              "height": 180,
+              "width": 180
+            }
             {% endif %}
         }
     }

@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 AUTHOR = 'Sipmann'
-AUTHOR_IMAGE = 'https://s.gravatar.com/avatar/7f717d69fb6d3dbc5490d47369aca3e0?s=80'
+AUTHOR_IMAGE = 'https://s.gravatar.com/avatar/7f717d69fb6d3dbc5490d47369aca3e0?s=180'
 SITENAME = 'Sipmann'
 SITEURL = 'https://www.sipmann.com'
 
