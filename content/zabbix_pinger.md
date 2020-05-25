@@ -1,11 +1,10 @@
 Title: Zabbix ICMP pinger processes more than 75%
-Date: 2020-05-25 19:00
+Date: 2020-05-25 16:00
 Tags: Zabbix, icmp pinger, icmp pinger more than 75, Zabbix Server
 Category: Linux
 Slug: zabbix-icmp-pinger-processes-more-than-75
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
-Status: draft
 
 So your monitoring sytems have grown and your zabbix started loggin "Zabbix icmp pinger processes more than 75% busy" at the dashboard like the following image.
 
