@@ -6,7 +6,6 @@ Slug: azure-data-fundamentals-certification-80-discount
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Image: /images/azure_certification.png
-
 Description: Azure Data Fundamentals DP-900 voucher to get 80% discount.
 
 Hey folks, if you want to achieve some certification this year, keep an eye open for vouchers. A few months ago, Oracle released a set of free courses with certifications. Now it's Microsoft time. Microsoft is updating they're certifications and we have a voucher of 80% discount using the coupon **DP900Norfolk** at the checkout. 
