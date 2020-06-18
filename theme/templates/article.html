@@ -4,7 +4,7 @@
 {% block content %}
     <article class="w3-card-4 w3-margin w3-white">
         <div class="w3-container">
-            <h2><b><a href="/{{ article.url }}" title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></b></h2>
+            <h1><b><a href="/{{ article.url }}" title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></b></h1>
             <h5>
                 <i class="fa fa-calendar"></i><time class="w3-opacity" datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }}</time>
             </h5>
