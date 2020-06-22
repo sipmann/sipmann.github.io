@@ -11,6 +11,7 @@ Microservices with NodeJS, Express.js and RabbitMQ Part 1
 :lang: en
 :series: MICROSERVICES_NODEJS_RABBITMQ
 :image: /images/microservices_rabit_pt1.png
+:description: Publishing and consuming messages with NodeJS + RabbitMQ part 1
 
 This is the first part of a microservices development series. The service will consist of the bellow architecture, where we will expose an image optimizer service that will forward the request to a `RabbitMQ <https://www.rabbitmq.com/>`_ queue and answer with the bytecode of the optimized image. It shouldn't be a long series so let's see what we can do.
 
