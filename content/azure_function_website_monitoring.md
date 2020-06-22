@@ -5,7 +5,6 @@ Category: Azure
 Slug: monitoring-website-heath-with-azure-functions
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
-Status: draft
 Image: /images/azure_monitoring.png
 Description: Monitoring website health with azure functions and csharp.
 
@@ -13,7 +12,7 @@ Sometimes you get your self in need to monitor a website's health or it's conten
 
 The main idea of our app will be to monitor website health (status code). To create a new Azure Function Project, follow the steps below.
 
-![Steps to create a azure function project](C:\Users\mauricio.sipmann\Dropbox\artigos\azure_functions.gif)
+![Steps to create a azure function project](/images/azure_functions.gif)
 
 After creating the project, you'll have a few files. Open your main file and start coding. The main file will have a function called `Run`  and you can code your request method. I've created an `async` method to make the request and log the output at the console. The full code you can see below.
 
