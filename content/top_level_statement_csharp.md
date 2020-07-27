@@ -8,7 +8,7 @@ Email: sipmann@gmail.com
 Lang: en
 Image: /images/csharp_toplevel.png
 Description: 
-Draft: true
+Status: draft
 
 Hey folks, I'm acomming along to tell you a few things about the new feature of C# 9. Every time you wan't to start a new project, you allways have the same Main File, with the same structure. At the next version of C# (version 9) we'll have a new feature called `Top Level Statement`. With that, we'll be able to code our app without any namespace/class/public void static main structure. Take a look at the code bellow.
 
