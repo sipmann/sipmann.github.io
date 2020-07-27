@@ -7,6 +7,7 @@ Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Image: /images/sql-pool.png
 Description: Limiting connection resources at SQL Server based on application
+Lang: en
 
 Have you ever suffered from a slow SQLServer database? Someone love to run that heavy query in the database? Resource Governor to the rescue. You can set a few rules on how users (connections actually) will use the server/database resources based on a few things.
 

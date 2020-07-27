@@ -6,13 +6,13 @@
             <article class="w3-card-4 w3-margin w3-white">
                 {% if article.image %}
                 
-                <a href="/{{ article.url }}" title="{{ article.title }}">
-                <div class="banner_img" style="background-image:url({{ SITEURL }}/{{ article.image }});"></div>
+                <a href="{{ SITEURL }}/{{ article.url }}" title="{{ article.title }}">
+                <div class="banner_img" style="background-image:url({{ article.image }});"></div>
                 </a>
 
                 {% endif %}
                 <div class="w3-container">
-                    <h2><b><a href="/{{ article.url }}" title="{{ article.title }}">{{ article.title }}</a></b></h2>
+                    <h2><b><a href="{{ SITEURL }}/{{ article.url }}" title="{{ article.title }}">{{ article.title }}</a></b></h2>
                     <h5>
                         <i class="fa fa-calendar"></i><time class="w3-opacity" datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }}</time>
                     </h5>
@@ -22,7 +22,7 @@
                     <p>{{ article.summary }}</p>
                     <div class="w3-row">
                         <div class="w3-col m8 s12">
-                            <p><a class="btn btn-default btn-xs" href="/{{ article.url }}" title="{{ article.title }}"><button class="w3-button w3-padding-large w3-white w3-border" type="button"><b>READ MORE »</b></button></a></p>
+                            <p><a class="btn btn-default btn-xs" href="{{ SITEURL }}/{{ article.url }}" title="{{ article.title }}"><button class="w3-button w3-padding-large w3-white w3-border" type="button"><b>READ MORE »</b></button></a></p>
                         </div>
                         <!--comments-->
                         <div class="w3-col m4 w3-hide-small">

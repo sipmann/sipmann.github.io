@@ -14,6 +14,13 @@
             <p>{{ article.content }}</p>
         </div>
 
+        Traduções {{ translations }} - {{ in_default_lang }}
+        <ul>
+            {% for tran in translations %}
+            <li>{{tran}}</li>
+            {% endfor %}
+        </ul>
+
         {% include 'includes/related-posts.html' %}
         {% include 'includes/addthis.html' %}
     </article>

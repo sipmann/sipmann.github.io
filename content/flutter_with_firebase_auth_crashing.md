@@ -5,6 +5,7 @@ Category: Flutter
 Slug: flutter_with_firebase_auth_crashing
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
+Lang: en
 
 Hey Folks, recently I've started learning [Flutter](https://flutter.dev/) and right after a TODO List, I tried a Firebase integration. But as soon as I started setting the dependencies, my app stopped opening... just a crash. After a few logs digging, I've found the following log.
 

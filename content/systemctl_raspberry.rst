@@ -7,6 +7,7 @@ Scripts de inicialização no raspberry pi
 :slug: script-de-inicializacao-raspberry
 :author: Maurício Camargo Sipmann
 :email:  sipmann@gmail.com
+:lang: pt-br
 
 Instalei essa semana o gitea_ no meu raspberry pi B + e queria iniciar ele no boot... Não sou profundo conhecedor de linux, então, logo não sabia como fazer isto da melhor forma.
 As versões atuais do Raspbian utilizam o `systemd` para gerenciar os serviços e confesso que nunca havia utilizado o systemctl para nada.

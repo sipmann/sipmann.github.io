@@ -1,4 +1,4 @@
-Title: Monitoring a Website heath with Azure Functions
+Title: Monitorando a saúde de um Website com Azure Functions
 Date: 2020-06-22 19:00
 Tags: Azure, Azure Devops, C#, Dotnet Core, DotNet, Monitor Website
 Category: Azure
@@ -7,7 +7,7 @@ Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Image: /images/azure_monitoring.png
 Description: Monitoring website health with azure functions and csharp.
-Lang: en
+Lang: pt-br
 
 Sometimes you get your self in need to monitor a website's health or it's content for changes. Of course, there's plenty of options out there, but for the sake of curiosity, let's code our own to see what we can do. First things first. Everything you'll see here, you can achieve with the [free tier](https://azure.microsoft.com/free/) of azure.
 

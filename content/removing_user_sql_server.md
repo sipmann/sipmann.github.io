@@ -5,6 +5,7 @@ Category: SQL Server
 Slug: removing-user-from-sql-server-database
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
+Lang: en
 
 Your customer urge you to drop a user from the MsSQL Server database, but you stuck with the following related error:
 

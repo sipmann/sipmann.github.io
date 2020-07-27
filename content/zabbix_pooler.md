@@ -5,6 +5,7 @@ Category: Linux
 Slug: zabbix-poller-processes-more-than-75
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
+Lang: en
 
 Hey folks, this is the third post about tweaking the Zabbix configurations. All changes that I've suggested here it's based on a Zabbix Server with 50+ hosts. Another thing that can happen to your server, it's the poller get overwhelmed by the amount of servers that need to be polled plus the ones that are not responding. Bellow two images where you can see the log and the graphic where you can see the usage percent. 
 

@@ -5,6 +5,7 @@ Category: FirefoxOS
 Slug: desenvolvendo-app-firefoxos
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
+Lang: pt-br
 
 ### Requisitos mínimos?
 
