@@ -9,7 +9,7 @@ Menu dinâmico com as apps do django
 :email:  sipmann@gmail.com
 :linkedin: sipmann
 :related_posts: editando-o-admin-do-django
-:lang: pt-br
+:lang: pt
 
 Digamos que sua empresa trabalha com Django desenvolvendo aplicações cujas apps são plugaveis e reutilizáveis. Por que não se aproveitar de um certo padrão de desenvolvimento para desenvolver menus que se modificam de acordo com as apps que estão no projeto? Como o objetivo aqui não é desenvolver uma app em si, vamos utilizar um projeto com algumas de modelo. Se desejar estudar mais sobre desenvolvimento Django, a documentação é muito boa, mas também temos blogs e sites excelentes sobre o assunto.
 

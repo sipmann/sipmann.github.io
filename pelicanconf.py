@@ -34,7 +34,7 @@ I18N_SUBSITES = {
     'en': {
         'SITENAME': 'Sipmann'
     },
-    'pt-br': {
+    'pt': {
         'SITENAME': 'Sipmann'
     }
 }
@@ -84,6 +84,9 @@ RELATIVE_URLS = False
 
 COIL_TOKEN='$coil.xrptipbot.com/uH6DA7YAQ7y0_IvXt4p0VQ'
 
+JINJA_ENVIRONMENT = {
+  'extensions': ['jinja2.ext.i18n']
+}
 
 #https://carbon.now.sh/
 #js -- monokai

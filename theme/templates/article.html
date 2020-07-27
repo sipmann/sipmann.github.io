@@ -4,7 +4,7 @@
 {% block content %}
     <article class="w3-card-4 w3-margin w3-white">
         <div class="w3-container">
-            <h1><b><a href="/{{ article.url }}" title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></b></h1>
+            <h1><b><a href="{{ SITEURL }}/{{ article.url }}" title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></b></h1>
             <h5>
                 <i class="fa fa-calendar"></i><time class="w3-opacity" datetime="{{ article.date.isoformat() }}"> {{ article.locale_date }}</time>
             </h5>
@@ -13,13 +13,6 @@
         <div class="w3-container">
             <p>{{ article.content }}</p>
         </div>
-
-        Traduções {{ translations }} - {{ in_default_lang }}
-        <ul>
-            {% for tran in translations %}
-            <li>{{tran}}</li>
-            {% endfor %}
-        </ul>
 
         {% include 'includes/related-posts.html' %}
         {% include 'includes/addthis.html' %}
@@ -68,9 +61,9 @@
         },
         "headline": "{{ article.title }}",
         {% if article.image %}
-        "image": ["{{ SITEURL }}/{{ article.image }}"],
+        "image": ["{{ article.image }}"],
         {% elif DEFAULT_IMAGE %}
-        "image": ["{{ SITEURL }}/{{ DEFAULT_IMAGE }}"],
+        "image": ["{{ DEFAULT_IMAGE }}"],
         {% else %}
         "image": [],
         {% endif %}

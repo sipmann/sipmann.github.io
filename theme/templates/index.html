@@ -22,12 +22,12 @@
                     <p>{{ article.summary }}</p>
                     <div class="w3-row">
                         <div class="w3-col m8 s12">
-                            <p><a class="btn btn-default btn-xs" href="{{ SITEURL }}/{{ article.url }}" title="{{ article.title }}"><button class="w3-button w3-padding-large w3-white w3-border" type="button"><b>READ MORE »</b></button></a></p>
+                            <p><a class="btn btn-default btn-xs" href="{{ SITEURL }}/{{ article.url }}" title="{{ article.title }}"><button class="w3-button w3-padding-large w3-white w3-border" type="button"><b>{{gettext('READ MORE')}} »</b></button></a></p>
                         </div>
                         <!--comments-->
                         <div class="w3-col m4 w3-hide-small">
                             <p>
-                                <span class="w3-padding-large w3-right"><a href="{{ article.url }}#disqus_thread" {% if not DISQUS_NO_ID %}data-disqus-identifier="{{ article.date|strftime('%Y-%m-') ~ article.slug if DISQUS_ID_PREFIX_SLUG else article.slug }}"{% endif %}>View comments</a></span>
+                                <span class="w3-padding-large w3-right"><a href="{{ article.url }}#disqus_thread" {% if not DISQUS_NO_ID %}data-disqus-identifier="{{ article.date|strftime('%Y-%m-') ~ article.slug if DISQUS_ID_PREFIX_SLUG else article.slug }}"{% endif %}>{{gettext('View comments')}}</a></span>
                             </p>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-Title: Monitorando a saúde de um Website com Azure Functions
+Title: Monitorando a disponibilidade de um Website com Azure Functions
 Date: 2020-06-22 19:00
 Tags: Azure, Azure Devops, C#, Dotnet Core, DotNet, Monitor Website
 Category: Azure
@@ -6,16 +6,16 @@ Slug: monitoring-website-heath-with-azure-functions
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Image: /images/azure_monitoring.png
-Description: Monitoring website health with azure functions and csharp.
-Lang: pt-br
+Description: Monitorando a disponibilidade de um website com Azure Functions e CSharp.
+Lang: pt
 
-Sometimes you get your self in need to monitor a website's health or it's content for changes. Of course, there's plenty of options out there, but for the sake of curiosity, let's code our own to see what we can do. First things first. Everything you'll see here, you can achieve with the [free tier](https://azure.microsoft.com/free/) of azure.
+Algumas vezes você se depara com a necessidade de monitorar a disponibilidade de um website ou mudanças em seu conteúdo. É claro que temos diversas opções disponíveis no mercado, mas para fins de curiosidade, vamos programar o nosso próprio e ver o que podemos fazer. Primeiramente, tudo que você ver aqui, você pode utilizar o [tier gratuito](https://azure.microsoft.com/free/) da Azure.
 
-The main idea of our app will be to monitor website health (status code). To create a new Azure Function Project, follow the steps below.
+A ideia principal da nossa aplicação vai ser monitorar a disponibilidade do website (status code). Para criar um projeto de Azure Function, siga os passos abaixo.
 
-![Steps to create a azure function project](/images/azure_functions.gif)
+![Passos para criar um projeto Azure Functions](/images/azure_functions.gif)
 
-After creating the project, you'll have a few files. Open your main file and start coding. The main file will have a function called `Run`  and you can code your request method. I've created an `async` method to make the request and log the output at the console. The full code you can see below.
+Depois de criar o projeto, você vai ter alguns arquivos. Abra o arquivo principal (`HttpCheck.cs` no meu caso) e começe a programar. O arquivo principal terá uma função chamada `Run` e você pode progamar nela o seu request. Eu criei um método `async` para fazer as requisições e printar a saída diretamente no console. O código completo pode ser visto abaixo.
 
 ```c#
 using System;
@@ -51,9 +51,10 @@ namespace Sipmann.CheckMySite
         [FunctionName("HttpCheck")]
         public static void Run([TimerTrigger("0 */5 * * * *")]TimerInfo myTimer, ILogger log)
         {
+            // URL a verificar a saúde
             var urls = new[]{"https://www.sipmann.com", "https://www.canezecanez.com.br"};
 		
-            // Start every request and wait for them all to complete
+            // Starta cada request e aguarda todos de uma vez só
             Task.WaitAll(urls.Select(url => GetTask(url, log)).ToArray());
             log.LogInformation($"Finalizou a fila");
         }
@@ -61,4 +62,4 @@ namespace Sipmann.CheckMySite
 }
 ```
 
-Now you can enhance the function and maybe send some alerts like a Telegram message when one of your sites went down.
+Agora você pode melhorar a função e talvez enviar alguns alertas. Como por exêmplo mensagens no Telegram quando um dos sites ficar off (status code 404).

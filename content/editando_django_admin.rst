@@ -9,7 +9,7 @@ Editando o Admin do Django
 :email:  sipmann@gmail.com
 :linkedin: sipmann
 :related_posts: menu-dinamico-com-apps-do-django
-:lang: pt-br
+:lang: pt
 
 Este artigo foi re-postado no grupo `PythonClub <http://pythonclub.com.br/editando-o-admin-do-django.html>`_. Vamos falar um pouco sobre como customizar o admin do Django. Primeiramente porque? A resposta é bem simples, quero mostrar algo para o usuário sem que ele precise entrar nas apps e fazer alguma consulta para então tomar alguma ação. Alguns exêmplos para isto seriam:
 

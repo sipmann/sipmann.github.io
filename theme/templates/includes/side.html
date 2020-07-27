@@ -1,13 +1,13 @@
 <div class="w3-card w3-margin w3-margin-top">
     <div class="w3-container w3-padding w3-blue-gray">
         <h4>
-            <a href="/{{ CATEGORIES_URL }}">Categories</a>
+            <a href="{{ SITEURL }}/{{ CATEGORIES_URL }}">{{ gettext('Categories') }}</a>
         </h4>
     </div>
     <ul class="w3-ul w3-hoverable w3-white">
         {% for cat, null in categories %}
         <li>
-            <a class="w3-padding" href="/{{ cat.url }}" style="display: block">
+            <a class="w3-padding" href="{{ SITEURL }}/{{ cat.url }}" style="display: block">
                 {{ cat }}
             </a>
         </li>
@@ -20,7 +20,7 @@
 {% endif %}
 <div class="w3-card w3-margin w3-margin-top">
     <div class="w3-container w3-padding w3-blue-gray">
-        <h4>Recent Posts</h4>
+        <h4>{{gettext('Recent Posts')}}</h4>
     </div>
     <ul class="w3-ul w3-hoverable w3-white">
         {% for article in articles[:RECENT_POST_COUNT] %}
