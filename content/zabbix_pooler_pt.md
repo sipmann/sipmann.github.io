@@ -5,14 +5,15 @@ Category: Linux
 Slug: zabbix-poller-processes-more-than-75
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
-Lang: en
-Description: Zabbix poller proccess more than 75%
+Lang: pt
+Description: Processo de poller do Zabbix com mais de 75%
+Status: Draft
 
-Hey folks, this is the third post about tweaking the Zabbix configurations. All changes that I've suggested here were based on a Zabbix Server with 50+ hosts. Another thing that can happen to your server, it's the poller get overwhelmed by the amount of servers that need to be polled plus the ones that are not responding. Bellow two images where you can see the log and the graphic where you can see the usage percent. 
+Este é o terceiro post sobre configurações para o Zabbix. Todas as alterações que eu sugiro nestes posts, são baseadas em um servidor com 50+ hosts. Outro problema que pode ocorrer em seu servidor, é o poller de informações ficar sobrecarregado pela quantidade de servidores que ele precisa pegar carga de informações juntamente com os servidores que não respondem a requisição. Abaixo duas imagens onde você pode ver o log e um gráfico onde aparecem os percentuais de uso dos poller. 
 
-![Dashboard log about the poller processes](images/zabbix_pooler.png)
+![Dashboard log sobre o processo do poller](images/zabbix_pooler.png)
 
-![Graph showing the utilization percent of each collector](images/zabbix_pooler_3.png)
+![Gráfico mostrando o percentual de utilização de cada coletor](images/zabbix_pooler_3.png)
 
 To solve, let's go back to the `zabbix_server.conf` file and find two variables, `StartPollers` and `StartPollersUnreachable`. Increase them as needed. There's no magic number, you must see what works for you. But keep in mind that the `StartPollersUnreachable` is responsible for that host that can't be "reached"  (of course) and will hold your poller more time.
 
@@ -38,7 +39,7 @@ StartPollers=20
 StartPollersUnreachable=5
 ```
 
-After the change, restart the server and wait a few moments and take a look again at your dashboard. Bellow the effect that I've got.
+Depois da alteração, reinicie o serviço e espere alguns momentos e veja o seu dashboard novamente. Abaixo o efeito que a troca teve em um dos servidores que acompanho.
 
-![Graph showing the new utilization percent of the processes after the changes](images/zabbix_pooler_4.png)
+![Gráfico mostrando os novos percentuais de utilização dos processos após as alterações](images/zabbix_pooler_4.png)
 
