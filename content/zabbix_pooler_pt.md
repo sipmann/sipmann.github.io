@@ -15,7 +15,7 @@ Este é o terceiro post sobre configurações para o Zabbix. Todas as alteraçõ
 
 ![Gráfico mostrando o percentual de utilização de cada coletor](images/zabbix_pooler_3.png)
 
-To solve, let's go back to the `zabbix_server.conf` file and find two variables, `StartPollers` and `StartPollersUnreachable`. Increase them as needed. There's no magic number, you must see what works for you. But keep in mind that the `StartPollersUnreachable` is responsible for that host that can't be "reached"  (of course) and will hold your poller more time.
+Para resolver o problema acima, vamos voltar ao arquivo de configuração `zabbix_server.conf` e localizar duas variáveis, `StartPollers` e `StartPollersUnreachable`. Aumente o valor delas conforme necessário. Não existe um número mágico, você deve verificar o que melhor funciona para você. Mas tenha em mente que `StartPollersUnreachable` é responsável por aqueles hosts que não respondem ou não são localizados e irão segurar a thread do poller por mais tempo, causando uma fila e um maior processamento/tempo de atualização.
 
 ```ini
 ### Option: StartPollers
