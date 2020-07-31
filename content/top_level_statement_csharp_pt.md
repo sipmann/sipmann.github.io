@@ -7,8 +7,7 @@ Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Lang: pt
 Image: /images/csharp_toplevel.png
-Description: 
-Status: draft
+Description: Top Level Statement no C# 9, uma nova feature
 
 Olá pessoal, venho hoje falar sobre uma novidade que estará disponível na versão 9 do C#. Toda vez que você deseja criar um novo projeto, você sempre tem o mesmo arquivo Main, com a mesma estrutura. Na próxima versão do C# (versão 9), nós teremos uma nova funcionalidade chamada `Top Level Statement`. Com isto, poderemos programar a nossa aplicação sem toda aquela estrutura de `namespace/class/public void static main`. Veja o código abaixo.
 
@@ -19,7 +18,7 @@ using System;
 Console.WriteLine("Hello World!");
 ```
 
-Parece muito simples não é? Com isto, você pode brincar com seu código e até mesmo programar uma penquena WEB API. Para começar a brincar com estas novas features, primeiramente faça o o download do preview do [.net 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0) e modifique o seu arquivo `.csproj` para apontar o framework para `.net5.0` e a versão de preview da linguage. Abaixo como uma aplicação de console deve ficar.
+Parece muito simples, não é? Com isto, você pode brincar com seu código e até mesmo programar uma pequena WEB API. Para começar a brincar com estas novas *features*, primeiramente faça o download do preview do [.net 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0) e modifique o seu arquivo `.csproj` para apontar o framework para `.net5.0` e a versão de preview da linguagem. Abaixo como uma aplicação de console deve ficar.
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
@@ -47,4 +46,4 @@ var data = JsonSerializer.Deserialize<NasaApi>(await response.Content.ReadAsStri
 Console.WriteLine(data.Url);
 ```
 
-Por hoje é isso pessoal. Fique de olho nas novas features que o C# 9 vai nos trazer. Já temos várias disponíveis hoje para testar, esta é apenas uma delas.
+Por hoje é isso. Fique de olho nas novas features que o C# 9 vai nos trazer. Já temos várias disponíveis hoje para testar, esta é apenas uma delas.

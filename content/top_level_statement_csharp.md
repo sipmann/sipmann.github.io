@@ -7,8 +7,7 @@ Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Lang: en
 Image: /images/csharp_toplevel.png
-Description: 
-Status: draft
+Description: Top Level Statement in C# 9, a new feature
 
 Hey folks, I'm coming along to tell you a few things about the new feature of C# 9. Every time you want to start a new project, you always have the same Main File, with the same structure. At the next version of C# (version 9), we'll have a new feature called `Top Level Statement`. With that, we'll be able to code our app without any namespace/class/public void static main structure. Take a look at the code below.
 
@@ -21,7 +20,6 @@ Console.WriteLine("Hello World!");
 
 It looks pretty simple, but with this, you can play around with your code, and even code a simple/tiny Web API. To start playing with the new features, firstly download the [.net 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0) and change your `.csproj` file to target the .net 5 and language preview like bellow.
 
-<<<<<<< HEAD
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
@@ -49,6 +47,3 @@ Console.WriteLine(data.Url);
 ```
 
 That's it for today folks. Keep an eye open for the awesome features C# 9 will bring to us, there's plenty more features already available.
-=======
-It looks pretty simple, but with this, you can play arround with your code, and even code a simple/tiny Web Api. 
->>>>>>> 86a6f0280f8c0ceea3caa62b28741ebed3acc392
