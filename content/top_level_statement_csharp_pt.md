@@ -7,6 +7,8 @@ Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Lang: pt
 Image: images/csharp_toplevel.png
+Image_width: 1365
+Image_height: 768
 Description: Top Level Statement no C# 9, uma nova feature
 
 Olá pessoal, venho hoje falar sobre uma novidade que estará disponível na versão 9 do C#. Toda vez que você deseja criar um novo projeto, você sempre tem o mesmo arquivo Main, com a mesma estrutura. Na próxima versão do C# (versão 9), nós teremos uma nova funcionalidade chamada `Top Level Statement`. Com isto, poderemos programar a nossa aplicação sem toda aquela estrutura de `namespace/class/public void static main`. Veja o código abaixo.
