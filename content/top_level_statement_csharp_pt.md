@@ -6,7 +6,7 @@ Slug: top_level_statement_csharp_9
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Lang: pt
-Image: images/csharp_toplevel.png
+Image: /images/csharp_toplevel.png
 Image_width: 1365
 Image_height: 768
 Description: Top Level Statement no C# 9, uma nova feature
