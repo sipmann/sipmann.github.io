@@ -17,6 +17,11 @@
     <meta property="og:site_name" content="{{ SITENAME }}"> {% if article %}
     <meta property="og:type" content="article">
 
+    <link rel="alternate" hreflang="x-default" href="{{ SITEURL }}/{{ article.url }}" />
+    {% for tran in article.translations %}
+    <link rel="alternate" hreflang="{{tran.lang}}" href="{{ BASEURL }}/{{tran.url}}" />
+    {% endfor %}
+
     <meta property="og:title" content="{{ article.title|striptags }}">
     <meta property="og:url" content="{{ SITEURL }}/{{ article.url }}">
     <meta property="article:author" content="{{ article.author }}"> {% if article.description %}
