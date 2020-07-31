@@ -6,6 +6,7 @@ AUTHOR = 'Sipmann'
 AUTHOR_IMAGE = 'https://s.gravatar.com/avatar/7f717d69fb6d3dbc5490d47369aca3e0?s=180'
 SITENAME = 'Sipmann'
 SITEURL = 'http://localhost:8000'
+BASEURL = 'http://localhost:8000'
 
 PATH = './content'
 STATIC_PATHS = ['images']
