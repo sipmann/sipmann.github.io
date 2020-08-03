@@ -1,12 +1,14 @@
 Title: Top Level Statement in C# 9
 Date: 2020-07-29 19:00
-Tags: C#, Dotnet Core, DotNetm .net
+Tags: C#, Dotnet Core, DotNet, .net
 Category: .NET
 Slug: top_level_statement_csharp_9
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Lang: en
 Image: /images/csharp_toplevel.png
+Image_width: 1365
+Image_height: 768
 Description: Top Level Statement in C# 9, a new feature
 
 Hey folks, I'm coming along to tell you a few things about the new feature of C# 9. Every time you want to start a new project, you always have the same Main File, with the same structure. At the next version of C# (version 9), we'll have a new feature called `Top Level Statement`. With that, we'll be able to code our app without any namespace/class/public void static main structure. Take a look at the code below.

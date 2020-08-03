@@ -14,6 +14,17 @@
             <p>{{ article.content }}</p>
         </div>
 
+
+        <hr>
+        <section class="w3-padding" id="translations">
+            <h4>{{ gettext('Translations') }}:</h4>
+            <ul>
+                {% for tran in article.translations %}
+                <li><a href="{{tran.url}}">{{tran.lang}} - {{tran.title}}</a></li>
+                {% endfor %}
+            </ul>
+        </section>
+
         {% include 'includes/related-posts.html' %}
         {% include 'includes/addthis.html' %}
     </article>
