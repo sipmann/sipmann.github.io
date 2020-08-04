@@ -12,9 +12,8 @@ Resolvendo java.net.SocketException: Protocol family unavailable em Java + Docke
 :related_posts: reading-files-java-readAllBytes-outofmemory
 :image: images/og/java-wildfly.png
 :description: Resolvendo java.net.SocketException quando utilizando WildFly com Docker com uma  simples tag xml
-:status: draft
 
-Nos ultimos dias eu estou brincando com o `WildFly Swarm <http://wildfly-swarm.io/>`_ e decidi far o deploy de uma aplicação simples a com Docker. Deveria funcionar bem, ao menos é o que pensava. Construi um container com o seguinte Dockerfile e ao invez de obter uma aplicação web, tudo que eu obtive foi o erro `java.net.SocketException: Protocol family unavailable`.
+Nos últimos dias eu estou brincando com o `WildFly Swarm <http://wildfly-swarm.io/>`_ e decidi fazer o deploy de uma aplicação simples com Docker. Deveria funcionar bem, ao menos é o que pensava. Construí um container com o seguinte Dockerfile e ao invés de obter uma aplicação web, tudo que eu obtive foi o erro `java.net.SocketException: Protocol family unavailable`.
 
 .. code-block:: Dockerfile
 
@@ -26,7 +25,7 @@ Nos ultimos dias eu estou brincando com o `WildFly Swarm <http://wildfly-swarm.i
 
 	CMD ["java","-jar","/opt/issues.jar"]
 
-Por alguma rasão, WildFly e Java, ambos decidiram utilizar um protocolo IPv6 na interface de rede no Docker invés da v4, então tudo que você tem que fazer é falaro ao Java que deve dar preferência em utilizar o IPv4 com a seguinte configuração no seu arquivo pom.xml dentro da tag do plugin WildFly.
+Por alguma razão, WildFly e Java, ambos decidiram utilizar um protocolo IPv6 na interface de rede no Docker invés da v4, então tudo que você tem que fazer é falar ao Java que deve dar preferência em utilizar o IPv4 com a seguinte configuração no seu arquivo pom.xml dentro da tag do plugin WildFly.
 
 .. code-block:: xml
 
@@ -44,7 +43,7 @@ Por alguma rasão, WildFly e Java, ambos decidiram utilizar um protocolo IPv6 na
 		</configuration>
 
  
-Outra forma de solucionar o problema, é adicionando a mesma propriedade ao comando de run no seu Dockerfile, então fica a seu critério onde adicionar. Abaixo a solução utilizando o Dockerfile.
+Outra forma de solucionar o problema, é adicionando a mesma propriedade ao comando de run no seu Dockerfile. Então, fica a seu critério onde adicionar. Abaixo a solução utilizando o Dockerfile.
 
 .. code-block:: Dockerfile
 
