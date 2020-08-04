@@ -17,6 +17,5 @@ __mem_malloc: skipped 0 asked 24 skip_min 18446744073709551615 skip_max 0
 ```
 
 Besides the clear solution to the error, that's a common issue on servers that have a few monitoring items on it (servers, switches, firewalls, databases, etc...). To solve, go to your zabbix_server.conf and look for the CacheSize property and set it to a higher value. Its default should be 8M. At a customer that has somewhere between 4 servers, 7 firewalls/appliances, and a few other things, a 32M did the job, but you can set up to 8G.
-See ya folks.
 
 See ya folks.
