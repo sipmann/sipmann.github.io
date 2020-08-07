@@ -6,7 +6,6 @@ Slug: removing-user-from-sql-server-database
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Lang: pt
-Status: draft
 
 O seu cliente lhe pede com urgência para *dropar* um usuário da sua base MsSQL Server, mas você trava com o seguinte aviso de erro:
 
@@ -33,7 +32,7 @@ inner join sysusers su on so.uid = su.uid
 where su.name = 'username'
 ```
 
-Assim que você tiver os objetos/schemas que o usuário é dono, você pode alterar os mesmos com a seguinte SQL (exêmplo de troca de schema):
+Assim que você tiver os objetos/schemas que o usuário é dono, você pode alterar os mesmos com a seguinte SQL (exemplo de troca de schema):
 
 ```mssql
 USE [DATABASENAME]
@@ -43,4 +42,4 @@ ALTER AUTHORIZATION ON SCHEMA::[db_datawriter] TO [dbo]
 GO
 ```
 
-Então você pode dropar o usuário `DROP USER [username]`.
+Então, você pode dropar o usuário `DROP USER [username]`.
