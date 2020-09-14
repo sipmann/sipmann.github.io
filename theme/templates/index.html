@@ -27,7 +27,7 @@
                         <!--comments-->
                         <div class="w3-col m4 w3-hide-small">
                             <p>
-                                <span class="w3-padding-large w3-right"><a href="{{ article.url }}#disqus_thread" {% if not DISQUS_NO_ID %}data-disqus-identifier="{{ article.date|strftime('%Y-%m-') ~ article.slug if DISQUS_ID_PREFIX_SLUG else article.slug }}"{% endif %}>{{gettext('View comments')}}</a></span>
+                                <span class="w3-padding-large w3-right"><a href="/{{ article.url }}#disqus_thread" {% if not DISQUS_NO_ID %}data-disqus-identifier="{{ article.date|strftime('%Y-%m-') ~ article.slug if DISQUS_ID_PREFIX_SLUG else article.slug }}"{% endif %}>{{gettext('View comments')}}</a></span>
                             </p>
                         </div>
                     </div>
