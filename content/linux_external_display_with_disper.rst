@@ -13,7 +13,7 @@ Change display settings on linux with Disper
 
 From time to time, I change the Linux distro on my laptop or just do a fresh install on it. And once in a while, have random problems with external displays. It can be something really "simple" like don't detecting the external monitor or something crazy like the image below. 
 
-.. image:: images/bug.png
+.. image:: /images/bug.png
 	:alt: Display bug
 
 As you can see at the image, the mint detected the display but mirrored it in a crazy way that works but doesn't at the same time. If you try anything and doesn't get working, or just wanna skip the whole job of configuring complexes text files, give a try to Disper_. Download the latest version.

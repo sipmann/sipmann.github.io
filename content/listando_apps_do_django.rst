@@ -102,7 +102,7 @@ Algumas ressalvas para o que foi feito por questões de praticidade para uso pos
 		{% endif %}
 
 
-.. image:: images/menu_apps.png
+.. image:: /images/menu_apps.png
 	:alt: Resultado final
 
 No final, o resultado obtido deve ser semelhante ao acima. Repare que está listando as duas aplicações. E acima de tudo, repare que só serão exibidos os links cuja app tenha um namespace de mesmo nome e uma url de nome `listagem`.

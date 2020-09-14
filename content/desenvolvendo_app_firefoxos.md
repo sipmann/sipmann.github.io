@@ -34,7 +34,7 @@ Após a execução do generator, você já terá uma estrutura para desenvolvime
 
 Vamos testar a nossa app. Para tal, rode o comando `grunt server` e acesse no seu navegador `localhost:9001` e devemos ver a seguinte app. Caso nenhuma página seja exibida, revise os passos ateriores e verifique se nenhum erro ocorreu.
 
-![App inicial](images/app_inicial.png)
+![App inicial](/images/app_inicial.png)
 
 Vale ressaltar que a sua app toda estará dentro de uma pasta também chamada `app`. Nela você encontrará os seus arquivos .html, .js, .css e demais. Antes de começarmos a codificar a nossa app, vamos ver como se instala a mesma.
 
@@ -48,7 +48,7 @@ Clicando nesta opção vamos navegar até a pasta da app e clicar selecionada. P
 
 Simples de se instalar, não acha? O Resultado final deve ser semelhante ao abaixo.
 
-![App inicial](images/app_visual_1.png)
+![App inicial](/images/app_visual_1.png)
 
 ### Acessando uma API
 
