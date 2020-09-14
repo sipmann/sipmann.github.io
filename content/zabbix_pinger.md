@@ -10,7 +10,7 @@ Lang: en
 
 So your monitoring sytems have grown and your zabbix started loggin "Zabbix icmp pinger processes more than 75% busy" at the dashboard.
 
-![Dashboard do zabbix avisando sobre o erro](images/zabbix_pinger01.png)
+![Dashboard do zabbix avisando sobre o erro](/images/zabbix_pinger01.png)
 
 All you have to do is open your config file (`/etc/zabbix/zabbix_server.conf`) and find the a tag named `StartPingers`. It'll be commented by default. Uncomment it and set it's value to something like 3 or 4. It should solve your problem.
 
