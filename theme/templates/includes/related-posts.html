@@ -16,7 +16,7 @@
           "itemListElement":[
             {% for related_post in article.related_posts %}
             {
-              "@type":"Course",
+              "@type":"Article",
               "position":{{loop.index}},
               "name": "{{related_post.title}}",
               "url":"{{ SITEURL }}/{{ related_post.url }}"
