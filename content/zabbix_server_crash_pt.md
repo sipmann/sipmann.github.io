@@ -1,4 +1,4 @@
-﻿Title: Zabbix Server Out of Memory log
+﻿Title: Zabbix Server Out of Memory
 Date: 2020-02-27 19:00
 Tags: Zabbix, Shell, Out of memory, Crash
 Category: Linux
