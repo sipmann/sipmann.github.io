@@ -12,11 +12,13 @@
         {
           "@context":"http://schema.org",
           "@type":"ItemList",
+          "name": "{{ gettext('Related Posts') }}",
           "itemListElement":[
             {% for related_post in article.related_posts %}
             {
-              "@type":"ListItem",
+              "@type":"Course",
               "position":{{loop.index}},
+              "name": "{{related_post.title}}",
               "url":"{{ SITEURL }}/{{ related_post.url }}"
             }
             {% if not loop.last %}
