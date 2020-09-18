@@ -124,8 +124,8 @@
             <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();" type="button">
                 <i class="fa fa-bars"></i> &nbsp;Menu</button>
                 <a href="/" class="w3-bar-item w3-button">Home</a>
-            {% for p in PAGES %}
-            <a class="w3-bar-item w3-button {% if p == page %}w3-light-gray{% endif %}" href="/{{ p.url }}">
+            {% for p in pages %}
+            <a class="w3-bar-item w3-button {% if p == page %}w3-light-gray{% endif %}" href="{{SITEURL}}/{{ p.url }}">
                 {{ p.menulabel|default(p.title) }}
             </a>
             {% endfor %}
