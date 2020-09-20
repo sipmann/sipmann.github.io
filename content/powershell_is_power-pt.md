@@ -1,5 +1,5 @@
 Title: O poder do PowerShell
-Date: 2020-09-20 19:00
+Date: 2020-09-21 19:00
 Tags: Azure, PowerShell, Script, GetChild-Item, Remove-Item, Stop-Proccess
 Category: Azure
 Slug: the-power-of-powershell
@@ -43,19 +43,19 @@ $servicesNames = 'app_main',
 	'app_worker2',
 	'app_worker3',
 	'app_worker4',
-	'app_worker5',
+	'app_worker5'
 
 Write-host "Parando Serviços"
 Write-host "--------------------------"
 
 foreach ($srv in $servicesNames) {
 	Write-host "Parando: " + $srv
-    $PID = (get-wmiobject win32_service | where { $_.name -eq $srv}).processID
-    Write-host "PID: " + $PID
+    $SrvPID = (get-wmiobject win32_service | where { $_.name -eq $srv}).processID
+    Write-host "PID: " + $SrvPID
     
     <# Força a parada caso o serviço esteja travado #>
     Stop-Process $ServicePID -Force
-    Write-host "PDI " + $PID + " parado"
+    Write-host "PDI " + $SrvPID + " parado"
 }
 
 
