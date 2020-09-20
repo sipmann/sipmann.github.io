@@ -1,6 +1,6 @@
 Title: The power of PowerShell
 Date: 2020-09-20 19:00
-Tags: Azure, PowerShell, Script
+Tags: Azure, PowerShell, Script, GetChild-Item, Remove-Item, Stop-Proccess
 Category: Azure
 Slug: the-power-of-powershell
 Author: Maurício Camargo Sipmann
@@ -41,7 +41,9 @@ And a bonus script to stop/start services (if you handle some Protheus Server, y
 $servicesNames = 'app_main',
 	'app_worker1',
 	'app_worker2',
-	'app_worker3'
+	'app_worker3',
+	'app_worker4',
+	'app_worker5',
 
 Write-host "Stoping Services"
 Write-host "--------------------------"
