@@ -5,7 +5,6 @@ Category: Azure
 Slug: the-power-of-powershell
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
-Status: draft
 Image: /images/powershell.png
 Lang: en
 
