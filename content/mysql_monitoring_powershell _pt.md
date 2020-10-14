@@ -5,7 +5,6 @@ Category: Azure
 Slug: monitoring-mysql-replication-with-powershell
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
-Status: draft
 Lang: pt
 Description: Monitorando uma replicação MySql com PowerShell, enviando e-mails e muito mais, lhe avisando sobre o estado da replicação.
 Image: /images/mysql_monitorin_powershell.png
