@@ -1,13 +1,14 @@
-Title: Monitorando status replicação do MySQL com PowerShell
+Title: Monitorando status de replicação do MySQL com PowerShell
 Date: 2020-10-15 19:00
-Tags: MySQL, MySQL Replication, PowerShell
+Tags: MySQL, MySQL Replication, PowerShell, Powershell mail
 Category: Azure 
 Slug: monitoring-mysql-replication-with-powershell
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Status: draft
 Lang: pt
-Image: /images/sql-data-studio.png
+Description: Monitorando uma replicação MySql com PowerShell, enviando e-mails e muito mais, lhe avisando sobre o estado da replicação.
+Image: /images/mysql_monitorin_powershell.png
 
 Tenho migrado alguns scripts bash que tenho para PowerShell, e chegou a vez de migrar um script de monitoramento de replicação do MySQL. Fica como crédito o script original do [Paweł](https://handyman.dulare.com/mysql-replication-status-alerts-with-bash-script/). É um script bem simples onde eu verifico algumas tags resultantes do `SHOW SLAVE STATUS\G`, são elas. `Slave_IO_Running`, `Slave_SQL_Running` e `Seconds_Behind_Master`. Ainda preciso verificar formas mais corretas de armazenar/carregar as variáveis como usuários e senha, se tiver alguma dica, fique à vontade para inclusive fazer um pull request ([aqui](https://github.com/sipmann/PowerShellScripts)) no repositório onde vou armazenar alguns dos meus scripts.
 
