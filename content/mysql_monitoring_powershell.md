@@ -1,5 +1,5 @@
 Title: Monitoring MySQL Replication Status with PowerShell
-Date: 2020-10-15 19:00
+Date: 2020-10-14 19:00
 Tags: MySQL, MySQL Replication, PowerShell, Powershell mail
 Category: Azure 
 Slug: monitoring-mysql-replication-with-powershell
