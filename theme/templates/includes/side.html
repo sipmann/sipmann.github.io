@@ -15,26 +15,9 @@
     </ul>
 </div>
 
-{% if RECENT_POST_COUNT is not defined %}
-    {% set RECENT_POST_COUNT = 5 %}
-{% endif %}
-<div class="w3-card w3-margin w3-margin-top">
-    <div class="w3-container w3-padding w3-blue-gray">
-        <h4>{{gettext('Recent Posts')}}</h4>
-    </div>
-    <ul class="w3-ul w3-hoverable w3-white">
-        {% for article in articles[:RECENT_POST_COUNT] %}
-        <li>
-            <a class="w3-padding" href="/{{ article.url }}">
-                {{ article.title }}
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
-</div>
 
 <div class="w3-card w3-margin w3-margin-top">
-    <div class="w3-container w3-padding w3-blue-gray">
+    <div class="w3-container w3-padding w3-blue-gray" style="background-color: #223B62 !important;">
         <h4>Newsletter</h4>
     </div>
     <div class="w3-ul w3-hoverable w3-white">
@@ -105,7 +88,7 @@
             />
           </svg>
           <span class="sib-form-message-panel__inner-text">
-                            You subscribed successfully. See ya
+                            You subscribed successfully!
                         </span>
         </div>
       </div>
@@ -200,4 +183,22 @@
   <!-- END - We recommend to place the above code in footer or bottom of your website html  -->
   <!-- End Sendinblue Form -->
     </div>
+</div>
+
+{% if RECENT_POST_COUNT is not defined %}
+    {% set RECENT_POST_COUNT = 5 %}
+{% endif %}
+<div class="w3-card w3-margin w3-margin-top">
+    <div class="w3-container w3-padding w3-blue-gray">
+        <h4>{{gettext('Recent Posts')}}</h4>
+    </div>
+    <ul class="w3-ul w3-hoverable w3-white">
+        {% for article in articles[:RECENT_POST_COUNT] %}
+        <li>
+            <a class="w3-padding" href="/{{ article.url }}">
+                {{ article.title }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
 </div>
