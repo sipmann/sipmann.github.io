@@ -3,7 +3,7 @@ Microservices with NodeJS, Express.js and RabbitMQ Part 2
 
 :date: 2018-04-13 13:00
 :tags: nodejs, microservices, rabbitmq, expressjs, imagemin, imagemin-pngquant, node js
-:category: front-end
+:category: Front-end
 :slug: microservices_nodejs_express_rabbitmq_part_2
 :author: Maurício Camargo Sipmann
 :email:  sipmann@gmail.com
