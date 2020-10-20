@@ -10,12 +10,12 @@ Description: Como resolver o Zabbix alertando sobre *value cache woring in low m
 Lang: pt
 Status: draft
 
-Olá pessoal, trago hoje outro post sobre Zabbix. Este é sobre aumentar o cache do seu Zabbix Server. É perfeitamente comum (se você roda com as configurações padrões) receber avisis sobre `Zabbix value cache running on low memory mode` no seu dashboard ou arquivos de log.
+Olá pessoal! Trago hoje outro post sobre Zabbix. Este é sobre aumentar o cache do seu Zabbix Server. É perfeitamente comum (se você roda com as configurações padrões) receber avisos sobre `Zabbix value cache running on low memory mode` no seu dashboard ou arquivos de log.
 
 ![Zabbix Dashboard alertando sobre problemas de memória](/images/zabbix_low_memory_mode.png)
 ![Zabbix Dashboard cache gráfico com 70% utilizado](/images/zabbix_cache_filling.png)
 
-Para resolver, abra o seru arquivo de configuração (`zabbix_server.conf`) e procure pela tag *CacheSize*. Descomente a linha e defina um valor maior que 8M (8M é o valor padrão). No meu caso, nós configuramos um cache de 100M. Depois da troca, reinicie o serviço para que o mesmo tome efeito.
+Para resolver, abra o seu arquivo de configuração (`zabbix_server.conf`) e procure pela tag *CacheSize*. Descomente a linha e defina um valor maior que 8M (8M é o valor padrão). No meu caso, nós configuramos um cache de 100M. Depois da troca, reinicie o serviço para que o mesmo tome efeito.
 
 ```ini
 ### Option: CacheSize
