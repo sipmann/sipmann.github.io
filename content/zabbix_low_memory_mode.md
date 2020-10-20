@@ -8,7 +8,6 @@ Email: sipmann@gmail.com
 Image: /images/zabbix_low_memory.png
 Description: How to solve Zabbix Health logging *value cache woring in low memory mode* 
 Lang: en
-Status: draft
 
 Hey folks, another Zabbix post today. This one it's about increasing the Zabbix Server Cache. It's pretty common (if you have the default settings only) get a warning about your `Zabbix value cache running on low memory mode` at your dashboard or logs.
 
