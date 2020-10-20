@@ -6,7 +6,7 @@ Slug: zabbix-running-on-low-memory-mode
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Image: /images/zabbix_low_memory.png
-Description: Como resolver o Zabbix alertando sobre *value cache woring in low memory mode* 
+Description: Como resolver o Zabbix alertando sobre *value cache working in low memory mode* 
 Lang: pt
 
 Olá pessoal! Trago hoje outro post sobre Zabbix. Este é sobre aumentar o cache do seu Zabbix Server. É perfeitamente comum (se você roda com as configurações padrões) receber avisos sobre `Zabbix value cache running on low memory mode` no seu dashboard ou arquivos de log.
