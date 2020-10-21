@@ -17,9 +17,13 @@
     <meta property="og:site_name" content="{{ SITENAME }}"> {% if article %}
     <meta property="og:type" content="article">
 
-    <link rel="alternate" hreflang="x-default" href="{{ SITEURL }}/{{ article.url }}" />
+    {% if SITEURL.endswith('en') %}
+    <link rel="canonical" href="{{ BASEURL }}/{{ article.url }}">
+    {% endif %}
+
+    <link rel="alternate" hreflang="x-default" href="{{ SITEURL }}/{{ article.url }}">
     {% for tran in article.translations %}
-    <link rel="alternate" hreflang="{{tran.lang}}" href="{{ BASEURL }}/{{tran.url}}" />
+    <link rel="alternate" hreflang="{{tran.lang}}" href="{{ BASEURL }}/{{tran.url}}">
     {% endfor %}
 
     <meta property="og:title" content="{{ article.title|striptags }}">
