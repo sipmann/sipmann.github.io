@@ -1,10 +1,11 @@
 Title: Removendo um usuário de uma base SQL Server
 Date: 2019-09-06 07:00
-Tags: SQLServer, User, database principal
+Tags: SQLServer, User, The database principal owns a schema
 Category: SQL Server
 Slug: removing-user-from-sql-server-database
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
+Description: Você esta tentando remover um usuário do banco, mas ele é dono de um schema, primeiro verifique quais schemas ele controla, então escolha o novo dono para os mesmos e rode o ALTER AUTHORIZATION
 Lang: pt
 
 O seu cliente lhe pede com urgência para *dropar* um usuário da sua base MsSQL Server, mas você trava com o seguinte aviso de erro:
@@ -18,8 +19,6 @@ Se você não possui (ou no momento não consegue acesso) ao SSMS (SQL Server Ma
 ```mssql
 USE [DATABASENAME]
 GO
- -- retorna o User ID
-select DATABASE_PRINCIPAL_ID('username')
 
 select so.name Objeto, su.name Owner
 from sys.schemas so

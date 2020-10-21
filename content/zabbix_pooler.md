@@ -1,12 +1,12 @@
 Title: Zabbix poller processes more than 75%
 Date: 2020-07-02 19:00
-Tags: Zabbix, Shell, Zabbix Poller, Poller proccess
+Tags: Zabbix, Shell, Zabbix Poller, Poller proccess more than 75%
 Category: Linux
 Slug: zabbix-poller-processes-more-than-75
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Lang: en
-Description: Zabbix poller proccess more than 75%
+Description: You have Zabbix poller process more than 75% warnings on your dashboard. To solve, you have to increase the number of pollers on your config file.
 
 Hey folks, this is the third post about tweaking the Zabbix configurations. All changes that I've suggested here were based on a Zabbix Server with 50+ hosts. Another thing that can happen to your server, it's the poller get overwhelmed by the amount of servers that need to be polled plus the ones that are not responding. Bellow two images where you can see the log and the graphic where you can see the usage percent. 
 

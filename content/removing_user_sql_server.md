@@ -1,10 +1,11 @@
-Title: Removing user from SQL Server database
+Title: Removing a user from SQL Server database who owns a schema
 Date: 2019-09-06 07:00
-Tags: SQLServer, User, database principal
+Tags: SQLServer, User, The database principal owns a schema
 Category: SQL Server
 Slug: removing-user-from-sql-server-database
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
+Description: You try to remove a user, but it owns a schema, first check which schema the user owns, then choose the new owner and run the ALTER AUTHORIZATION
 Lang: en
 
 Your customer urge you to drop a user from the MsSQL Server database, but you stuck with the following related error:
@@ -13,13 +14,11 @@ Your customer urge you to drop a user from the MsSQL Server database, but you st
 Error: 15138 The database principal owns a schema in the database, and cannot be dropped.
 ```
 
-If you don't have access to the SSMS to see which schema or objects the user owns, the following SQL should do the job.
+That means that the user owns one or more shcemas of your database. If you don't have access to the SSMS to see which schema or objects the user owns, the following SQL should do the job.
 
 ```mssql
 USE [DATABASENAME]
 GO
- -- get's the user id
-select DATABASE_PRINCIPAL_ID('username')
 
 select so.name Objeto, su.name Owner
 from sys.schemas so
@@ -43,3 +42,14 @@ GO
 ```
 
 Then you're ready to drop the user `DROP USER [username]`
+
+
+## How to list all the schemas and it's owners?
+
+```mssql
+SELECT 
+	schema_name(schema_id) AS schemaname,
+	user_name(schm.principal_id) AS username, *
+FROM sys.schemas AS schm
+GO
+```

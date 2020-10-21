@@ -25,3 +25,6 @@ All you have to do is open your config file (`/etc/zabbix/zabbix_server.conf`) a
 StartPingers=4
 ```
 
+## How many Pingers do I need?
+
+Well, there is no exact answer to this. If you set it too high, you'll be wasting resources. The best way to solve, it's increasing them as soon as you notice the percentage growing.
