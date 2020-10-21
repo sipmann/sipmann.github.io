@@ -1,4 +1,4 @@
-﻿Title: Zabbix Runnion on Low Memory Mode
+﻿Title: Zabbix Running on Low Memory Mode
 Date: 2020-10-20 19:00
 Tags: Zabbix, Shell, Low memory, Cache
 Category: Linux
