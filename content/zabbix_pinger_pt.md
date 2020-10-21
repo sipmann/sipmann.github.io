@@ -7,7 +7,6 @@ Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Description: Então o seu systema de monitoramento creasceu e o seu Zabbix começou a printar Zabbix icmp pinger processes more than 75% busy no seu dashboard.
 Lang: pt
-Status: draft
 
 Então o seu systema de monitoramento creasceu e o seu Zabbix começou a printar "*Zabbix icmp pinger processes more than 75% busy*" no seu dashboard.
 
