@@ -46,7 +46,7 @@ Then you're ready to drop the user `DROP USER [username]`
 
 ## How to list all the schemas and it's owners?
 
-Here's a script to list schemas and it's ownders.
+Here's a script to list schemas and it's owners.
 
 ```mssql
 USE [DATABASENAME]
