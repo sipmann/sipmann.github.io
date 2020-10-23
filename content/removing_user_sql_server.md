@@ -1,5 +1,6 @@
 Title: Removing a user from SQL Server database who owns a schema
 Date: 2019-09-06 07:00
+Modified: 2020-10-21 18:40
 Tags: SQLServer, User, The database principal owns a schema
 Category: SQL Server
 Slug: removing-user-from-sql-server-database
