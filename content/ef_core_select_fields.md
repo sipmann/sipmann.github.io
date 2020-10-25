@@ -10,7 +10,7 @@ Description: Did you know how many data you get back with you EF select? Learn h
 Image: /images/efcore_select_fields.png
 Status: Draft
 
-So, you use Entity Framework Core and you usualy code your selects like the following, maybe you are getting too much data.
+So, you use Entity Framework Core and you usually code your selects like the following, maybe you are getting too much data.
 
 ```c#
 var products = Products
@@ -23,11 +23,14 @@ Running the query above, on my table you'll get the following output, take a loo
 
 ![Screenshot with every single column](/images/ef_core_allcolumns.png)
 
-In my case, I only care about the Title, PublishedData and a small description. So to get back only these fields, we have a few options. The first one, we'll set the fields and return then as a dynamic object.
+In my case, I only care about the Title, PublishedData and a small description. So to get back only these fields, we have a few options. The first one, we'll set the fields and return then as a dynamic object, the second one, is give the .NET a class to use. 
 
 ```c#
 var products = Products
+
 	.Select(p => new {p.ProductID, p.ProductName, p.UnitsInStock, p.UnitPrice})
+    //.Select(p => new ProductDTO {p.ProductID, p.ProductName, p.UnitsInStock, p.UnitPrice})
+
 	.Where(p => p.UnitsInStock > 0)
 	.OrderBy(p => p.ProductName)
 	.ToList()
