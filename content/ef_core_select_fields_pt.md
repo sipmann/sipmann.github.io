@@ -6,11 +6,10 @@ Slug: select_specific_fields_with_efcore
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Lang: pt
-Description: Você sabe quantos dados você esta pegando com o seu select no EF? Aprenda como especificar quais campos você vai selecionar utilizando Entity Framework Core.
+Description: Você sabe quantos dados você está pegando com o seu select no EF? Aprenda como especificar quais campos você vai selecionar utilizando Entity Framework Core.
 Image: /images/efcore_select_fields.png
-Status: Draft
 
-Então, você utiliza Entity Framework Core e geralmente faz o seu selecto da seguinte forma, talvez você esta retornando muitos dados.
+Então, você utiliza Entity Framework Core e geralmente faz o seu selecto da seguinte forma, talvez você está retornando muitos dados.
 
 ```c#
 var products = Products
@@ -19,7 +18,7 @@ var products = Products
 	.ToList()
 ```
 
-Rodando a query acima, em uma base de testes você obtem o seguinte  resultado, veja quantas colunas estão retornando da sua base de dados.
+Rodando a query acima, em uma base de testes você obtem o seguinte resultado, veja quantas colunas estão retornando da sua base de dados.
 
 ![Print com todas as colunas](/images/ef_core_allcolumns.png)
 
