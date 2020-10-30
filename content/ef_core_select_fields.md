@@ -6,11 +6,10 @@ Slug: select_specific_fields_with_efcore
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Lang: en
-Description: Did you know how many data you get back with you EF select? Learn how to specify which fields you would get back.
+Description: Did you know how much data you get back with your EF select? Learn how to specify which fields you would get back.
 Image: /images/efcore_select_fields.png
-Status: Draft
 
-So, you use Entity Framework Core and you usually code your selects like the following, maybe you are getting too much data.
+So, you use Entity Framework Core, and you usually code your selects like the following, maybe you are getting too much data.
 
 ```c#
 var products = Products
@@ -19,11 +18,11 @@ var products = Products
 	.ToList()
 ```
 
-Running the query above, on my table you'll get the following output, take a look how many columns you are getting back from your database.
+Running the query above, on my table, you'll get the following output, take a look at how many columns you are getting back from your database.
 
 ![Screenshot with every single column](/images/ef_core_allcolumns.png)
 
-In my case, I only care about the Title, PublishedData and a small description. So to get back only these fields, we have a few options. The first one, we'll set the fields and return then as a dynamic object, the second one, is give the .NET a class to use. 
+In my case, I only care about the Title, PublishedData, and a small description. So to get back only these fields, we have a few options. In the first one, we'll set the fields and return them as a dynamic object, the second one, is to give the .NET a class to use. 
 
 ```c#
 var products = Products
