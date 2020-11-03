@@ -100,6 +100,8 @@ END;
 Ok, so now all you have to do, is schedule a job to run that stored procedure from minute to minute. Again, the main idea is tell the procedure when a user must be blocked and when it'll be unblocked. 
 
 ```mssql
-/* Will block the user protheus from 10 AM till 15 PM */
-INSERT INTO dbo.HorariosBloqueio (Id, LoginName, HrInicio, HrTermino) VALUES (NEXT VALUE FOR seq_HorariosBloqueio, 'protheus', '10:00:00', '15:00:00');
+
+	/* Will block the user protheus from 10 AM till 15 PM */
+	INSERT INTO dbo.HorariosBloqueio (Id, LoginName, HrInicio, HrTermino) VALUES (NEXT VALUE FOR seq_HorariosBloqueio, 'protheus', '10:00:00', '15:00:00');
+
 ```
