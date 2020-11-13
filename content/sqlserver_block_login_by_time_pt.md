@@ -1,4 +1,4 @@
-Title: Blocking a user on SQL Server based on a schedule
+Title: Bloqueando um usuário do SQL Server baseado em uma tabela de horários
 Date: 2019-09-06 07:00
 Modified: 2020-11-04 18:40
 Tags: SQLServer, User, Time Schedule blocking
@@ -6,11 +6,11 @@ Category: SQL Server
 Slug: blocking-user-on-sql-server-based-on-schedule
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
-Description: How to block a SQL Server user based on a schedule using the SQL Server Agent and a Table that holds the user and the blocking time.
+Description: Como bloquear um usuáriodo SQL Server baseando-se em uma tabela de horários utilizando o SQL Server Agent.
 Lang: pt
 Status: Draft
 
-Ok, some time ago, I've posted about how you can set limits to connections on SQL Server using the [Resource Governor](https://www.sipmann.com/limiting-connection-resources-sql-server.html#.X6Cz8IhKhPY). But what if you can't use it? You always can blog logins using a login trigger, but I don't like the idea of having selects running on every login. So I came across with a solution using a stored procedure, a table and the Agent.
+Ok, algum tempo atrás, eu postei sobre como você pode impor limites às conexões do SQL Server utilizando o [Resource Governor](https://www.sipmann.com/limiting-connection-resources-sql-server.html#.X6Cz8IhKhPY). Mas e se você não pode utilizar ele? You always can blog logins using a login trigger, but I don't like the idea of having selects running on every login. So I came across with a solution using a stored procedure, a table and the Agent.
 
 The main idea is, store the time that a user must be blocked and using the Agent, disable or enable the user. Bellow you can see the table (the table is in Portuguese, but I have a few comment blocks to help you).
 
@@ -101,7 +101,7 @@ Ok, so now all you have to do, is schedule a job to run that stored procedure fr
 
 ```mssql
 
-	/* Will block the user protheus from 10 AM till 15 PM */
+	-- Will block the user protheus from 10 AM till 15 PM
 	INSERT INTO dbo.HorariosBloqueio (Id, LoginName, HrInicio, HrTermino) VALUES (NEXT VALUE FOR seq_HorariosBloqueio, 'protheus', '10:00:00', '15:00:00');
 
 ```

@@ -10,22 +10,22 @@ Description: How to block a SQL Server user based on a schedule using the SQL Se
 Lang: en
 Status: Draft
 
-Ok, some time ago, I've posted about how you can set limits to connections on SQL Server using the [Resource Governor](https://www.sipmann.com/limiting-connection-resources-sql-server.html#.X6Cz8IhKhPY). But what if you can't use it? You always can blog logins using a login trigger, but I don't like the idea of having selects running on every login. So I came across with a solution using a stored procedure, a table and the Agent.
+Ok, some time ago, I've posted about how you can set limits to connections on SQL Server using the [Resource Governor](https://www.sipmann.com/limiting-connection-resources-sql-server.html#.X6Cz8IhKhPY). But what if you can't use it? Você sempre pode bloquear logins usando uma trigger, mas eu não goso da ideia de ter um select rodando a acada login. Então eu cheguei a esta solução, utilizando uma stored procedure, uma tabela e Agent.
 
-The main idea is, store the time that a user must be blocked and using the Agent, disable or enable the user. Bellow you can see the table (the table is in Portuguese, but I have a few comment blocks to help you).
+A ideia principal é, armazenar o horário em que um usuário deve ser bloqueado pelo Agent. Abaixo você pode ver a criação da tabela.
 
 ```mssql
 CREATE TABLE dbo.HorariosBloqueio (
 	Id INT NOT NULL,
 	LoginName NVARCHAR(100) NOT NULL,
-	HrInicio TIME NOT NULL, /* Startint block time */
-	HrTermino TIME NOT NULL, /* Ending block time */
-	Bloqueado INT DEFAULT 0, /* 0 = unblocked, 1 = blocked */
+	HrInicio TIME NOT NULL, /* horário de inicio do bloqueio */
+	HrTermino TIME NOT NULL, /*horário de termino */
+	Bloqueado INT DEFAULT 0, /* 0 = desbloqueado, 1 = bloqueado */
 	PRIMARY KEY (Id)
 );
 GO
 
-/* Don't block the SA user, precautions, you know */
+/* regra para Não bloquear o usuário SA */
 ALTER TABLE dbo.HorariosBloqueio
 	ADD CONSTRAINT chk_users CHECK (LoginName not in ('sa'));
 
@@ -39,7 +39,7 @@ CREATE SEQUENCE dbo.seq_HorariosBloqueio START WITH 1 INCREMENT BY 1;
 GO
 ```
 
-After creating the table, let's check the procedure that will handle the enabling/disabling the users. Be aware that on the procedure, I've set the database name where the table was stored, you can change it replacing the `DBATOOLS` text to the database name where you created the table.
+Depois de criar a tabela, vamos verificar a procedure que vai fazer todo o trabalho de habilidar/desabilitar os usuários. Fique ciente que, neste procedure, eu defini o nome do banco onde a tabela está armazenada. Você pode substituir o nome `DBATOOLS` pelo o nome da sua base.
 
 ```mssql
 IF OBJECT_ID('dbo.sp_ValidarLogin') IS NULL
@@ -52,7 +52,7 @@ AS BEGIN
 	DECLARE @Momento AS TIME;
 	SET @Momento = CAST(GETDATE() AS TIME);
 	
-    /* Block the ones that aren't blocked already and maches the time */
+    /* Bloqueia os que ainda não estiverem bloqueados de acordo com a hora atual */
 	DECLARE block_cursor CURSOR
 		FOR SELECT LoginName FROM [DBATOOLS].[dbo].[HorariosBloqueio] WHERE Bloqueado = 0 AND HrInicio <= @Momento AND HrTermino >= @Momento
 	OPEN block_cursor;
@@ -74,7 +74,7 @@ AS BEGIN
 	UPDATE [DBATOOLS].[dbo].[HorariosBloqueio] SET Bloqueado = 1 WHERE HrInicio <= @Momento AND HrTermino >= @Momento
 
 	
-	/* Enable up who was blocked */
+	/* Libera quem estava bloqueado */
 	DECLARE unblock_cursor CURSOR
 		FOR SELECT LoginName FROM [DBATOOLS].[dbo].[HorariosBloqueio] WHERE Bloqueado = 1 AND (HrInicio > @Momento OR HrTermino < @Momento)
 	OPEN unblock_cursor ;
@@ -97,11 +97,11 @@ AS BEGIN
 END;
 ```
 
-Ok, so now all you have to do, is schedule a job to run that stored procedure from minute to minute. Again, the main idea is tell the procedure when a user must be blocked and when it'll be unblocked. 
+Certo, então agora tudo que temos que fazer, é definir o job no Agent para rodar a procedure de minuto em minuto. Novamente, a ideia principal é faar a procedure quando um usuáriodeve ser bloqueado e quando deve ser desbloqueado.
 
 ```mssql
     
-    /* Will block the user protheus from 10 AM till 15 PM */
+    -- Vai bloquear o usuário protheus das 10 AM até 15 PM
     INSERT INTO dbo.HorariosBloqueio (Id, LoginName, HrInicio, HrTermino) VALUES (NEXT VALUE FOR seq_HorariosBloqueio, 'protheus', '10:00:00', '15:00:00');
     
 ```
