@@ -1,6 +1,5 @@
 Title: Blocking a user on SQL Server based on a schedule
-Date: 2019-09-06 07:00
-Modified: 2020-11-04 18:40
+Date: 2019-11-13 07:00
 Tags: SQLServer, User, Time Schedule blocking
 Category: SQL Server
 Slug: blocking-user-on-sql-server-based-on-schedule
@@ -12,20 +11,20 @@ Status: Draft
 
 Ok, some time ago, I've posted about how you can set limits to connections on SQL Server using the [Resource Governor](https://www.sipmann.com/limiting-connection-resources-sql-server.html#.X6Cz8IhKhPY). But what if you can't use it? Você sempre pode bloquear logins usando uma trigger, mas eu não goso da ideia de ter um select rodando a acada login. Então eu cheguei a esta solução, utilizando uma stored procedure, uma tabela e Agent.
 
-A ideia principal é, armazenar o horário em que um usuário deve ser bloqueado pelo Agent. Abaixo você pode ver a criação da tabela.
+The main idea is, store the time that a user must be blocked and using the Agent, disable or enable the user. Bellow you can see the table (the table is in Portuguese, but I have a few comment blocks to help you).
 
 ```mssql
 CREATE TABLE dbo.HorariosBloqueio (
 	Id INT NOT NULL,
 	LoginName NVARCHAR(100) NOT NULL,
-	HrInicio TIME NOT NULL, /* horário de inicio do bloqueio */
-	HrTermino TIME NOT NULL, /*horário de termino */
-	Bloqueado INT DEFAULT 0, /* 0 = desbloqueado, 1 = bloqueado */
+	HrInicio TIME NOT NULL, /* Startint block time */
+	HrTermino TIME NOT NULL, /* Ending block time */
+	Bloqueado INT DEFAULT 0, /* 0 = unblocked, 1 = blocked */
 	PRIMARY KEY (Id)
 );
 GO
 
-/* regra para Não bloquear o usuário SA */
+/* Don't block the SA user, precautions, you know */
 ALTER TABLE dbo.HorariosBloqueio
 	ADD CONSTRAINT chk_users CHECK (LoginName not in ('sa'));
 
@@ -39,7 +38,7 @@ CREATE SEQUENCE dbo.seq_HorariosBloqueio START WITH 1 INCREMENT BY 1;
 GO
 ```
 
-Depois de criar a tabela, vamos verificar a procedure que vai fazer todo o trabalho de habilidar/desabilitar os usuários. Fique ciente que, neste procedure, eu defini o nome do banco onde a tabela está armazenada. Você pode substituir o nome `DBATOOLS` pelo o nome da sua base.
+After creating the table, let's check the procedure that will handle the enabling/disabling the users. Be aware that on the procedure, I've set the database name where the table was stored, you can change it replacing the `DBATOOLS` text to the database name where you created the table.
 
 ```mssql
 IF OBJECT_ID('dbo.sp_ValidarLogin') IS NULL
@@ -52,7 +51,7 @@ AS BEGIN
 	DECLARE @Momento AS TIME;
 	SET @Momento = CAST(GETDATE() AS TIME);
 	
-    /* Bloqueia os que ainda não estiverem bloqueados de acordo com a hora atual */
+    /* Block the ones that aren't blocked already and maches the time */
 	DECLARE block_cursor CURSOR
 		FOR SELECT LoginName FROM [DBATOOLS].[dbo].[HorariosBloqueio] WHERE Bloqueado = 0 AND HrInicio <= @Momento AND HrTermino >= @Momento
 	OPEN block_cursor;
@@ -74,7 +73,7 @@ AS BEGIN
 	UPDATE [DBATOOLS].[dbo].[HorariosBloqueio] SET Bloqueado = 1 WHERE HrInicio <= @Momento AND HrTermino >= @Momento
 
 	
-	/* Libera quem estava bloqueado */
+	/* Enable up who was blocked */
 	DECLARE unblock_cursor CURSOR
 		FOR SELECT LoginName FROM [DBATOOLS].[dbo].[HorariosBloqueio] WHERE Bloqueado = 1 AND (HrInicio > @Momento OR HrTermino < @Momento)
 	OPEN unblock_cursor ;
@@ -97,11 +96,11 @@ AS BEGIN
 END;
 ```
 
-Certo, então agora tudo que temos que fazer, é definir o job no Agent para rodar a procedure de minuto em minuto. Novamente, a ideia principal é faar a procedure quando um usuáriodeve ser bloqueado e quando deve ser desbloqueado.
+Ok, so now all you have to do, is schedule a job to run that stored procedure from minute to minute. Again, the main idea is tell the procedure when a user must be blocked and when it'll be unblocked. 
 
 ```mssql
     
-    -- Vai bloquear o usuário protheus das 10 AM até 15 PM
+    -- Will block the user protheus from 10 AM till 15 PM
     INSERT INTO dbo.HorariosBloqueio (Id, LoginName, HrInicio, HrTermino) VALUES (NEXT VALUE FOR seq_HorariosBloqueio, 'protheus', '10:00:00', '15:00:00');
     
 ```
