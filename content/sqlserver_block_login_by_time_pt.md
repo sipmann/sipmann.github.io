@@ -9,9 +9,9 @@ Description: Como bloquear um usuáriodo SQL Server baseando-se em uma tabela de
 Lang: pt
 Status: Draft
 
-Ok, algum tempo atrás, eu postei sobre como você pode impor limites às conexões do SQL Server utilizando o [Resource Governor](https://www.sipmann.com/limiting-connection-resources-sql-server.html#.X6Cz8IhKhPY). Mas e se você não pode utilizar ele? You always can blog logins using a login trigger, but I don't like the idea of having selects running on every login. So I came across with a solution using a stored procedure, a table and the Agent.
+Ok, algum tempo atrás, eu postei sobre como você pode impor limites às conexões do SQL Server utilizando o [Resource Governor](https://www.sipmann.com/limiting-connection-resources-sql-server.html#.X6Cz8IhKhPY). Mas, e se você não pode utilizar ele? Você sempre pode bloquear logins usando uma trigger, mas eu não gosto da ideia de ter um select rodando a cada login. Então, eu cheguei a esta solução, utilizando uma stored procedure, uma tabela e o Agent.
 
-A ideia principal é, armazenar o horário em que um usuário deve ser bloqueado pelo Agent. Abaixo você pode ver a criação da tabela.
+A ideia principal é armazenar o horário em que um usuário deve ser bloqueado pelo Agent. Abaixo você pode ver a criação da tabela:
 
 ```mssql
 CREATE TABLE dbo.HorariosBloqueio (
@@ -38,7 +38,7 @@ CREATE SEQUENCE dbo.seq_HorariosBloqueio START WITH 1 INCREMENT BY 1;
 GO
 ```
 
-Depois de criar a tabela, vamos verificar a procedure que vai fazer todo o trabalho de habilidar/desabilitar os usuários. Fique ciente que, neste procedure, eu defini o nome do banco onde a tabela está armazenada. Você pode substituir o nome `DBATOOLS` pelo o nome da sua base.
+Depois de criar a tabela, vamos verificar a procedure que vai fazer todo o trabalho de habilitar/desabilitar os usuários. Fique ciente que, nesta procedure, eu defini o nome do banco onde a tabela está armazenada. Você pode substituir o nome `DBATOOLS` pelo o nome da sua base.
 
 ```mssql
 IF OBJECT_ID('dbo.sp_ValidarLogin') IS NULL
@@ -96,7 +96,7 @@ AS BEGIN
 END;
 ```
 
-Certo, então agora tudo que temos que fazer, é definir o job no Agent para rodar a procedure de minuto em minuto. Novamente, a ideia principal é faar a procedure quando um usuáriodeve ser bloqueado e quando deve ser desbloqueado.
+Certo, então agora tudo que temos que fazer é definir o job no Agent para rodar a procedure de minuto em minuto. Novamente, a ideia principal é chamar a procedure quando um usuário deve ser bloqueado e quando deve ser desbloqueado.
 
 ```mssql
 
