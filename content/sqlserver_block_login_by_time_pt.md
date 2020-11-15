@@ -1,5 +1,5 @@
 Title: Bloqueando um usuário do SQL Server baseado em uma tabela de horários
-Date: 2019-11-13 07:00
+Date: 2019-11-14 07:00
 Tags: SQLServer, User, Time Schedule blocking
 Category: SQL Server
 Slug: blocking-user-on-sql-server-based-on-schedule
