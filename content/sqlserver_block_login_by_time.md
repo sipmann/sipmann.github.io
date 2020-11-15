@@ -1,5 +1,5 @@
 Title: Blocking a user on SQL Server based on a schedule
-Date: 2019-11-14 07:00
+Date: 2020-11-14 07:00
 Tags: SQLServer, User, Time Schedule blocking
 Category: SQL Server
 Slug: blocking-user-on-sql-server-based-on-schedule
