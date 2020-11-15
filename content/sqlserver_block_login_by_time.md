@@ -7,7 +7,6 @@ Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Description: How to block a SQL Server user based on a schedule using the SQL Server Agent and a Table that holds the user and the blocking time.
 Lang: en
-Status: Draft
 
 Ok, some time ago, I've posted about how you can set limits to connections on SQL Server using the [Resource Governor](https://www.sipmann.com/limiting-connection-resources-sql-server.html#.X6Cz8IhKhPY). But what if you can't use it? You always can blog logins using a login trigger, but I don't like the idea of having selects running on every login. So I came across with a solution using a stored procedure, a table and the Agent.
 
