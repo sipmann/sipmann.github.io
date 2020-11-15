@@ -5,7 +5,8 @@ Category: SQL Server
 Slug: blocking-user-on-sql-server-based-on-schedule
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
-Description: Como bloquear um usuáriodo SQL Server baseando-se em uma tabela de horários utilizando o SQL Server Agent.
+Description: Como bloquear um usuário do SQL Server baseando-se em uma tabela de horários utilizando o SQL Server Agent.
+Image: /images/block_sql_server_user.png
 Lang: pt
 
 Ok, algum tempo atrás, eu postei sobre como você pode impor limites às conexões do SQL Server utilizando o [Resource Governor](https://www.sipmann.com/limiting-connection-resources-sql-server.html#.X6Cz8IhKhPY). Mas, e se você não pode utilizar ele? Você sempre pode bloquear logins usando uma trigger, mas eu não gosto da ideia de ter um select rodando a cada login. Então, eu cheguei a esta solução, utilizando uma stored procedure, uma tabela e o Agent.
