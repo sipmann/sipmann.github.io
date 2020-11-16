@@ -1,7 +1,7 @@
 Title: O poder do PowerShell
 Date: 2020-09-21 19:00
 Tags: Azure, PowerShell, Script, GetChild-Item, Remove-Item, Stop-Proccess
-Category: Azure
+Category: PowerShell
 Slug: the-power-of-powershell
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com

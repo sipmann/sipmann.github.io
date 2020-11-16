@@ -1,7 +1,7 @@
 Title: Monitorando status de replicação do MySQL com PowerShell
 Date: 2020-10-14 19:00
 Tags: MySQL, MySQL Replication, PowerShell, Powershell mail
-Category: Azure 
+Category: PowerShell 
 Slug: monitoring-mysql-replication-with-powershell
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
