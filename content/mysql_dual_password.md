@@ -30,4 +30,4 @@ To discard the old one, run the following.
 ALTER USER 'appuser'@'localhost' DISCARD OLD PASSWORD;
 ```
 
-And you are done.
+And you are done. Hope you find it as useful as I :)
