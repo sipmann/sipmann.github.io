@@ -31,3 +31,5 @@ ALTER USER 'appuser'@'localhost' DISCARD OLD PASSWORD;
 ```
 
 And you are done. Hope you find it as useful as I :)
+
+Force build
