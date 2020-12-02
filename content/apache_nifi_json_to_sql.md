@@ -7,7 +7,7 @@ Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Lang: en
 Description: Apache NiFi replacing the underscore on the SQL when using translate field names property on ConvertJSONToSQL component.
-Status: Draft
+
 
 Recently I was doing some ETL with Apache NiFi. But after a few minutes of drawing my flow, I saw that the component ConvertJSONToSQL was replacing the underscore ('_') from the field name in the where condition (I was preparing an Update SQL). That was weird because, at the set statement, the field name was kept intact. After some research, I found that the property (see bellow) `Translate Field Names` was responsible for that weird replacement.
 
