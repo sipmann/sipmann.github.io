@@ -6,7 +6,7 @@ Slug: mysql-dual-password-functionality
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Lang: en
-Status: Draft
+
 Description: Monitoring a MySQL replication with PowerShell, sending e-mails and even more to warn you about the replica state.
 Image: /images/mysql_monitorin_powershell.png
 
