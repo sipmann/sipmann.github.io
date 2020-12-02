@@ -9,7 +9,7 @@ SITEURL = 'https://www.sipmann.com'
 BASEURL = 'https://www.sipmann.com'
 
 PATH = './content'
-STATIC_PATHS = ['images', 'pages']
+STATIC_PATHS = ['images', 'CNAME']
 
 TIMEZONE = 'America/Sao_Paulo'
 
