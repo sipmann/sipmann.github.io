@@ -1,5 +1,5 @@
 Title: Apache Nifi JSON to SQL Replacing underscore
-Date: 2020-12-02 19:00
+Date: 2020-12-02 14:00
 Tags: Apache Nifi, ConvertJSONToSQL, replacing underscore
 Category: Tools
 Slug: apache-nifi-json-to-sql-replacing-underscore

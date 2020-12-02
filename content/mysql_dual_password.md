@@ -1,10 +1,11 @@
 Title: Changing a MySQL user password acros multiple application instances
-Date: 2020-10-14 19:00
+Date: 2020-12-14 19:00
 Tags: MySQL, MySQL Dual Password
 Category: PowerShell 
 Slug: mysql-dual-password-functionality
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
+Status: Draft
 Lang: en
 
 Description: Monitoring a MySQL replication with PowerShell, sending e-mails and even more to warn you about the replica state.
