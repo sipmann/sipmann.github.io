@@ -11,9 +11,9 @@ Image: /images/mysql_dual_password.png
 
 Do you need to change the password of a MySQL user that it's being used in an application, and can't allow a single downtime? Well, MySQL 8.0.14 came with a feature called [Dual Password Support](https://dev.mysql.com/doc/refman/8.0/en/password-management.html#dual-passwords), with it you can change the password keeping the previous password as a kind of backup. That way you still can log in using the old password or can start using the new one. With that, the password change workflow it's the following.
 
-1) Change password keeping the old one.
+1) Change password keeping the old one;
 
-2) Deploy the new config to your app/cluster.
+2) Deploy the new config to your app/cluster;
 
 3) Discard the old password.
 
