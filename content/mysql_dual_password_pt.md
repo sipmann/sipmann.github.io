@@ -5,7 +5,7 @@ Category: MySQL
 Slug: mysql-dual-password-functionality
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
-Status: Draft
+
 Lang: pt
 Description: Trocando a senha de um usuário do MySQL sem downtime da aplicação? Com a nova feature da versão 8.0.14 isso é possível. Venha conferir como.
 Image: /images/mysql_dual_password.png
