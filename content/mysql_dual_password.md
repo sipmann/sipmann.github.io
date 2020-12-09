@@ -5,7 +5,7 @@ Category: MySQL
 Slug: mysql-dual-password-functionality
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
-Status: Draft
+
 Lang: en
 Description: Are you in need to change the password for a MySQL User without downtime? With the new feature on version 8.0.14, this is possible. Come check it out.
 Image: /images/mysql_dual_password.png
