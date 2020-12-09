@@ -1,4 +1,4 @@
-Title: Changing a MySQL user password acros multiple application instances
+Title: Trocando a senha de um usuário do MySQL sem downtime da aplicação
 Date: 2020-12-09 13:40
 Tags: MySQL, MySQL Dual Password
 Category: PowerShell 
@@ -7,28 +7,27 @@ Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Status: Draft
 Lang: pt
-
 Description: Monitoring a MySQL replication with PowerShell, sending e-mails and even more to warn you about the replica state.
 Image: /images/mysql_monitorin_powershell.png
 
-Do you need to change the password of a MySQL user that it's being used in an application, and can't allow a single downtime? Well, MySQL 8.0.14 came with a feature called [Dual Password Support](https://dev.mysql.com/doc/refman/8.0/en/password-management.html#dual-passwords), with it you can change the password keeping the previous password as a kind of backup. That way you still can login using the old password, or can start using the new one. With that, the password change workflow it's the following.
+Você precisa trocar a senha de um usuário do MySQL que esta sendo utilizado por uma aplicação e não sofrer nenhum downtime? Bom, a versão 8.0.14 do MySQL foi liberada com uma feature chamada [Dual Password Support](https://dev.mysql.com/doc/refman/8.0/en/password-management.html#dual-passwords), com esta feature você pode alterar a senha de um usuário mantendo a anterior ainda funcionando como uma forma de "backup". Desta forma você ainda conseguirá autenticar com o usuário utilizando tanto a nova senha quanto a anterior. Com isto, o seu processo de troca de senha, fica algo como:
 
-1) Change password keeping the old one.
+1) Troque a senha mantendo a anterior.
 
-2) Deploy the new config to your app/cluster.
+2) Faça o Deploy da nova configuração na sua aplicação/cluster.
 
-3) Discard the old password.
+3) Discarte a senha anterior.
 
-To change the password keeping the old one, you have the following command.
+Para alterar a senha mantendo a anterior, você deve rodar o seguinte comando:
 
 ```mysql
 ALTER USER 'appuser'@'localhost' IDENTIFIED BY 'new_password' RETAIN CURRENT PASSWORD;
 ```
 
-To discard the old one, run the following.
+Para descartar a senha antiga, rode o seguite:
 
 ```mysql
 ALTER USER 'appuser'@'localhost' DISCARD OLD PASSWORD;
 ```
 
-And you are done. Hope you find it as useful as I :)
+E pronto. Esper que você ache isto tão útil quanto eu. :)
