@@ -5,7 +5,7 @@ Category: PowerShell
 Slug: monitoring-mysql-restarts-with-powershell
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
-Status: Draft
+
 Lang: en
 Description: Monitoring MySQL for restarts using PowerShell
 Image: /images/mysql_monitorin_powershell.png
