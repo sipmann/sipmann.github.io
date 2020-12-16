@@ -1,11 +1,11 @@
 Title: Monitoring MySQL restarts with PowerShell
-Date: 2020-12-14 19:00
+Date: 2029-12-14 19:00
 Tags: MySQL, MySQL Restart, Powershell monitoring
 Category: PowerShell 
 Slug: monitoring-mysql-restarts-with-powershell
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
-
+Status: Draft
 Lang: en
 Description: Monitoring MySQL for restarts using PowerShell
 Image: /images/mysql_monitorin_powershell.png
