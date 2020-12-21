@@ -8,7 +8,7 @@ Email: sipmann@gmail.com
 Image: /images/azure_certification.png
 Description: My experience with Azure Data Fundamentals DP-900 certification..
 Lang: pt
-
+Status: Draft
 E aí pessoal, tudo bom?
 
 Bom, este ano tem sido um pouco estranho, não é? E para tentar ajudar como possível, algumas empresas tem oferido vouchers e descontos em ferramentas, cursos, certificações e afins... Bom aproveitei uma demanda e uni com a oportunidade e resolvi iniciar algumas certificações. Mais no início do ano consegui a certificação de Oracle Cloud Infrastructure Foundations e agora tirei a Azure Data Fundamentas (DP-900). Fiz a prova no dia 20/12/2020 e bom, passei. Vou deixar aqui um resuminho de o que caiu (dentro do permitido) e como se preparar.
