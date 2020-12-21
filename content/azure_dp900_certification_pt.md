@@ -21,8 +21,9 @@ Por serem avalizações de iniciação, elas não são pré-requisito para nenhu
 
 Se você não tem vivência (ou mesmo se você tiver, mas quer reforçar o conhecimento) existem algumas formas de aprender o conteúdo da prova. Eu pessoalmente só utilizei o learning path que a Microsoft libera gratuitamente na sua plataforma e o mesmo foi suficiente para passar, mas existem cursos preparatórios na Udemy e até mesmo alguns livros na Amazon (não localizei sobre a DP-900 especificamente, mas existem outros que possuem abordagem aproximada). Abaixo deixo alguns links para você seguir e ler mais sobre a prova.
 
-* [Detalhes sobre a certificação e learning path (mais a baixo na página)](https://docs.microsoft.com/pt-br/learn/certifications/exams/dp-900)
-* [Detalhamento sobre a certifição](https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RE4wsKZ)
+[Detalhes sobre a certificação e learning path (mais a baixo na página)](https://docs.microsoft.com/pt-br/learn/certifications/exams/dp-900)
+
+[Detalhamento sobre a certifição](https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RE4wsKZ)
 
 Distribuição da prova
 ```
