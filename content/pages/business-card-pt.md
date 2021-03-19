@@ -3,7 +3,7 @@ lang: pt
 status: hidden
 
 <div class="w3-row">
-    <div class="w3-col l3">
+    <div class="w3-col l3 " style="padding: 0 15px 0 15px">
         <!-- Boxes de Acoes -->
         <div class="box">							
             <div class="icon">
