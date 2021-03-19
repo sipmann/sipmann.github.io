@@ -7,7 +7,7 @@ status: hidden
         <!-- Boxes de Acoes -->
         <div class="box">							
             <div class="icon">
-                <div class="image"><img src="/content/images/cloud-solid.svg" alt="Cloud icon"></div>
+                <div class="image"><img src="/images/icons/cloud-solid.svg" alt="Cloud icon"></div>
                 <div class="info">
                     <h3 class="title">Consultoria Cloud</h3>
                     <p>
@@ -23,7 +23,7 @@ status: hidden
         <!-- Boxes de Acoes -->
         <div class="box">							
             <div class="icon">
-                <div class="image"><img src="/content/images/database-solid.svg" alt="Database icon"></div>
+                <div class="image"><img src="/images/icons/database-solid.svg" alt="Database icon"></div>
                 <div class="info">
                     <h3 class="title">Gestão De Banco</h3>
                     <p>
@@ -39,7 +39,7 @@ status: hidden
         <!-- Boxes de Acoes -->
             <div class="box">							
 				<div class="icon">
-					<div class="image"><img src="/content/images/chart-pie-solid.svg" alt="PowerBI icon"></div>
+					<div class="image"><img src="/images/icons/chart-pie-solid.svg" alt="PowerBI icon"></div>
 					<div class="info">
 						<h3 class="title">Power BI</h3>
     					<p>
@@ -95,7 +95,8 @@ status: hidden
     border-radius: 50%; 
     background: #428bca; 
     vertical-align: middle; 
-    }
+    color: white;
+}
 .box > .icon > .image > i { 
     font-size: 36px !important; 
     color: #fff !important; 
