@@ -7,9 +7,9 @@ status: hidden
         <!-- Boxes de Acoes -->
         <div class="box">							
             <div class="icon">
-                <div class="image"><i class="fa fa-soundcloud"></i></div>
+                <div class="image"><img src="/content/images/cloud-solid.svg" alt="Cloud icon"></div>
                 <div class="info">
-                    <h3 class="title">Client Reports</h3>
+                    <h3 class="title">Consultoria Cloud</h3>
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in lobortis nisl, vitae iaculis sapien. Phasellus ultrices gravida massa luctus ornare. Suspendisse blandit quam elit, eu imperdiet neque semper.
                     </p>
@@ -19,14 +19,13 @@ status: hidden
         </div>
         <div class="space"></div>
     </div> 
-
-    <div class="w3-col l3">
+    <div class="w3-col l3" style="padding: 0 15px 0 15px">
         <!-- Boxes de Acoes -->
         <div class="box">							
             <div class="icon">
-                <div class="image"><i class="fa fa-soundcloud"></i></div>
+                <div class="image"><img src="/content/images/database-solid.svg" alt="Database icon"></div>
                 <div class="info">
-                    <h3 class="title">Client Reports</h3>
+                    <h3 class="title">Gestão De Banco</h3>
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in lobortis nisl, vitae iaculis sapien. Phasellus ultrices gravida massa luctus ornare. Suspendisse blandit quam elit, eu imperdiet neque semper.
                     </p>
@@ -36,14 +35,13 @@ status: hidden
         </div>
         <div class="space"></div>
     </div>
-
-    <div class="w3-col l3">
+    <div class="w3-col l3" style="padding: 0 15px 0 15px">
         <!-- Boxes de Acoes -->
             <div class="box">							
 				<div class="icon">
-					<div class="image"><i class="fa fa-soundcloud"></i></div>
+					<div class="image"><img src="/content/images/chart-pie-solid.svg" alt="PowerBI icon"></div>
 					<div class="info">
-						<h3 class="title">Client Reports</h3>
+						<h3 class="title">Power BI</h3>
     					<p>
 							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in lobortis nisl, vitae iaculis sapien. Phasellus ultrices gravida massa luctus ornare. Suspendisse blandit quam elit, eu imperdiet neque semper.
 						</p>
