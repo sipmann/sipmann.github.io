@@ -5,7 +5,7 @@ status: hidden
 <script src="https://kit.fontawesome.com/0694d56282.js" crossorigin="anonymous"></script>
 
 <div class="w3-row">
-    <div class="w3-col l3 " style="padding: 0 15px 0 15px">
+    <div class="w3-col l4" style="padding: 0 15px 0 15px">
         <!-- Boxes de Acoes -->
         <div class="box">							
             <div class="icon">
@@ -21,7 +21,7 @@ status: hidden
         </div>
         <div class="space"></div>
     </div> 
-    <div class="w3-col l3" style="padding: 0 15px 0 15px">
+    <div class="w3-col l4" style="padding: 0 15px 0 15px">
         <!-- Boxes de Acoes -->
         <div class="box">							
             <div class="icon">
@@ -37,7 +37,7 @@ status: hidden
         </div>
         <div class="space"></div>
     </div>
-    <div class="w3-col l3" style="padding: 0 15px 0 15px">
+    <div class="w3-col l4" style="padding: 0 15px 0 15px">
         <!-- Boxes de Acoes -->
             <div class="box">							
 				<div class="icon">
