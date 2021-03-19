@@ -5,6 +5,40 @@ status: hidden
 <div class="w3-row">
     <div class="w3-col l3">
         <!-- Boxes de Acoes -->
+        <div class="box">							
+            <div class="icon">
+                <div class="image"><i class="fa fa-soundcloud"></i></div>
+                <div class="info">
+                    <h3 class="title">Client Reports</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in lobortis nisl, vitae iaculis sapien. Phasellus ultrices gravida massa luctus ornare. Suspendisse blandit quam elit, eu imperdiet neque semper.
+                    </p>
+                    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> Client Reports</h4></a>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+    </div> 
+
+    <div class="w3-col l3">
+        <!-- Boxes de Acoes -->
+        <div class="box">							
+            <div class="icon">
+                <div class="image"><i class="fa fa-soundcloud"></i></div>
+                <div class="info">
+                    <h3 class="title">Client Reports</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in lobortis nisl, vitae iaculis sapien. Phasellus ultrices gravida massa luctus ornare. Suspendisse blandit quam elit, eu imperdiet neque semper.
+                    </p>
+                    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> Client Reports</h4></a>
+                </div>
+            </div>
+        </div>
+        <div class="space"></div>
+    </div>
+
+    <div class="w3-col l3">
+        <!-- Boxes de Acoes -->
             <div class="box">							
 				<div class="icon">
 					<div class="image"><i class="fa fa-soundcloud"></i></div>
@@ -19,6 +53,7 @@ status: hidden
             </div>
         <div class="space"></div>
     </div> 
+
 </div>
 
 <div class="w3-card-4 w3-margin w3-white">
