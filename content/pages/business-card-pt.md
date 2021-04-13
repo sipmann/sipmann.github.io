@@ -13,9 +13,9 @@ status: hidden
                 <div class="info">
                     <h3 class="title">Consultoria Cloud</h3>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in lobortis nisl, vitae iaculis sapien. Phasellus ultrices gravida massa luctus ornare. Suspendisse blandit quam elit, eu imperdiet neque semper.
+                        Projetos de implantação e acompanhamento de sua cloud. Otimize seus custos de infraestrutura levando o seu DR para a nuvem da forma mais transparente.
                     </p>
-                    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> Client Reports</h4></a>
+                    <a class="btn btn-primary" href="#cloud" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> Mais Detalhes</h4></a>
                 </div>
             </div>
         </div>
@@ -29,9 +29,9 @@ status: hidden
                 <div class="info">
                     <h3 class="title">Gestão De Banco</h3>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in lobortis nisl, vitae iaculis sapien. Phasellus ultrices gravida massa luctus ornare. Suspendisse blandit quam elit, eu imperdiet neque semper.
+                        Gerenciamento, manutenção e acompanhamento do seu banco de dados SQL Server. Com foco na segurança e velocidade de resposta em consultas. 
                     </p>
-                    <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> Client Reports</h4></a>
+                    <a class="btn btn-primary" href="#banco" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> Mais Detalhes</h4></a>
                 </div>
             </div>
         </div>
@@ -45,15 +45,39 @@ status: hidden
 					<div class="info">
 						<h3 class="title">Power BI</h3>
     					<p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in lobortis nisl, vitae iaculis sapien. Phasellus ultrices gravida massa luctus ornare. Suspendisse blandit quam elit, eu imperdiet neque semper.
+							Dashboards analíticos para análise e tomadas de decisões do seu negócio. Baixe um dashboard e analise o faturamento do seu ERP Protheus.
 						</p>
-                        <a class="btn btn-primary" href="#primary" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> Client Reports</h4></a>
+                        <a class="btn btn-primary" href="#powerbi" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> Mais Detalhes</h4></a>
+                    </div>
+                </div>
+            </div>
+        <div class="space"></div>
+    </div>
+    <div class="w3-col l3" style="padding: 0 15px 0 15px">
+        <!-- Boxes de Acoes -->
+            <div class="box">							
+				<div class="icon">
+					<div class="image"><i class="fas fa-search"></i></div>
+					<div class="info">
+						<h3 class="title">Monitoramento</h3>
+    					<p>
+							Monitoramento de sua infraestrutura, aplicações e bancos de dados. Fornecendo relatórios detalhados desde avisos, erros até o uptime de serviços críticos.
+						</p>
+                        <a class="btn btn-primary" href="#monitoramento" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> Mais Detalhes</h4></a>
                     </div>
                 </div>
             </div>
         <div class="space"></div>
     </div> 
+</div>
 
+<div id="cloud" class="w3-card-4 w3-margin w3-white">
+    <div class="w3-container">
+        <h2><b>Consultoria cloud</b></h2>
+    </div>
+    <div class="w3-container">
+        <p></p>
+    </div>
 </div>
 
 <div class="w3-card-4 w3-margin w3-white">
