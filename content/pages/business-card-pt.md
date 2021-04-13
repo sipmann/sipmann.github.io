@@ -13,7 +13,7 @@ status: hidden
                 <div class="info">
                     <h3 class="title">Consultoria Cloud</h3>
                     <p>
-                        Projetos de implantação e acompanhamento de sua clod. Otimize seus custos de infraestrutura levando o seu DR para a núvem da forma mais transparente.
+                        Projetos de implantação e acompanhamento de sua cloud. Otimize seus custos de infraestrutura levando o seu DR para a nuvem da forma mais transparente.
                     </p>
                     <a class="btn btn-primary" href="#cloud" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> Mais Detalhes</h4></a>
                 </div>
@@ -45,7 +45,7 @@ status: hidden
 					<div class="info">
 						<h3 class="title">Power BI</h3>
     					<p>
-							Ddashboards analíticos para análise e tomadas de decisões do seu negócio. Baixe um dashboard e analíse o faturamento do seu ERP Protheus.
+							Dashboards analíticos para análise e tomadas de decisões do seu negócio. Baixe um dashboard e analise o faturamento do seu ERP Protheus.
 						</p>
                         <a class="btn btn-primary" href="#powerbi" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> Mais Detalhes</h4></a>
                     </div>
@@ -61,7 +61,7 @@ status: hidden
 					<div class="info">
 						<h3 class="title">Monitoramento</h3>
     					<p>
-							Monitoramento de sua infraestrutra, aplicações e bancos de dados. Fornecendo relatórios detalhados desde avisos, erros até o uptime de serviços críticos.
+							Monitoramento de sua infraestrutura, aplicações e bancos de dados. Fornecendo relatórios detalhados desde avisos, erros até o uptime de serviços críticos.
 						</p>
                         <a class="btn btn-primary" href="#monitoramento" data-toggle="modal"><h4><i class="fa fa-soundcloud"></i> Mais Detalhes</h4></a>
                     </div>
