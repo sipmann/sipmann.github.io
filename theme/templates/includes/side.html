@@ -1,8 +1,6 @@
-<div class="w3-card w3-margin w3-margin-top">
+<div class="w3-card w3-margin w3-margin-top" role="navigation" aria-labelledby="nav-categories">
     <div class="w3-container w3-padding w3-blue-gray">
-        <h4>
-            <a href="{{ SITEURL }}/{{ CATEGORIES_URL }}">{{ gettext('Categories') }}</a>
-        </h4>
+        <h4 id="nav-categories">{{ gettext('Categories') }}</h4>
     </div>
     <ul class="w3-ul w3-hoverable w3-white">
         {% for cat, null in categories %}
@@ -18,9 +16,9 @@
 {% if RECENT_POST_COUNT is not defined %}
     {% set RECENT_POST_COUNT = 5 %}
 {% endif %}
-<div class="w3-card w3-margin w3-margin-top">
+<div class="w3-card w3-margin w3-margin-top" role="navigation" aria-labelledby="nav-recent-posts">
     <div class="w3-container w3-padding w3-blue-gray">
-        <h4>{{gettext('Recent Posts')}}</h4>
+        <h4 id="nav-recent-posts">{{gettext('Recent Posts')}}</h4>
     </div>
     <ul class="w3-ul w3-hoverable w3-white">
         {% for article in articles[:RECENT_POST_COUNT] %}
