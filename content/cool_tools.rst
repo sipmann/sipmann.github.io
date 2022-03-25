@@ -83,3 +83,9 @@ https://app.cloudskew.com/
 ---------------------------------
 
 Desenhar projetos de cloud e afins
+
+
+https://lottiefiles.com/
+----------------------------------
+
+Veja por si mesmo
