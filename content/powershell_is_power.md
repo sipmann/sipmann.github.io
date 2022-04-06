@@ -5,7 +5,7 @@ Category: PowerShell
 Slug: the-power-of-powershell
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
-Image: /images/powershell.png
+Image: /images/powershell.webp
 Lang: en
 
 As a long time Linux user, I've automated a few things with bash scripts and stayed away from PowerShell... I've moved to a Windows environment a few years ago and still, haven gave a shot to PS. But why not? I've made a few scripts to automate some tasks at a Protheus server.

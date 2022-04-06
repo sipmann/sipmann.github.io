@@ -5,7 +5,7 @@ Category: PowerShell
 Slug: the-power-of-powershell
 Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
-Image: /images/powershell.png
+Image: /images/powershell.webp
 Lang: pt
 
 Como um usuário linux por muito tempo, eu automatizei algumas tarefas com scripts bash e fiquei longe do PowerShell... Voltei a utilizar Windows alguns anos atrás e ainda assim, não dei uma chance ao PS. Mas porque não? Eu fiz alguns scripts para automatizar algumas tarefas em um servidor Protheus.
