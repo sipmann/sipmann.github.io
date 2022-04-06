@@ -7,7 +7,7 @@ Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Lang: en
 Description: Monitoring a MySQL replication with PowerShell, sending e-mails and even more to warn you about the replica state.
-Image: /images/mysql_monitorin_powershell.webp
+Image: /images/mysql_monitorin_powershell.png
 
 I've been migration some bash scripts that I have to PowerShell, and it's time to migrate a script that monitors the replication of a MySQL database. The credit for the original script goes to [Paweł](https://handyman.dulare.com/mysql-replication-status-alerts-with-bash-script/). It's a simple script where I seek a few tags/fields that we get from `SHOW SLAVE STATUS\G` command, the fields are. `Slave_IO_Running`, `Slave_SQL_Running`, and `Seconds_Behind_Master`. I still need to figure out the proper way to store/read variables like usernames and passwords, if you have any tips, feel free to even make a pull request ([here](https://github.com/sipmann/PowerShellScripts)) at the git where I'll store some scripts.
 
