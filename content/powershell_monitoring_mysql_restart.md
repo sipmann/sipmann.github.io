@@ -7,7 +7,7 @@ Author: Maurício Camargo Sipmann
 Email: sipmann@gmail.com
 Lang: en
 Description: Monitoring MySQL for restarts using PowerShell
-Image: /images/mysql_monitoring_restart.png
+Image: /images/mysql_monitoring_restart.webp
 
 
 Hey folks, it's time for another PowerShell script. If you haven't seen the other ones, check the links below.
