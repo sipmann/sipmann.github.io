@@ -62,8 +62,6 @@ PLUGINS = [
     'i18n_subsites'
 ]
 
-ADDTHIS_PROFILE = 'ra-53d5af0d0caa9bff'
-
 SITEMAP = {
     'format': 'xml',
     'priorities': {
