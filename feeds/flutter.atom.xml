@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sipmann - Flutter</title><link href="https://www.sipmann.com/" rel="alternate"></link><link href="https://www.sipmann.com/feeds/flutter.atom.xml" rel="self"></link><id>https://www.sipmann.com/</id><updated>2019-10-03T19:00:00-03:00</updated><subtitle></subtitle><entry><title>Flutter + firebase auth crashing</title><link href="https://www.sipmann.com/flutter_with_firebase_auth_crashing.html" rel="alternate"></link><published>2019-10-03T19:00:00-03:00</published><updated>2019-10-03T19:00:00-03:00</updated><author><name>Maurício Camargo Sipmann</name></author><id>tag:www.sipmann.com,2019-10-03:/flutter_with_firebase_auth_crashing.html</id><summary type="html">&lt;p&gt;Hey Folks, recently I've started learning &lt;a href="https://flutter.dev/"&gt;Flutter&lt;/a&gt; and right after a TODO List, I tried a Firebase integration. But as soon as I started setting the dependencies, my app stopped opening... just a crash. After a few logs digging, I've found the following log.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;AndroidRuntime: FATAL EXCEPTION: main
+AndroidRuntime: Process …&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;Hey Folks, recently I've started learning &lt;a href="https://flutter.dev/"&gt;Flutter&lt;/a&gt; and right after a TODO List, I tried a Firebase integration. But as soon as I started setting the dependencies, my app stopped opening... just a crash. After a few logs digging, I've found the following log.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;AndroidRuntime: FATAL EXCEPTION: main
+AndroidRuntime: Process: com.example.diadocasal, PID: &lt;span class="m"&gt;13672&lt;/span&gt;
+AndroidRuntime: java.lang.NoClassDefFoundError: Failed resolution of: Landroid/support/v4/util/ArrayMap&lt;span class="p"&gt;;&lt;/span&gt;
+AndroidRuntime:     at com.google.android.gms.internal.measurement.zzca.&amp;lt;clinit&amp;gt;&lt;span class="o"&gt;(&lt;/span&gt;Unknown Source:60&lt;span class="o"&gt;)&lt;/span&gt;
+AndroidRuntime:     at com.google.android.gms.internal.measurement.zzcm.zzr&lt;span class="o"&gt;(&lt;/span&gt;Unknown Source:7&lt;span class="o"&gt;)&lt;/span&gt;
+AndroidRuntime:     at com.google.android.gms.measurement.internal.zzfj.&amp;lt;init&amp;gt;&lt;span class="o"&gt;(&lt;/span&gt;Unknown Source:23&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Notice the "NoClassDefFound" of an ArrayMap. To solve that I did the following changes to the files:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;//build.gradle file&lt;/span&gt;
+ &lt;span class="n"&gt;ext&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;kotlin_version&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="mf"&gt;1.3.20&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+ &lt;span class="n"&gt;dependencies&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;classpath&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;android&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;tools&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;build&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;gradle&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mf"&gt;3.3.0&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="c1"&gt;// gradle version&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;;gradle.properties file&lt;/span&gt;
+&lt;span class="na"&gt;org.gradle.jvmargs&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;-Xmx1536M ;mine have just this line at first&lt;/span&gt;
+&lt;span class="na"&gt;android.useAndroidX&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;true ; uses androidX instead of the default support library&lt;/span&gt;
+&lt;span class="na"&gt;android.enableJetifier&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;true ; uses jetpack libraries&lt;/span&gt;
+&lt;span class="na"&gt;android.enableR8&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;true ; the new code shriker&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;After that, voilà, app up and running.&lt;/p&gt;</content><category term="Flutter"></category><category term="flutter"></category><category term="firebase"></category><category term="ArrayMap"></category><category term="NoClassDefFound"></category></entry></feed>

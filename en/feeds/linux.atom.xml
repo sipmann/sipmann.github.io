@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sipmann - Linux</title><link href="https://www.sipmann.com/en/" rel="alternate"></link><link href="https://www.sipmann.com/feeds/linux.atom.xml" rel="self"></link><id>https://www.sipmann.com/en/</id><updated>2020-10-20T19:00:00-03:00</updated><subtitle></subtitle><entry><title>Zabbix Running on Low Memory Mode</title><link href="https://www.sipmann.com/en/zabbix-running-on-low-memory-mode.html" rel="alternate"></link><published>2020-10-20T19:00:00-03:00</published><updated>2020-10-20T19:00:00-03:00</updated><author><name>Maurício Camargo Sipmann</name></author><id>tag:www.sipmann.com,2020-10-20:/en/zabbix-running-on-low-memory-mode.html</id><summary type="html">&lt;p&gt;Hey folks, another Zabbix post today. This one it's about increasing the Zabbix Server Cache. It's pretty common (if you have the default settings only) get a warning about your &lt;code&gt;Zabbix value cache running on low memory mode&lt;/code&gt; at your dashboard or logs.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Zabbix Dashboard warning about the memory problem" src="/images/zabbix_low_memory_mode.png"&gt;
+&lt;img alt="Zabbix Dashboard cache graph 70% used" src="/images/zabbix_cache_filling.png"&gt;&lt;/p&gt;
+&lt;p&gt;To solve, go back to your Zabbix …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Hey folks, another Zabbix post today. This one it's about increasing the Zabbix Server Cache. It's pretty common (if you have the default settings only) get a warning about your &lt;code&gt;Zabbix value cache running on low memory mode&lt;/code&gt; at your dashboard or logs.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Zabbix Dashboard warning about the memory problem" src="/images/zabbix_low_memory_mode.png"&gt;
+&lt;img alt="Zabbix Dashboard cache graph 70% used" src="/images/zabbix_cache_filling.png"&gt;&lt;/p&gt;
+&lt;p&gt;To solve, go back to your Zabbix config file (&lt;code&gt;zabbix_server.conf&lt;/code&gt;) and look for the tag &lt;em&gt;CacheSize&lt;/em&gt;. Uncomment it and set to a value bigger than 8M (8M it's the default value). In my case, we set a cache of 100M. After the change, restart the service.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;### Option: CacheSize&lt;/span&gt;
+&lt;span class="c1"&gt;#       Size of configuration cache, in bytes.&lt;/span&gt;
+&lt;span class="c1"&gt;#       Shared memory size for storing host, item and trigger data.&lt;/span&gt;
+&lt;span class="c1"&gt;#&lt;/span&gt;
+&lt;span class="c1"&gt;# Mandatory: no&lt;/span&gt;
+&lt;span class="c1"&gt;# Range: 128K-64G&lt;/span&gt;
+&lt;span class="c1"&gt;# Default:&lt;/span&gt;
+&lt;span class="na"&gt;CacheSize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;100M #uncomment this line&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img alt="Zabbix Dashboard resolved memory problem" src="/images/zabbix_low_memory_solved.png"&gt;&lt;/p&gt;
+&lt;p&gt;See ya folks.&lt;/p&gt;</content><category term="Linux"></category><category term="Zabbix"></category><category term="Shell"></category><category term="Low memory"></category><category term="Cache"></category></entry><entry><title>Zabbix poller processes more than 75%</title><link href="https://www.sipmann.com/en/zabbix-poller-processes-more-than-75.html" rel="alternate"></link><published>2020-07-02T19:00:00-03:00</published><updated>2020-07-02T19:00:00-03:00</updated><author><name>Maurício Camargo Sipmann</name></author><id>tag:www.sipmann.com,2020-07-02:/en/zabbix-poller-processes-more-than-75.html</id><summary type="html">&lt;p&gt;Hey folks, this is the third post about tweaking the Zabbix configurations. All changes that I've suggested here were based on a Zabbix Server with 50+ hosts. Another thing that can happen to your server, it's the poller get overwhelmed by the amount of servers that need to be polled …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Hey folks, this is the third post about tweaking the Zabbix configurations. All changes that I've suggested here were based on a Zabbix Server with 50+ hosts. Another thing that can happen to your server, it's the poller get overwhelmed by the amount of servers that need to be polled plus the ones that are not responding. Bellow two images where you can see the log and the graphic where you can see the usage percent. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="Dashboard log about the poller processes" src="/images/zabbix_pooler.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Graph showing the utilization percent of each collector" src="/images/zabbix_pooler_3.png"&gt;&lt;/p&gt;
+&lt;p&gt;To solve, let's go back to the &lt;code&gt;zabbix_server.conf&lt;/code&gt; file and find two variables, &lt;code&gt;StartPollers&lt;/code&gt; and &lt;code&gt;StartPollersUnreachable&lt;/code&gt;. Increase them as needed. There's no magic number, you must see what works for you. But keep in mind that the &lt;code&gt;StartPollersUnreachable&lt;/code&gt; is responsible for that host that can't be "reached"  (of course) and will hold your poller more time.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;### Option: StartPollers&lt;/span&gt;
+&lt;span class="c1"&gt;#       Number of pre-forked instances of pollers.&lt;/span&gt;
+&lt;span class="c1"&gt;#&lt;/span&gt;
+&lt;span class="c1"&gt;# Mandatory: no&lt;/span&gt;
+&lt;span class="c1"&gt;# Range: 0-1000&lt;/span&gt;
+&lt;span class="c1"&gt;# Default:&lt;/span&gt;
+&lt;span class="na"&gt;StartPollers&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;20&lt;/span&gt;
+
+&lt;span class="c1"&gt;#...&lt;/span&gt;
+
+&lt;span class="c1"&gt;### Option: StartPollersUnreachable&lt;/span&gt;
+&lt;span class="c1"&gt;#       Number of pre-forked instances of pollers for unreachable hosts (including IPMI and Java).&lt;/span&gt;
+&lt;span class="c1"&gt;#       At least one poller for unreachable hosts must be running if regular, IPMI or Java pollers&lt;/span&gt;
+&lt;span class="c1"&gt;#       are started.&lt;/span&gt;
+&lt;span class="c1"&gt;#&lt;/span&gt;
+&lt;span class="c1"&gt;# Mandatory: no&lt;/span&gt;
+&lt;span class="c1"&gt;# Range: 0-1000&lt;/span&gt;
+&lt;span class="c1"&gt;# Default:&lt;/span&gt;
+&lt;span class="na"&gt;StartPollersUnreachable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;5&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;After the change, restart the server and wait a few moments and take a look again at your dashboard. Bellow the effect that I've got.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Graph showing the new utilization percent of the processes after the changes" src="/images/zabbix_pooler_4.png"&gt;&lt;/p&gt;</content><category term="Linux"></category><category term="Zabbix"></category><category term="Shell"></category><category term="Zabbix Poller"></category><category term="Poller proccess more than 75%"></category></entry><entry><title>Zabbix ICMP pinger processes more than 75%</title><link href="https://www.sipmann.com/en/zabbix-icmp-pinger-processes-more-than-75.html" rel="alternate"></link><published>2020-05-25T16:00:00-03:00</published><updated>2020-05-25T16:00:00-03:00</updated><author><name>Maurício Camargo Sipmann</name></author><id>tag:www.sipmann.com,2020-05-25:/en/zabbix-icmp-pinger-processes-more-than-75.html</id><summary type="html">&lt;p&gt;So your monitoring sytems have grown and your zabbix started loggin "Zabbix icmp pinger processes more than 75% busy" at the dashboard.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Dashboard do zabbix avisando sobre o erro" src="/images/zabbix_pinger01.png"&gt;&lt;/p&gt;
+&lt;p&gt;All you have to do is open your config file (&lt;code&gt;/etc/zabbix/zabbix_server.conf&lt;/code&gt;) and find the a tag named &lt;code&gt;StartPingers&lt;/code&gt;. It'll be commented by default. Uncomment it …&lt;/p&gt;</summary><content type="html">&lt;p&gt;So your monitoring sytems have grown and your zabbix started loggin "Zabbix icmp pinger processes more than 75% busy" at the dashboard.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Dashboard do zabbix avisando sobre o erro" src="/images/zabbix_pinger01.png"&gt;&lt;/p&gt;
+&lt;p&gt;All you have to do is open your config file (&lt;code&gt;/etc/zabbix/zabbix_server.conf&lt;/code&gt;) and find the a tag named &lt;code&gt;StartPingers&lt;/code&gt;. It'll be commented by default. Uncomment it and set it's value to something like 3 or 4. It should solve your problem.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;### Option: StartPingers&lt;/span&gt;
+&lt;span class="c1"&gt;#       Number of pre-forked instances of ICMP pingers.&lt;/span&gt;
+&lt;span class="c1"&gt;#&lt;/span&gt;
+&lt;span class="c1"&gt;# Mandatory: no&lt;/span&gt;
+&lt;span class="c1"&gt;# Range: 0-1000&lt;/span&gt;
+&lt;span class="c1"&gt;# Default:&lt;/span&gt;
+&lt;span class="nv"&gt;StartPingers&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;How many Pingers do I need?&lt;/h2&gt;
+&lt;p&gt;Well, there is no exact answer to this. If you set it too high, you'll be wasting resources. The best way to solve, it's increasing them as soon as you notice the percentage growing.&lt;/p&gt;</content><category term="Linux"></category><category term="Zabbix"></category><category term="icmp pinger"></category><category term="icmp pinger more than 75"></category><category term="Zabbix Server"></category></entry><entry><title>Zabbix Server Out of Memory</title><link href="https://www.sipmann.com/en/zabbix-server-out-of-memory-crash.html" rel="alternate"></link><published>2020-02-27T19:00:00-03:00</published><updated>2020-02-27T19:00:00-03:00</updated><author><name>Maurício Camargo Sipmann</name></author><id>tag:www.sipmann.com,2020-02-27:/en/zabbix-server-out-of-memory-crash.html</id><summary type="html">&lt;p&gt;Do you have a crashing Zabbix Server and looking through the log &lt;code&gt;/var/log/zabbix/zabbix_server.log&lt;/code&gt; you see the following out of memory message?&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;__mem_malloc: skipped &lt;span class="m"&gt;0&lt;/span&gt; asked &lt;span class="m"&gt;24&lt;/span&gt; skip_min &lt;span class="m"&gt;18446744073709551615&lt;/span&gt; skip_max &lt;span class="m"&gt;0&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;file:dbconfig.c,line:94&lt;span class="o"&gt;]&lt;/span&gt; __zbx_mem_realloc&lt;span class="o"&gt;()&lt;/span&gt;: out of memory &lt;span class="o"&gt;(&lt;/span&gt;requested &lt;span class="m"&gt;16&lt;/span&gt; bytes&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;file:dbconfig.c,line …&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;Do you have a crashing Zabbix Server and looking through the log &lt;code&gt;/var/log/zabbix/zabbix_server.log&lt;/code&gt; you see the following out of memory message?&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;__mem_malloc: skipped &lt;span class="m"&gt;0&lt;/span&gt; asked &lt;span class="m"&gt;24&lt;/span&gt; skip_min &lt;span class="m"&gt;18446744073709551615&lt;/span&gt; skip_max &lt;span class="m"&gt;0&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;file:dbconfig.c,line:94&lt;span class="o"&gt;]&lt;/span&gt; __zbx_mem_realloc&lt;span class="o"&gt;()&lt;/span&gt;: out of memory &lt;span class="o"&gt;(&lt;/span&gt;requested &lt;span class="m"&gt;16&lt;/span&gt; bytes&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;file:dbconfig.c,line:94&lt;span class="o"&gt;]&lt;/span&gt; __zbx_mem_realloc&lt;span class="o"&gt;()&lt;/span&gt;: please increase CacheSize configuration parameter
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Besides the clear solution to the error, that's a common issue on servers that have a few monitoring items on it (servers, switches, firewalls, databases, etc...). To solve, go to your zabbix_server.conf and look for the CacheSize property and set it to a higher value. Its default should be 8M. At a customer that has somewhere between 4 servers, 7 firewalls/appliances, and a few other things, a 32M did the job, but you can set up to 8G.&lt;/p&gt;
+&lt;p&gt;See ya folks.&lt;/p&gt;</content><category term="Linux"></category><category term="Zabbix"></category><category term="Shell"></category><category term="Out of memory"></category><category term="Crash"></category></entry><entry><title>Connecting to a database through SSH</title><link href="https://www.sipmann.com/en/connecting_to_database_through_ssh.html" rel="alternate"></link><published>2018-03-29T10:03:00-03:00</published><updated>2018-03-29T10:03:00-03:00</updated><author><name>Maurício Camargo Sipmann</name></author><id>tag:www.sipmann.com,2018-03-29:/en/connecting_to_database_through_ssh.html</id><summary type="html">&lt;p&gt;If someday, for some reason, you need to establish a connection with a database which is behind a firewall and you only have SSH access on that server (and you don't want to use a CLI) you can do an SSH tunnel. It's pretty simple, bellow has a sample of …&lt;/p&gt;</summary><content type="html">&lt;p&gt;If someday, for some reason, you need to establish a connection with a database which is behind a firewall and you only have SSH access on that server (and you don't want to use a CLI) you can do an SSH tunnel. It's pretty simple, bellow has a sample of how to allow connections to a remote Firebird database.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ssh -L &lt;span class="m"&gt;3051&lt;/span&gt;:192.168.1.9:3050 username@192.168.1.9
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;cite&gt;-L&lt;/cite&gt; parameter tells to SSH do a local port forwarding on local port &lt;cite&gt;3051&lt;/cite&gt; to remote port &lt;cite&gt;3050&lt;/cite&gt;. You can use it to a connection with many services, not just databases.&lt;/p&gt;
+&lt;p&gt;You can do the reverse kind of tunnel, forward connections from the host to your local machine, you just have to change the parameter form &amp;quot;-L&amp;quot; to &amp;quot;-R&amp;quot; and the port order is inverted, first come the port where the server will listen and after your localhost port. This remote port forwarding must be enabled on the server. Look for &lt;cite&gt;GatewayPorts&lt;/cite&gt; at the ssh config file.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ssh -R &lt;span class="m"&gt;3050&lt;/span&gt;:localhost:3050 username@192.168.1.9
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Why whould you need something like that?? Let's say you want to share a localhost site/database with a friend, but your internet connection don't allow you to expose any port but you have access to a remote server witch can do that. Problem solved ;).&lt;/p&gt;
+</content><category term="Linux"></category><category term="openssh"></category><category term="tunnel"></category><category term="ssh tunnel"></category><category term="ssh"></category><category term="through firewall"></category></entry><entry><title>Change display settings on linux with Disper</title><link href="https://www.sipmann.com/en/linux-external-display-with-disper.html" rel="alternate"></link><published>2018-02-27T12:40:00-03:00</published><updated>2018-02-27T12:40:00-03:00</updated><author><name>Maurício Camargo Sipmann</name></author><id>tag:www.sipmann.com,2018-02-27:/en/linux-external-display-with-disper.html</id><summary type="html">&lt;p&gt;From time to time, I change the Linux distro on my laptop or just do a fresh install on it. And once in a while, have random problems with external displays. It can be something really &amp;quot;simple&amp;quot; like don't detecting the external monitor or something crazy like the image below …&lt;/p&gt;</summary><content type="html">&lt;p&gt;From time to time, I change the Linux distro on my laptop or just do a fresh install on it. And once in a while, have random problems with external displays. It can be something really &amp;quot;simple&amp;quot; like don't detecting the external monitor or something crazy like the image below.&lt;/p&gt;
+&lt;img alt="Display bug" src="/images/bug.png" /&gt;
+&lt;p&gt;As you can see at the image, the mint detected the display but mirrored it in a crazy way that works but doesn't at the same time. If you try anything and doesn't get working, or just wanna skip the whole job of configuring complexes text files, give a try to &lt;a class="reference external" href="http://willem.engen.nl/projects/disper/"&gt;Disper&lt;/a&gt;. Download the latest version.
+Extract it on any folder, and make install it (on the extracted folder).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;make install
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;After that, you can start using it... There are a few options that will serve you well.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;disper -e &lt;span class="c1"&gt;#extend your display&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;disper -c &lt;span class="c1"&gt;#clone your display&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;disper -s &lt;span class="c1"&gt;#only your external display&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+</content><category term="Linux"></category><category term="Linux"></category><category term="external display"></category><category term="disper"></category></entry></feed>

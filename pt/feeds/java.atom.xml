@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sipmann - Java</title><link href="https://www.sipmann.com/pt/" rel="alternate"></link><link href="https://www.sipmann.com/feeds/java.atom.xml" rel="self"></link><id>https://www.sipmann.com/pt/</id><updated>2018-03-04T17:40:00-03:00</updated><subtitle></subtitle><entry><title>Resolvendo java.net.SocketException: Protocol family unavailable em Java + Docker + WildFly</title><link href="https://www.sipmann.com/pt/socketException-protocol-family-unavailable-java-docker-wildfly.html" rel="alternate"></link><published>2018-03-04T17:40:00-03:00</published><updated>2018-03-04T17:40:00-03:00</updated><author><name>Maurício Camargo Sipmann</name></author><id>tag:www.sipmann.com,2018-03-04:/pt/socketException-protocol-family-unavailable-java-docker-wildfly.html</id><summary type="html">&lt;p&gt;Nos últimos dias eu estou brincando com o &lt;a class="reference external" href="http://wildfly-swarm.io/"&gt;WildFly Swarm&lt;/a&gt; e decidi fazer o deploy de uma aplicação simples com Docker. Deveria funcionar bem, ao menos é o que pensava. Construí um container com o seguinte Dockerfile e ao invés de obter uma aplicação web, tudo que eu obtive foi …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Nos últimos dias eu estou brincando com o &lt;a class="reference external" href="http://wildfly-swarm.io/"&gt;WildFly Swarm&lt;/a&gt; e decidi fazer o deploy de uma aplicação simples com Docker. Deveria funcionar bem, ao menos é o que pensava. Construí um container com o seguinte Dockerfile e ao invés de obter uma aplicação web, tudo que eu obtive foi o erro &lt;cite&gt;java.net.SocketException: Protocol family unavailable&lt;/cite&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="s"&gt;java:openjdk-8-jdk&lt;/span&gt;
+
+&lt;span class="k"&gt;COPY&lt;/span&gt; target/issues.jar /opt/issues.jar
+
+&lt;span class="k"&gt;EXPOSE&lt;/span&gt;&lt;span class="s"&gt; 8080&lt;/span&gt;
+
+&lt;span class="k"&gt;CMD&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;java&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;-jar&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;/opt/issues.jar&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Por alguma razão, WildFly e Java, ambos decidiram utilizar um protocolo IPv6 na interface de rede no Docker invés da v4, então tudo que você tem que fazer é falar ao Java que deve dar preferência em utilizar o IPv4 com a seguinte configuração no seu arquivo pom.xml dentro da tag do plugin WildFly.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.wildfly.swarm&lt;span class="nt"&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;wildfly-swarm-plugin&lt;span class="nt"&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2018.2.0&lt;span class="nt"&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+
+        &lt;span class="c"&gt;&amp;lt;!-- ADICIONE ISTO --&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;configuration&amp;gt;&lt;/span&gt;
+          &lt;span class="nt"&gt;&amp;lt;mainClass&amp;gt;&lt;/span&gt;org.wildfly.swarm.examples.netflix.ribbon.frontend.Main&lt;span class="nt"&gt;&amp;lt;/mainClass&amp;gt;&lt;/span&gt;
+          &lt;span class="nt"&gt;&amp;lt;properties&amp;gt;&lt;/span&gt;
+                &lt;span class="nt"&gt;&amp;lt;java.net.preferIPv4Stack&amp;gt;&lt;/span&gt;true&lt;span class="nt"&gt;&amp;lt;/java.net.preferIPv4Stack&amp;gt;&lt;/span&gt;
+          &lt;span class="nt"&gt;&amp;lt;/properties&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;/configuration&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Outra forma de solucionar o problema, é adicionando a mesma propriedade ao comando de run no seu Dockerfile. Então, fica a seu critério onde adicionar. Abaixo a solução utilizando o Dockerfile.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="s"&gt;java:openjdk-8-jdk&lt;/span&gt;
+&lt;span class="k"&gt;ENV&lt;/span&gt; &lt;span class="nv"&gt;JAVA_OPTS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;-Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true&amp;quot;&lt;/span&gt;
+
+&lt;span class="k"&gt;COPY&lt;/span&gt; target/issues.jar /opt/issues.jar
+
+&lt;span class="k"&gt;EXPOSE&lt;/span&gt;&lt;span class="s"&gt; 8080&lt;/span&gt;
+
+&lt;span class="k"&gt;ENTRYPOINT&lt;/span&gt; &lt;span class="nb"&gt;exec&lt;/span&gt; java &lt;span class="nv"&gt;$JAVA_OPTS&lt;/span&gt; -jar /opt/issues.jar
+&lt;/pre&gt;&lt;/div&gt;
+</content><category term="Java"></category><category term="Java"></category><category term="WildFly"></category><category term="Docker"></category><category term="java.net.SocketException"></category><category term="Protocol family unavailable"></category></entry></feed>

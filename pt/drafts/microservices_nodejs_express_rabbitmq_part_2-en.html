@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Microservices with NodeJS, Express.js and RabbitMQ Part 2 - Sipmann</title>
+
+    <meta name="monetization" content="$coil.xrptipbot.com/uH6DA7YAQ7y0_IvXt4p0VQ">
+
+
+    <meta property="og:site_name" content="Sipmann">     <meta property="og:type" content="article">
+
+
+    <link rel="alternate" hreflang="x-default" href="https://www.sipmann.com/pt/drafts/microservices_nodejs_express_rabbitmq_part_2-en.html">
+
+    <meta property="og:title" content="Microservices with NodeJS, Express.js and RabbitMQ Part 2">
+    <meta property="og:url" content="https://www.sipmann.com/pt/drafts/microservices_nodejs_express_rabbitmq_part_2-en.html">
+    <meta property="article:author" content="Maurício Camargo Sipmann"> 
+    <meta name="description" content="Publishing and consuming messages with NodeJS + RabbitMQ part 2">
+    <meta property="og:description" content="Publishing and consuming messages with NodeJS + RabbitMQ part 2"> 
+    <meta property="article:published_time" content=" 2018-04-13 "> 
+    <meta property="article:section" content="Front-end">      <meta property="article:tag" content="nodejs">     <meta property="article:tag" content="microservices">     <meta property="article:tag" content="rabbitmq">     <meta property="article:tag" content="expressjs">     <meta property="article:tag" content="imagemin">     <meta property="article:tag" content="imagemin-pngquant">     <meta property="article:tag" content="node js">  
+    <meta property="og:locale" content="en">
+    <meta property="og:image" content="https://www.sipmann.com//images/microservices_rabit_pt1.png">       <link href="https://www.sipmann.com/pt/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Sipmann ATOM Feed">       <link rel="stylesheet" href="/theme/css/w3.css">
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <link rel="preload" as="script" href="https://ssl.google-analytics.com">
+        <link rel="dns-prefetch" href="https://ssl.google-analytics.com">    
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: "Raleway", sans-serif
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        pre {
+            display: block;
+            padding: 9.5px;
+            margin: 0 0 10px;
+            font-size: 13px;
+            line-height: 1.428571429;
+            word-break: break-all;
+            word-wrap: break-word;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .banner_img {
+            background-position: 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            /*background-attachment: fixed;*/
+            height: 100px;
+        }
+        
+        article img {
+            max-width: -webkit-fill-available;
+        }
+        
+		.highlight {
+			overflow-x: auto;
+		}
+		
+		p > a {
+			color: blue;
+		}
+		
+		.w3-container p {
+			text-indent: 10px;
+			text-align: justify;
+		}
+		
+        @media (min-width: 993px) {
+            #mySidebar {
+                position: initial !important;
+                background: #f1f1f1 !important;
+            }
+        }
+
+        @media screen and (prefers-color-scheme: dark) {
+            .w3-light-gray {
+                background-color: #2f3237 !important;
+                color: white !important;
+            }
+
+            #mySidebar {
+                position: initial !important;
+                background: #2f3237 !important;
+            }
+
+            hr {
+                border-color: #1c1d1e;
+            }
+        }
+    </style>
+</head>
+
+<body class="w3-light-gray">
+    <div class="w3-top">
+        <nav class="w3-bar w3-dark-gray w3-card-4">
+            <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();" type="button">
+                <i class="fa fa-bars"></i> &nbsp;Menu</button>
+                <a href="/" class="w3-bar-item w3-button">Home</a>
+            <a class="w3-bar-item w3-button" href="https://www.sipmann.com/en/">en</a>
+            <a class="w3-bar-item w3-button w3-light-gray" href="https://www.sipmann.com/pt/">pt</a>
+        </nav>
+    </div>
+
+    <header class="w3-container w3-center" style="padding:22px 0 0 0;">
+        <div style="height: 130px;width:100%; background-image: url('/images/header.webp');background-size: cover;"></div>
+    </header>
+    <div class="w3-content w3-margin-top" style="max-width:1400px;">
+        <div class="w3-row">
+
+            <div class="w3-col l9 s12">
+    <article class="w3-card-4 w3-margin w3-white">
+        <div class="w3-container">
+            <h1><b><a href="https://www.sipmann.com/pt/drafts/microservices_nodejs_express_rabbitmq_part_2-en.html" title="Permalink to Microservices with NodeJS, Express.js and RabbitMQ Part 2">Microservices with NodeJS, Express.js and RabbitMQ Part 2</a></b></h1>
+            <h5>
+                <i class="fa fa-calendar"></i><time class="w3-opacity" datetime="2018-04-13T13:00:00-03:00"> Fri 13 April 2018</time>
+            </h5>
+        </div>
+        
+        <div class="w3-container">
+            <p><p>If you haven't read the <a class="reference external" href="https://www.sipmann.com/microservices_nodejs_express_rabbitmq_part_1-en.html">part 1</a> go ahead and read it... It can be useful :). Or if for some reason you want to start now, you can grab the project where we stopped <a class="reference external" href="https://github.com/sipmann/imagecompacter/releases/tag/v1">here</a> and get along. On this part, we'll implement the RabbitMQ queue and see how we can get the best of our app and server with that.</p>
+<p>Before we began coding, let's understand why we are going to use RabbitMQ if what we have now works? If you check again, you'll see how long it takes to answer the request with the optimized image. It takes a few seconds, so imagine an online service with thousands of request to optimize images (like <a class="reference external" href="https://tinypng.com/">TinyPNG</a>) how long is it gonna take to answer every request? How much of your server is it gonna take? With only one service running, probably the server will crash.</p>
+<p>With a queue, we can schedule the requests so we can use the amount of memory and processor that our server has, without taking more than we can. It's better to take a few seconds to answer the request then throw some error to the user. Want more? With RabbitMQ we can see how the queue is doing and we can add more consumers (workers) to it and get things done quicker and distribute the job.</p>
+<p>First of all, we need an up and running Rabbit server, for the sake of simplicity, I'll use a Docker container with it inside.</p>
+<div class="highlight"><pre><span></span>docker run -d --name rabbit -p <span class="m">5672</span>:5672 -p <span class="m">8080</span>:15672 rabbitmq:3-management
+</pre></div>
+<p>You can see that we're running the rabbitmq:3-management image, which provides us a web interface to see how things are going. After that, if you look at our code you'll see that all the job is made at the '/upload' route, and that's what we'll change.</p>
+<p>First, we need to understand what we need from RabbitMQ. We need something that, we send an image to a queue and get an optimized image back from that. There is a name for that, is RPC (remote procedure call) and there are two ways of doing this with rabbit. Both the ways you can see on their tutorial page. We'll use the approach that uses a global channel whose id is randomly generated (you'll use the name 'amq.rabbitmq.reply-to' but the rabbit will do the job).</p>
+<p>Let's start importing the library, defining a few variables and defining a init function that will establish a connection with the rabbit server and create our RPC queue. The RPC queue it's where we'll receive the answer from the consumer (our worker).</p>
+<div class="highlight"><pre><span></span><span class="c1">//import the library</span>
+<span class="kr">const</span> <span class="nx">amqplib</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;amqplib&#39;</span><span class="p">);</span>
+
+<span class="c1">//queue channel</span>
+<span class="kd">let</span> <span class="nx">channel</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="c1">//queue name</span>
+<span class="kr">const</span> <span class="nx">QUEUE</span> <span class="o">=</span> <span class="s1">&#39;optimizeimg&#39;</span><span class="p">;</span>
+
+<span class="c1">//...</span>
+
+<span class="kd">function</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;amqplib&#39;</span><span class="p">).</span><span class="nx">connect</span><span class="p">(</span><span class="s1">&#39;amqp://localhost&#39;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">conn</span> <span class="p">=&gt;</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">createChannel</span><span class="p">())</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">ch</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="nx">channel</span> <span class="o">=</span> <span class="nx">ch</span><span class="p">;</span>
+
+            <span class="c1">//this queue is a &quot;Direct reply-to&quot; read more at the docs</span>
+            <span class="c1">//When some msg comes in, we &quot;emit&quot; a message to the proper &quot;correlationId&quot; listener</span>
+            <span class="nx">ch</span><span class="p">.</span><span class="nx">consume</span><span class="p">(</span><span class="s1">&#39;amq.rabbitmq.reply-to&#39;</span><span class="p">,</span> <span class="nx">msg</span> <span class="p">=&gt;</span> <span class="nx">eventEmitter</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">correlationId</span><span class="p">,</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">content</span><span class="p">),</span> <span class="p">{</span><span class="nx">noAck</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span>
+        <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="c1">//Random id generator</span>
+<span class="kd">function</span> <span class="nx">randomid</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">().</span><span class="nx">toString</span><span class="p">()</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">().</span><span class="nx">toString</span><span class="p">()</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">().</span><span class="nx">toString</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/upload&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">img</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">files</span><span class="p">.</span><span class="nx">image</span><span class="p">;</span>
+
+    <span class="kd">let</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">randomid</span><span class="p">();</span>
+
+    <span class="c1">//Event listener that will fire when the proper randomid is provided</span>
+    <span class="nx">eventEmitter</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">msg</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">msg</span><span class="p">,</span> <span class="s1">&#39;binary&#39;</span><span class="p">);</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s1">&#39;binary&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="c1">//Checks if the queue exists, and create it if needed.</span>
+    <span class="nx">channel</span><span class="p">.</span><span class="nx">assertQueue</span><span class="p">(</span><span class="nx">QUEUE</span><span class="p">)</span>
+        <span class="c1">//Sent the buffered img to the queue with the ID and the responseQueue</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">channel</span><span class="p">.</span><span class="nx">sendToQueue</span><span class="p">(</span><span class="nx">QUEUE</span><span class="p">,</span> <span class="nx">img</span><span class="p">.</span><span class="nx">data</span><span class="p">,</span> <span class="p">{</span><span class="nx">correlationId</span><span class="o">:</span><span class="nx">id</span><span class="p">,</span> <span class="nx">replyTo</span><span class="o">:</span> <span class="s1">&#39;amq.rabbitmq.reply-to&#39;</span><span class="p">}));</span>
+
+<span class="p">});</span>
+
+<span class="c1">//Finally start the app with the given port number</span>
+<span class="c1">//now we initialize the rabbitmq connection before start the server</span>
+<span class="nx">init</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">4000</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Example app listening on port 4000!&#39;</span><span class="p">)))</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">=&gt;</span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">));</span>
+</pre></div>
+<p>Ok, now we have our server code rewritten so let's see our worker code. Create a file named 'worker.js' and let's see how it's gonna be. It's really simple. You initialize a connection with RabbitMQ too, create a channel, check if the queue exists and start watching for incoming messages. When an image arrives, we do the job with it and send back to the &quot;replyTo&quot; queue the optimized image for the proper sender (correlationId). In the end, we do an acknowledge of the message so it get's out from the queue.</p>
+<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">imagemin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;imagemin&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">imageminPngquant</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;imagemin-pngquant&#39;</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">channel</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">QUEUE</span> <span class="o">=</span> <span class="s1">&#39;imgqueue&#39;</span><span class="p">;</span>
+
+<span class="nx">require</span><span class="p">(</span><span class="s1">&#39;amqplib&#39;</span><span class="p">).</span><span class="nx">connect</span><span class="p">(</span><span class="s1">&#39;amqp://localhost&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">conn</span> <span class="p">=&gt;</span><span class="nx">conn</span><span class="p">.</span><span class="nx">createChannel</span><span class="p">())</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">ch</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">ch</span><span class="p">.</span><span class="nx">assertQueue</span><span class="p">(</span><span class="nx">QUEUE</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="c1">//Watch incomming messages</span>
+        <span class="nx">ch</span><span class="p">.</span><span class="nx">consume</span><span class="p">(</span><span class="nx">QUEUE</span><span class="p">,</span> <span class="nx">msg</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="nx">imagemin</span><span class="p">.</span><span class="nx">buffer</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span> <span class="p">{</span>
+                <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span><span class="nx">imageminPngquant</span><span class="p">()]</span>
+            <span class="p">})</span>
+            <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">out</span> <span class="p">=&gt;</span> <span class="p">{</span>
+                <span class="c1">//Send back to the sender (replyTo) queue and give the correlationId back</span>
+                <span class="c1">//so we can emit the event.</span>
+                <span class="nx">ch</span><span class="p">.</span><span class="nx">sendToQueue</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">replyTo</span><span class="p">,</span> <span class="nx">out</span><span class="p">,</span> <span class="p">{</span>
+                    <span class="nx">correlationId</span><span class="o">:</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">correlationId</span>
+                <span class="p">});</span>
+
+                <span class="c1">//Acknowledge the job done with the message.</span>
+                <span class="nx">ch</span><span class="p">.</span><span class="nx">ack</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<p>The key points here are. Open just one connection to the hole server. You CAN create one channel for every request that you receive, but it can take some time if you have a really big cluster of RabbitMQ. It was a quick tutorial, but I hope that it was able to clear a few questions that you might have when working with rabbit and express.</p>
+</p>
+        </div>
+
+
+        <hr>
+        <section class="w3-padding" id="translations">
+            <h4>Traduções:</h4>
+            <ul>
+            </ul>
+        </section>
+
+    </article>
+    <hr>
+
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        "name": "Post: Microservices with NodeJS, Express.js and RabbitMQ Part 2",
+        "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+            "@id": "https://www.sipmann.com/pt",
+            "name": "Article"
+        }
+        },{
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+            "@id": "https://www.sipmann.com/pt/category/front-end.html",
+            "name": "Front-end"
+        }
+        },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+            "@id": "https://www.sipmann.com/pt/drafts/microservices_nodejs_express_rabbitmq_part_2-en.html",
+            "name": "Microservices with NodeJS, Express.js and RabbitMQ Part 2"
+        }
+        }]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Article",
+        "@id" : "https://www.sipmann.com/pt/drafts/microservices_nodejs_express_rabbitmq_part_2-en.html",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://google.com/article"
+        },
+        "headline": "Microservices with NodeJS, Express.js and RabbitMQ Part 2",
+        "image": ["/images/microservices_rabit_pt1.png"],
+        "datePublished": "2018-04-13 13:00:00-03:00",
+        "dateModified": "2018-04-13 13:00:00-03:00",
+        "author": {
+            "@type": "Person",
+            "name": "Maurício Camargo Sipmann"
+            ,
+            "image": {
+              "@type": "ImageObject",
+              "id": "https://www.sipmann.com/#personlogo",
+              "url": "https://s.gravatar.com/avatar/7f717d69fb6d3dbc5490d47369aca3e0?s=180",
+              "height": 180,
+              "width": 180,
+              "caption": "Maurício Sipmann"
+            }
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Maurício Camargo Sipmann"
+            ,
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://s.gravatar.com/avatar/7f717d69fb6d3dbc5490d47369aca3e0?s=180",
+              "height": 180,
+              "width": 180
+            }
+        },
+
+        "articleSection": "
+            nodejs
+                ,
+            microservices
+                ,
+            rabbitmq
+                ,
+            expressjs
+                ,
+            imagemin
+                ,
+            imagemin-pngquant
+                ,
+            node js
+        "
+    }
+    </script>
+            </div>
+
+            <div class="w3-sidebar w3-col l3 w3-collapse w3-animate-right" id="mySidebar" style="right:0;">
+<div class="w3-card w3-margin w3-margin-top" role="navigation" aria-labelledby="nav-categories">
+    <div class="w3-container w3-padding w3-blue-gray">
+        <h4 id="nav-categories">Categorias</h4>
+    </div>
+    <ul class="w3-ul w3-hoverable w3-white">
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/pt/category/azure.html" style="display: block">
+                Azure
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/pt/category/firefoxos.html" style="display: block">
+                FirefoxOS
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/pt/category/java.html" style="display: block">
+                Java
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/pt/category/linux.html" style="display: block">
+                Linux
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/pt/category/mysql.html" style="display: block">
+                MySQL
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/pt/category/net.html" style="display: block">
+                .NET
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/pt/category/powershell.html" style="display: block">
+                PowerShell
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/pt/category/python.html" style="display: block">
+                Python
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/pt/category/shell.html" style="display: block">
+                Shell
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/pt/category/sql-server.html" style="display: block">
+                SQL Server
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/pt/category/tools.html" style="display: block">
+                Tools
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="w3-card w3-margin w3-margin-top" role="navigation" aria-labelledby="nav-recent-posts">
+    <div class="w3-container w3-padding w3-blue-gray">
+        <h4 id="nav-recent-posts">Posts Recentes</h4>
+    </div>
+    <ul class="w3-ul w3-hoverable w3-white">
+        <li>
+            <a class="w3-padding" href="/monitoring-mysql-restarts-with-powershell.html">
+                Monitorando restarts do MySQL com PowerShell
+            </a>
+        </li>
+        <li>
+            <a class="w3-padding" href="/mysql-dual-password-functionality.html">
+                Trocando a senha de um usuário do MySQL sem downtime da aplicação
+            </a>
+        </li>
+        <li>
+            <a class="w3-padding" href="/apache-nifi-json-to-sql-replacing-underscore.html">
+                Apache Nifi JSON to SQL removendo underline
+            </a>
+        </li>
+        <li>
+            <a class="w3-padding" href="/blocking-user-on-sql-server-based-on-schedule.html">
+                Bloqueando um usuário do SQL Server baseado em uma tabela de horários
+            </a>
+        </li>
+        <li>
+            <a class="w3-padding" href="/select_specific_fields_with_efcore.html">
+                Como definir as colunas no select utilizando Entity Framework
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="w3-margin w3-margin-top" role="navigation" aria-labelledby="buy-me-a-coffee">
+    <div class="w3-container w3-padding">
+        <a href="https://www.buymeacoffee.com/sipmann" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;"></a>
+    </div>
+</div>            </div>
+
+        </div>
+    </div>
+    <footer class="w3-container w3-dark-gray w3-padding-32 w3-margin-top">
+        <div class="w3-bar">
+            <a class="w3-bar-item" href="https://twitter.com/MSipmann" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a>
+            <a class="w3-bar-item" href="https://github.com/sipmann" target="_blank" rel="noopener noreferrer"><i class="fa fa-github-square fa-lg"></i> Github</a>
+            <a class="w3-bar-item" href="http://br.linkedin.com/in/sipmann" target="_blank" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a>
+        </div>
+    </footer>
+    <!-- <script data-ad-client="ca-pub-3097623931513783" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+    
+        <!-- Google Analytics -->
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-8072083-2']);
+            _gaq.push(['_trackPageview']);
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+        <!-- End Google Analytics Code -->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-BW422MP4C1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-BW422MP4C1');
+	</script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Person",
+        "name": "Sipmann",
+        "url": "https://www.sipmann.com/pt"
+        , "sameAs": [
+                "https://twitter.com/MSipmann",
+                "https://github.com/sipmann",
+                "http://br.linkedin.com/in/sipmann"
+        ]
+    }
+    </script>
+
+    <script>
+
+        // Get the Sidebar
+        var mySidebar = document.getElementById("mySidebar");
+
+        // Get the DIV with overlay effect
+        var overlayBg = document.getElementById("myOverlay");
+
+        function w3_open() {
+            if (mySidebar.style.display === 'block') {
+                mySidebar.style.display = 'none';
+                overlayBg.style.display = "none";
+            } else {
+                mySidebar.style.display = 'block';
+                overlayBg.style.display = "block";
+            }
+        }
+
+        function w3_close() {
+            mySidebar.style.display = "none";
+            overlayBg.style.display = "none";
+        }
+
+    </script>
+
+</body>
+
+</html>

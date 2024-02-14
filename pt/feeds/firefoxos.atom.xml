@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sipmann - FirefoxOS</title><link href="https://www.sipmann.com/pt/" rel="alternate"></link><link href="https://www.sipmann.com/feeds/firefoxos.atom.xml" rel="self"></link><id>https://www.sipmann.com/pt/</id><updated>2014-09-02T19:00:00-03:00</updated><subtitle></subtitle><entry><title>Desenvolvendo apps para o FirefoxOS (Parte 1)</title><link href="https://www.sipmann.com/pt/desenvolvendo-app-firefoxos.html" rel="alternate"></link><published>2014-09-02T19:00:00-03:00</published><updated>2014-09-02T19:00:00-03:00</updated><author><name>Maurício Camargo Sipmann</name></author><id>tag:www.sipmann.com,2014-09-02:/pt/desenvolvendo-app-firefoxos.html</id><summary type="html">&lt;h3&gt;Requisitos mínimos?&lt;/h3&gt;
+&lt;p&gt;Para seguir este tutorial você precisará do &lt;a href="http://nodejs.org/"&gt;Nodejs&lt;/a&gt;. Utilizaremos ele para automatizar algumas tarefas, como a criação do nosso projeto e até mesmo o empacotamento da app. Estas automatizações se darão pela utilização de algumas aplicações como o &lt;a href="http://yeoman.io/"&gt;Yeoman&lt;/a&gt; e o &lt;a href="http://gruntjs.com/"&gt;Grunt&lt;/a&gt; .&lt;/p&gt;
+&lt;p&gt;Também será necessário o emulador do …&lt;/p&gt;</summary><content type="html">&lt;h3&gt;Requisitos mínimos?&lt;/h3&gt;
+&lt;p&gt;Para seguir este tutorial você precisará do &lt;a href="http://nodejs.org/"&gt;Nodejs&lt;/a&gt;. Utilizaremos ele para automatizar algumas tarefas, como a criação do nosso projeto e até mesmo o empacotamento da app. Estas automatizações se darão pela utilização de algumas aplicações como o &lt;a href="http://yeoman.io/"&gt;Yeoman&lt;/a&gt; e o &lt;a href="http://gruntjs.com/"&gt;Grunt&lt;/a&gt; .&lt;/p&gt;
+&lt;p&gt;Também será necessário o emulador do &lt;a href="https://www.mozilla.org/pt-BR/firefox/os/"&gt;FirefoxOS&lt;/a&gt;, ele roda através do seu navegador Firefox. Para instalá-lo basta ir no menu &lt;code&gt;Ferramentas &amp;gt; Desenvolvedor web &amp;gt; App Manager&lt;/code&gt;, nesta tela basta tentar iniciar o emulador, se não possuir um já instalado, você será solicitado a fazê-lo. Neste tutorial irei utilizar a versão 1.4.&lt;/p&gt;
+&lt;h3&gt;Preparando o ambiente&lt;/h3&gt;
+&lt;p&gt;Tendo o Node instalado, vamos instalar o yeoman e o gerador de app para Firefox OS. Atenção para o parâmetro '-g' no processo de instalação, com ele os seus pacotes serão instalados globalmente, e não só para a pasta em que esta o prompt.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;npm install -g yo&lt;/span&gt;
+&lt;span class="err"&gt;npm install -g generator-firefoxos-app&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Com ambos os pacotes acima instalados, vamos dar início a criação da app. No seu diretório de projetos ou onde desejar criar a app chama o generator instalado.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;yo firefoxos-app&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Uma vez chamado esse generator, o mesmo irá fazer alguns questionamentos, o primeiro é claro será o nome da sua aplicação, seguido da descrição e o nome do desenvolvedor.&lt;/p&gt;
+&lt;p&gt;Após a execução do generator, você já terá uma estrutura para desenvolvimento pronta, inclusive com um html inicial, com todas as dependências já instaladas. Vale ressaltar agora algumas tarefas disponíveis no Gruntfile.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Default: Irá gerar o pacote de distribuição&lt;/li&gt;
+&lt;li&gt;Test: Até a presente versão do generator (0.1.3) este processo irá simplesmente rodar o validador jsHint&lt;/li&gt;
+&lt;li&gt;Server: Irá disponibilizar na porta 9001 um simples servidor para testar a sua app&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Vamos testar a nossa app. Para tal, rode o comando &lt;code&gt;grunt server&lt;/code&gt; e acesse no seu navegador &lt;code&gt;localhost:9001&lt;/code&gt; e devemos ver a seguinte app. Caso nenhuma página seja exibida, revise os passos ateriores e verifique se nenhum erro ocorreu.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="App inicial" src="/images/app_inicial.png"&gt;&lt;/p&gt;
+&lt;p&gt;Vale ressaltar que a sua app toda estará dentro de uma pasta também chamada &lt;code&gt;app&lt;/code&gt;. Nela você encontrará os seus arquivos .html, .js, .css e demais. Antes de começarmos a codificar a nossa app, vamos ver como se instala a mesma.&lt;/p&gt;
+&lt;h3&gt;Instalando a app&lt;/h3&gt;
+&lt;p&gt;Para fins de teste, não é necessário rodar o comando &lt;code&gt;grunt&lt;/code&gt;, sendo que ele irá testar o JS e compactar tudo em um arquivo .zip, basta apontar a instalação para a pasta &lt;code&gt;app&lt;/code&gt; dentro do seu projeto. "Mas como eu faço isto?".&lt;/p&gt;
+&lt;p&gt;Indo novamente na &lt;code&gt;App Manager&lt;/code&gt;, clicando na lateral esquerda, onde indica "Aplicativos", teremos então disponível no inferior da tela duas opções, vamos nos ater a utilizar a primeira (&lt;code&gt;Adicionar aplicativo hospedado&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Clicando nesta opção vamos navegar até a pasta da app e clicar selecionada. Pronto.&lt;/p&gt;
+&lt;p&gt;Simples de se instalar, não acha? O Resultado final deve ser semelhante ao abaixo.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="App inicial" src="/images/app_visual_1.png"&gt;&lt;/p&gt;
+&lt;h3&gt;Acessando uma API&lt;/h3&gt;
+&lt;p&gt;Quando vamos programar algo mais complexo, geralmente vamos utilizar algo como, câmera, rede, lista de contatos, armazenamento e outras possibilidades. Para utilizarmos essas APIs, precisamos - assim como no desenvolvimento para android - especificar para o usuário no momento de instalação. Estes dados de acesso ficam no arquivo &lt;code&gt;manifes.webapp&lt;/code&gt;, se você ainda não deu uma olhada neste arquivo, é nele que fica armazenado dados da app, como nome, descrição, versão, localização de ícones e é claro as permissões que a mesma requer.&lt;/p&gt;
+&lt;p&gt;As permissões ficam na propriedade permissions, na forma de &lt;code&gt;"chave" : True&lt;/code&gt;. Algumas das apis são:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;câmera&lt;/li&gt;
+&lt;li&gt;contacts&lt;/li&gt;
+&lt;li&gt;desktop-notification&lt;/li&gt;
+&lt;li&gt;storage&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Cada permissão vai mudar o tipo de app que você esta desenvolvendo, mas aí eu sugiro ler mais na MDN &lt;a href="https://developer.mozilla.org/en-US/Apps/Build/App_permissions"&gt;aqui&lt;/a&gt;. Esse é o básico para iniciar no desenvolvimento de app para FirefoxOS. Na parte dois, vou começar a passar um pouco de código.&lt;/p&gt;</content><category term="FirefoxOS"></category><category term="FirefoxOS"></category><category term="Html"></category><category term="Yeoman"></category></entry></feed>

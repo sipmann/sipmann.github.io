@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sipmann - Shell</title><link href="https://www.sipmann.com/pt/" rel="alternate"></link><link href="https://www.sipmann.com/feeds/shell.atom.xml" rel="self"></link><id>https://www.sipmann.com/pt/</id><updated>2017-10-08T18:00:00-03:00</updated><subtitle></subtitle><entry><title>Scripts de inicialização no raspberry pi</title><link href="https://www.sipmann.com/pt/script-de-inicializacao-raspberry.html" rel="alternate"></link><published>2017-10-08T18:00:00-03:00</published><updated>2017-10-08T18:00:00-03:00</updated><author><name>Maurício Camargo Sipmann</name></author><id>tag:www.sipmann.com,2017-10-08:/pt/script-de-inicializacao-raspberry.html</id><summary type="html">&lt;p&gt;Instalei essa semana o &lt;a class="reference external" href="https://gitea.io"&gt;gitea&lt;/a&gt; no meu raspberry pi B + e queria iniciar ele no boot... Não sou profundo conhecedor de linux, então, logo não sabia como fazer isto da melhor forma.
+As versões atuais do Raspbian utilizam o &lt;cite&gt;systemd&lt;/cite&gt; para gerenciar os serviços e confesso que nunca havia utilizado …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Instalei essa semana o &lt;a class="reference external" href="https://gitea.io"&gt;gitea&lt;/a&gt; no meu raspberry pi B + e queria iniciar ele no boot... Não sou profundo conhecedor de linux, então, logo não sabia como fazer isto da melhor forma.
+As versões atuais do Raspbian utilizam o &lt;cite&gt;systemd&lt;/cite&gt; para gerenciar os serviços e confesso que nunca havia utilizado o systemctl para nada.&lt;/p&gt;
+&lt;p&gt;Vamos começa criando um arquivo de serviço dentro da pasta &lt;cite&gt;/etc/systemd/system&lt;/cite&gt;, vale ressaltar que a pasta &lt;cite&gt;system&lt;/cite&gt; deve (em teoria) ser reservada para pacotes do sistema.
+Vamos criar o arquivo com o nome &lt;cite&gt;gitea.service&lt;/cite&gt; dentro da pasta antes mencionada. Abaixo podemos ver como ficou o arquivo e um detalhamento após ele.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;Unit&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="nv"&gt;Description&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;Gitea Service
+&lt;span class="nv"&gt;After&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;network.target
+
+&lt;span class="o"&gt;[&lt;/span&gt;Service&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="nv"&gt;Type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;simple
+&lt;span class="nv"&gt;User&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;root
+&lt;span class="nv"&gt;WorkingDirectory&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/root/
+&lt;span class="nv"&gt;ExecStart&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/root/gitea web
+&lt;span class="nv"&gt;Restart&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;on-abort
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;A composição do arquivo é bem simples, mas vamos a alguns detalhes. &lt;cite&gt;Type&lt;/cite&gt; possui várias opções (simple, forking, oneshot), utilizamos &lt;cite&gt;simple&lt;/cite&gt; uma vez que o nosso processo executara, permanecerá rodando e não executa um fork de processo.
+Fork como acabo de comentar, deve ser utilizado caso o processo que for executando disparar mais processos. User irá definir o usuário do processo. &lt;cite&gt;WorkingDirectory&lt;/cite&gt; definira onde o processo terá a sua base de execução, como o gitea esta localizada na pasta root,
+aponto para lá. O ExecStart é bem simples e direto, deve chamar a execução do processo passando parametros caso seja necessário. O &lt;cite&gt;Restart&lt;/cite&gt; é o que nos garantirá que o serviço permanecerá rodando caso haja algum imprevisto (exceto o fato de um usuário chamar o stop).&lt;/p&gt;
+&lt;p&gt;Salve o arquivo e vamos rodar um refresh para o SO perceber o novo serviço. Assim rodamos &lt;cite&gt;systemctl daemon-reload&lt;/cite&gt;. Sempre que alterarmos um serviço ou criarmos um novo, este comando deve ser executado, caso contrário o próprio systemctl pode lhe alertar da necessidade.
+Após reacarregar os serviços, vamos habilitar o serviço que criamos rodando &lt;cite&gt;systemctl enable gitea&lt;/cite&gt;, feito isto temos alguns comandos uteis.&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;systemctl start gitea&lt;/li&gt;
+&lt;li&gt;systemctl stop gitea&lt;/li&gt;
+&lt;li&gt;systemctl status gitea&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;O comando de status pode ser visto como exemplo abaixo.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;● gitea.service - Gitea Service
+  Loaded: loaded &lt;span class="o"&gt;(&lt;/span&gt;/etc/systemd/system/gitea.service&lt;span class="p"&gt;;&lt;/span&gt; enabled&lt;span class="p"&gt;;&lt;/span&gt; vendor preset: enabled&lt;span class="o"&gt;)&lt;/span&gt;
+  Active: active &lt;span class="o"&gt;(&lt;/span&gt;running&lt;span class="o"&gt;)&lt;/span&gt; since Wed &lt;span class="m"&gt;2017&lt;/span&gt;-10-04 &lt;span class="m"&gt;00&lt;/span&gt;:37:34 UTC&lt;span class="p"&gt;;&lt;/span&gt; 52min ago
+Main PID: &lt;span class="m"&gt;1087&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;gitea&lt;span class="o"&gt;)&lt;/span&gt;
+  CGroup: /system.slice/gitea.service
+          └─1087 /root/gitea web
+
+Oct &lt;span class="m"&gt;04&lt;/span&gt; &lt;span class="m"&gt;00&lt;/span&gt;:38:31 gitserver gitea&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1087&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;: &lt;span class="o"&gt;[&lt;/span&gt;Macaron&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="m"&gt;2017&lt;/span&gt;-10-04 &lt;span class="m"&gt;00&lt;/span&gt;:38:31: Completed /explore/users &lt;span class="m"&gt;200&lt;/span&gt; OK in &lt;span class="m"&gt;80&lt;/span&gt;.106173ms
+Oct &lt;span class="m"&gt;04&lt;/span&gt; &lt;span class="m"&gt;00&lt;/span&gt;:38:31 gitserver gitea&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1087&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;: &lt;span class="o"&gt;[&lt;/span&gt;Macaron&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="m"&gt;2017&lt;/span&gt;-10-04 &lt;span class="m"&gt;00&lt;/span&gt;:38:31: Started GET /img/favicon.png &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="m"&gt;192&lt;/span&gt;.168.1.4
+Oct &lt;span class="m"&gt;04&lt;/span&gt; &lt;span class="m"&gt;00&lt;/span&gt;:38:31 gitserver gitea&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1087&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;: &lt;span class="o"&gt;[&lt;/span&gt;Macaron&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;Static&lt;span class="o"&gt;]&lt;/span&gt; Serving /img/favicon.png
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Após estes processos, você pode reiniciar seu raspberry que o gitea irá subir e funcionar. Ressalto que, preste atenção tanto no &lt;cite&gt;WorkingDirectory&lt;/cite&gt; quanto no &lt;cite&gt;ExecStart&lt;/cite&gt;, no caso do gitea, ele utiliza o workingdir e a forma de start para saber onde irá largar os arquivos por padrão, então ou você configura ele com caminhos absolutos ou cuidar na forma de start (ao menos é o que consegui pegar até agora).&lt;/p&gt;
+</content><category term="Shell"></category><category term="Shell"></category><category term="raspberry"></category></entry></feed>

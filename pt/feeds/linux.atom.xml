@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Sipmann - Linux</title><link href="https://www.sipmann.com/pt/" rel="alternate"></link><link href="https://www.sipmann.com/feeds/linux.atom.xml" rel="self"></link><id>https://www.sipmann.com/pt/</id><updated>2020-10-20T19:00:00-03:00</updated><subtitle></subtitle><entry><title>Zabbix Running on Low Memory Mode</title><link href="https://www.sipmann.com/pt/zabbix-running-on-low-memory-mode.html" rel="alternate"></link><published>2020-10-20T19:00:00-03:00</published><updated>2020-10-20T19:00:00-03:00</updated><author><name>Maurício Camargo Sipmann</name></author><id>tag:www.sipmann.com,2020-10-20:/pt/zabbix-running-on-low-memory-mode.html</id><summary type="html">&lt;p&gt;Olá pessoal! Trago hoje outro post sobre Zabbix. Este é sobre aumentar o cache do seu Zabbix Server. É perfeitamente comum (se você roda com as configurações padrões) receber avisos sobre &lt;code&gt;Zabbix value cache running on low memory mode&lt;/code&gt; no seu dashboard ou arquivos de log.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Zabbix Dashboard alertando sobre problemas de memória" src="/images/zabbix_low_memory_mode.png"&gt;
+&lt;img alt="Zabbix Dashboard cache gráfico com 70% utilizado" src="/images/zabbix_cache_filling.png"&gt;&lt;/p&gt;
+&lt;p&gt;Para resolver, abra o …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Olá pessoal! Trago hoje outro post sobre Zabbix. Este é sobre aumentar o cache do seu Zabbix Server. É perfeitamente comum (se você roda com as configurações padrões) receber avisos sobre &lt;code&gt;Zabbix value cache running on low memory mode&lt;/code&gt; no seu dashboard ou arquivos de log.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Zabbix Dashboard alertando sobre problemas de memória" src="/images/zabbix_low_memory_mode.png"&gt;
+&lt;img alt="Zabbix Dashboard cache gráfico com 70% utilizado" src="/images/zabbix_cache_filling.png"&gt;&lt;/p&gt;
+&lt;p&gt;Para resolver, abra o seu arquivo de configuração (&lt;code&gt;zabbix_server.conf&lt;/code&gt;) e procure pela tag &lt;em&gt;CacheSize&lt;/em&gt;. Descomente a linha e defina um valor maior que 8M (8M é o valor padrão). No meu caso, nós configuramos um cache de 100M. Depois da troca, reinicie o serviço para que o mesmo tome efeito.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;### Option: CacheSize&lt;/span&gt;
+&lt;span class="c1"&gt;#       Size of configuration cache, in bytes.&lt;/span&gt;
+&lt;span class="c1"&gt;#       Shared memory size for storing host, item and trigger data.&lt;/span&gt;
+&lt;span class="c1"&gt;#&lt;/span&gt;
+&lt;span class="c1"&gt;# Mandatory: no&lt;/span&gt;
+&lt;span class="c1"&gt;# Range: 128K-64G&lt;/span&gt;
+&lt;span class="c1"&gt;# Default:&lt;/span&gt;
+&lt;span class="na"&gt;CacheSize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;100M #Descomente esta linha&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img alt="Zabbix Dashboard resolved memory problem" src="/images/zabbix_low_memory_solved.png"&gt;&lt;/p&gt;
+&lt;p&gt;Até breve.&lt;/p&gt;</content><category term="Linux"></category><category term="Zabbix"></category><category term="Shell"></category><category term="Low memory"></category><category term="Cache"></category></entry><entry><title>Zabbix poller processes more than 75%</title><link href="https://www.sipmann.com/pt/zabbix-poller-processes-more-than-75.html" rel="alternate"></link><published>2020-07-02T19:00:00-03:00</published><updated>2020-07-02T19:00:00-03:00</updated><author><name>Maurício Camargo Sipmann</name></author><id>tag:www.sipmann.com,2020-07-02:/pt/zabbix-poller-processes-more-than-75.html</id><summary type="html">&lt;p&gt;Este é o terceiro post sobre configurações para o Zabbix. Todas as alterações que eu sugiro nestes posts, são baseadas em um servidor com 50+ hosts. Outro problema que pode ocorrer em seu servidor, é o poller de informações ficar sobrecarregado pela quantidade de servidores que ele precisa pegar carga …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Este é o terceiro post sobre configurações para o Zabbix. Todas as alterações que eu sugiro nestes posts, são baseadas em um servidor com 50+ hosts. Outro problema que pode ocorrer em seu servidor, é o poller de informações ficar sobrecarregado pela quantidade de servidores que ele precisa pegar carga de informações juntamente com os servidores que não respondem a requisição. Abaixo duas imagens onde você pode ver o log e um gráfico onde aparecem os percentuais de uso dos poller. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="Dashboard log sobre o processo do poller" src="/images/zabbix_pooler.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Gráfico mostrando o percentual de utilização de cada coletor" src="/images/zabbix_pooler_3.png"&gt;&lt;/p&gt;
+&lt;p&gt;Para resolver o problema acima, vamos voltar ao arquivo de configuração &lt;code&gt;zabbix_server.conf&lt;/code&gt; e localizar duas variáveis, &lt;code&gt;StartPollers&lt;/code&gt; e &lt;code&gt;StartPollersUnreachable&lt;/code&gt;. Aumente o valor delas conforme necessário. Não existe um número mágico, você deve verificar o que melhor funciona para você. Mas tenha em mente que &lt;code&gt;StartPollersUnreachable&lt;/code&gt; é responsável por aqueles hosts que não respondem ou não são localizados e irão segurar a thread do poller por mais tempo, causando uma fila e um maior processamento/tempo de atualização.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;### Option: StartPollers&lt;/span&gt;
+&lt;span class="c1"&gt;#       Number of pre-forked instances of pollers.&lt;/span&gt;
+&lt;span class="c1"&gt;#&lt;/span&gt;
+&lt;span class="c1"&gt;# Mandatory: no&lt;/span&gt;
+&lt;span class="c1"&gt;# Range: 0-1000&lt;/span&gt;
+&lt;span class="c1"&gt;# Default:&lt;/span&gt;
+&lt;span class="na"&gt;StartPollers&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;20&lt;/span&gt;
+
+&lt;span class="c1"&gt;#...&lt;/span&gt;
+
+&lt;span class="c1"&gt;### Option: StartPollersUnreachable&lt;/span&gt;
+&lt;span class="c1"&gt;#       Number of pre-forked instances of pollers for unreachable hosts (including IPMI and Java).&lt;/span&gt;
+&lt;span class="c1"&gt;#       At least one poller for unreachable hosts must be running if regular, IPMI or Java pollers&lt;/span&gt;
+&lt;span class="c1"&gt;#       are started.&lt;/span&gt;
+&lt;span class="c1"&gt;#&lt;/span&gt;
+&lt;span class="c1"&gt;# Mandatory: no&lt;/span&gt;
+&lt;span class="c1"&gt;# Range: 0-1000&lt;/span&gt;
+&lt;span class="c1"&gt;# Default:&lt;/span&gt;
+&lt;span class="na"&gt;StartPollersUnreachable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;5&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Depois da alteração, reinicie o serviço e espere alguns momentos e veja o seu dashboard novamente. Abaixo o efeito que a troca teve em um dos servidores que acompanho.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Gráfico mostrando os novos percentuais de utilização dos processos após as alterações" src="/images/zabbix_pooler_4.png"&gt;&lt;/p&gt;</content><category term="Linux"></category><category term="Zabbix"></category><category term="Shell"></category><category term="Zabbix Poller"></category><category term="Poller proccess"></category></entry><entry><title>Zabbix ICMP pinger processes more than 75%</title><link href="https://www.sipmann.com/pt/zabbix-icmp-pinger-processes-more-than-75.html" rel="alternate"></link><published>2020-05-25T16:00:00-03:00</published><updated>2020-05-25T16:00:00-03:00</updated><author><name>Maurício Camargo Sipmann</name></author><id>tag:www.sipmann.com,2020-05-25:/pt/zabbix-icmp-pinger-processes-more-than-75.html</id><summary type="html">&lt;p&gt;Então o seu systema de monitoramento creasceu e o seu Zabbix começou a printar "&lt;em&gt;Zabbix icmp pinger processes more than 75% busy&lt;/em&gt;" no seu dashboard.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Dashboard do zabbix avisando sobre o erro" src="/images/zabbix_pinger01.png"&gt;&lt;/p&gt;
+&lt;p&gt;Tudo que você tem a fazer é abrir o seu arquivo de configuração (&lt;code&gt;/etc/zabbix/zabbix_server.conf&lt;/code&gt;) e localizar a tag chamada  &lt;code&gt;StartPingers&lt;/code&gt;. Ela deve …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Então o seu systema de monitoramento creasceu e o seu Zabbix começou a printar "&lt;em&gt;Zabbix icmp pinger processes more than 75% busy&lt;/em&gt;" no seu dashboard.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Dashboard do zabbix avisando sobre o erro" src="/images/zabbix_pinger01.png"&gt;&lt;/p&gt;
+&lt;p&gt;Tudo que você tem a fazer é abrir o seu arquivo de configuração (&lt;code&gt;/etc/zabbix/zabbix_server.conf&lt;/code&gt;) e localizar a tag chamada  &lt;code&gt;StartPingers&lt;/code&gt;. Ela deve estar comentáda por padrão. Descomente a lina e define o seu valor para algo como 3 or 4. Deve resolver seu problema, ao menos até um próximo crescimento do seu monitoramento.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;### Option: StartPingers&lt;/span&gt;
+&lt;span class="c1"&gt;#       Number of pre-forked instances of ICMP pingers.&lt;/span&gt;
+&lt;span class="c1"&gt;#&lt;/span&gt;
+&lt;span class="c1"&gt;# Mandatory: no&lt;/span&gt;
+&lt;span class="c1"&gt;# Range: 0-1000&lt;/span&gt;
+&lt;span class="c1"&gt;# Default:&lt;/span&gt;
+&lt;span class="nv"&gt;StartPingers&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="Linux"></category><category term="Zabbix"></category><category term="icmp pinger"></category><category term="icmp pinger more than 75"></category><category term="Zabbix Server"></category></entry><entry><title>Zabbix Server Out of Memory</title><link href="https://www.sipmann.com/pt/zabbix-server-out-of-memory-crash.html" rel="alternate"></link><published>2020-02-27T19:00:00-03:00</published><updated>2020-02-27T19:00:00-03:00</updated><author><name>Maurício Camargo Sipmann</name></author><id>tag:www.sipmann.com,2020-02-27:/pt/zabbix-server-out-of-memory-crash.html</id><summary type="html">&lt;p&gt;Você tem um servidor Zabbix crashando e observando o arquivo de log &lt;code&gt;/var/log/zabbix/zabbix_server.log&lt;/code&gt; você localiza a seguinte mensagem referênciando falta de memória?&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;__mem_malloc: skipped &lt;span class="m"&gt;0&lt;/span&gt; asked &lt;span class="m"&gt;24&lt;/span&gt; skip_min &lt;span class="m"&gt;18446744073709551615&lt;/span&gt; skip_max &lt;span class="m"&gt;0&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;file:dbconfig.c,line:94&lt;span class="o"&gt;]&lt;/span&gt; __zbx_mem_realloc&lt;span class="o"&gt;()&lt;/span&gt;: out of memory &lt;span class="o"&gt;(&lt;/span&gt;requested &lt;span class="m"&gt;16&lt;/span&gt; bytes&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;file:dbconfig.c …&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;Você tem um servidor Zabbix crashando e observando o arquivo de log &lt;code&gt;/var/log/zabbix/zabbix_server.log&lt;/code&gt; você localiza a seguinte mensagem referênciando falta de memória?&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;__mem_malloc: skipped &lt;span class="m"&gt;0&lt;/span&gt; asked &lt;span class="m"&gt;24&lt;/span&gt; skip_min &lt;span class="m"&gt;18446744073709551615&lt;/span&gt; skip_max &lt;span class="m"&gt;0&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;file:dbconfig.c,line:94&lt;span class="o"&gt;]&lt;/span&gt; __zbx_mem_realloc&lt;span class="o"&gt;()&lt;/span&gt;: out of memory &lt;span class="o"&gt;(&lt;/span&gt;requested &lt;span class="m"&gt;16&lt;/span&gt; bytes&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;file:dbconfig.c,line:94&lt;span class="o"&gt;]&lt;/span&gt; __zbx_mem_realloc&lt;span class="o"&gt;()&lt;/span&gt;: please increase CacheSize configuration parameter
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Apesar da simples solução para o erro, isso acaba sendo um problema comum em servidores que tem uma certa quantidade de itens sendo monitorados (servidores, switches, firewalls, bancos, etc...). Para resolver o problema, vá até o ser arquivo &lt;code&gt;zabbix_server.conf&lt;/code&gt; e procure pela propriedade &lt;code&gt;CacheSize&lt;/code&gt; e sete o seu valor para uma quantidade maior. O seu valor default deve ser algo como 8M. Em clientes que tenham algo como 4 servidores, 7 firewalls/appliances, e algumas outras coisas (bancos, apps), 32M deve resolver o problema, mas você pode setar até algo como 8G (ressalto que mais memória nem sempre é melhor).&lt;/p&gt;
+&lt;p&gt;Até breve.&lt;/p&gt;</content><category term="Linux"></category><category term="Zabbix"></category><category term="Shell"></category><category term="Out of memory"></category><category term="Crash"></category></entry></feed>

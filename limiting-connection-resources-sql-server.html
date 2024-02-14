@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Limiting Connection Resources on SQL Server - Sipmann</title>
+
+    <meta name="monetization" content="$coil.xrptipbot.com/uH6DA7YAQ7y0_IvXt4p0VQ">
+
+
+    <meta property="og:site_name" content="Sipmann">     <meta property="og:type" content="article">
+
+
+    <link rel="alternate" hreflang="x-default" href="https://www.sipmann.com/limiting-connection-resources-sql-server.html">
+
+    <meta property="og:title" content="Limiting Connection Resources on SQL Server">
+    <meta property="og:url" content="https://www.sipmann.com/limiting-connection-resources-sql-server.html">
+    <meta property="article:author" content="Maurício Camargo Sipmann"> 
+    <meta name="description" content="Limiting connection resources at SQL Server based on application">
+    <meta property="og:description" content="Limiting connection resources at SQL Server based on application"> 
+    <meta property="article:published_time" content=" 2019-08-12 "> 
+    <meta property="article:section" content="SQL Server">      <meta property="article:tag" content="SQLServer">     <meta property="article:tag" content="Resource Governor">  
+    <meta property="og:locale" content="en">
+    <meta property="og:image" content="https://www.sipmann.com//images/sql-pool.png">       <link href="https://www.sipmann.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Sipmann ATOM Feed">       <link rel="stylesheet" href="/theme/css/w3.css">
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <link rel="preload" as="script" href="https://ssl.google-analytics.com">
+        <link rel="dns-prefetch" href="https://ssl.google-analytics.com">    
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: "Raleway", sans-serif
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        pre {
+            display: block;
+            padding: 9.5px;
+            margin: 0 0 10px;
+            font-size: 13px;
+            line-height: 1.428571429;
+            word-break: break-all;
+            word-wrap: break-word;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .banner_img {
+            background-position: 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            /*background-attachment: fixed;*/
+            height: 100px;
+        }
+        
+        article img {
+            max-width: -webkit-fill-available;
+        }
+        
+		.highlight {
+			overflow-x: auto;
+		}
+		
+		p > a {
+			color: blue;
+		}
+		
+		.w3-container p {
+			text-indent: 10px;
+			text-align: justify;
+		}
+		
+        @media (min-width: 993px) {
+            #mySidebar {
+                position: initial !important;
+                background: #f1f1f1 !important;
+            }
+        }
+
+        @media screen and (prefers-color-scheme: dark) {
+            .w3-light-gray {
+                background-color: #2f3237 !important;
+                color: white !important;
+            }
+
+            #mySidebar {
+                position: initial !important;
+                background: #2f3237 !important;
+            }
+
+            hr {
+                border-color: #1c1d1e;
+            }
+        }
+    </style>
+</head>
+
+<body class="w3-light-gray">
+    <div class="w3-top">
+        <nav class="w3-bar w3-dark-gray w3-card-4">
+            <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();" type="button">
+                <i class="fa fa-bars"></i> &nbsp;Menu</button>
+                <a href="/" class="w3-bar-item w3-button">Home</a>
+            <a class="w3-bar-item w3-button w3-light-gray" href="https://www.sipmann.com/en/">en</a>
+            <a class="w3-bar-item w3-button" href="https://www.sipmann.com/pt/">pt</a>
+        </nav>
+    </div>
+
+    <header class="w3-container w3-center" style="padding:22px 0 0 0;">
+        <div style="height: 130px;width:100%; background-image: url('/images/header.webp');background-size: cover;"></div>
+    </header>
+    <div class="w3-content w3-margin-top" style="max-width:1400px;">
+        <div class="w3-row">
+
+            <div class="w3-col l9 s12">
+    <article class="w3-card-4 w3-margin w3-white">
+        <div class="w3-container">
+            <h1><b><a href="https://www.sipmann.com/limiting-connection-resources-sql-server.html" title="Permalink to Limiting Connection Resources on SQL Server">Limiting Connection Resources on SQL Server</a></b></h1>
+            <h5>
+                <i class="fa fa-calendar"></i><time class="w3-opacity" datetime="2019-08-12T12:00:00-03:00"> Mon 12 August 2019</time>
+            </h5>
+        </div>
+        
+        <div class="w3-container">
+            <p><p>Have you ever suffered from a slow SQLServer database? Someone love to run that heavy query in the database? Resource Governor to the rescue. You can set a few rules on how users (connections actually) will use the server/database resources based on a few things.</p>
+<p>First things first, if you don't have DAC enabled, enable it now. Dealing with resource governor can lock you out of the database and leave you without action (almost... you can start the server with -c -m -f).</p>
+<p>Now to understand how Resource Governor works, we have a few keywords <code>resource pool</code>, <code>workload group</code> e  <code>Classifier Function</code>.</p>
+<p><img alt="Pool Sample" src="/images/sql-pool.png"></p>
+<h2>Resource Pool</h2>
+<p>First, we have the Resource Pool, with is the bigger resource group that we have the ability to manage. With it, we can set a few things like: <code>MIN_CPU_PERCENT</code>, <code>MAX_CPU_PERCENT</code>, <code>MIN_MEMORY_PERCENT</code>, <code>MAX_MEMORY_PERCENT</code>, <code>MIN_IOPS_PER_VOLUME</code>, and <code>MAX_IOPS_PER_VOLUME</code>.</p>
+<p>Be aware that the <code>MAX_CPU_PERCENT</code> will just "works" when there is another connection with a higher priority, otherwise it will use what is available.  Let's create a pool.</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">RESOURCE</span><span class="w"> </span><span class="n">POOL</span><span class="w"> </span><span class="o">[</span><span class="n">SpreadSheet</span><span class="o">]</span><span class="w"></span>
+<span class="k">WITH</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">MIN_CPU_PERCENT</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">MAX_CPU_PERCENT</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">MIN_MEMORY_PERCENT</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">MAX_MEMORY_PERCENT</span><span class="o">=</span><span class="mi">20</span><span class="w"></span>
+<span class="p">);</span><span class="w"></span>
+</code></pre></div>
+
+<p>## Workload Group</p>
+<p>Then we have a workload group that "works" inside a pool, so you can have another granularity on how you can split your resources. Again, we have a few options: <code>IMPORTANCE</code>, <code>REQUEST_MAX_CPU_TIME_SEC</code>, <code>REQUEST_MAX_MEMORY_GRANT_PERCENT</code>, <code>GROUP_MAX_REQUESTS</code>.</p>
+<p>The <code>IMPORTANCE</code> set guesses what... the importance of that workload inside the pool, you can set LOW, MEDIUM, HIGH. GROUP_MAX_REQUESTS sets how many requests can run at the same time inside that workload (0 will set as NO LIMIT)</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="n">WORKLOAD</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="o">[</span><span class="n">DepartmentA</span><span class="o">]</span><span class="w"> </span>
+<span class="k">WITH</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="n">GROUP_MAX_REQUESTS</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">IMPORTANCE</span><span class="o">=</span><span class="n">LOW</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">REQUEST_MAX_CPU_TIME_SEC</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="c1">-- Time running/using CPU</span>
+<span class="w">    </span><span class="n">REQUEST_MAX_MEMORY_GRANT_PERCENT</span><span class="o">=</span><span class="mi">15</span><span class="w"></span>
+<span class="p">)</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="o">[</span><span class="n">SpreadSheet</span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="c1">-- pool name here</span>
+</code></pre></div>
+
+<h2>Classifier Function</h2>
+<p>This is where everything begins... This is the entry point where you should set the group name. It's a function that will run for every new connection so be aware that if your function runs lots of queries or some heavy stuff... that time will be added to the connection handshake. If the function returns  NULL or a group name that doesn't exist, the 'default' group will be used... Yes, there is a default workload group where everything runs where there's no classifier.</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">fnClassWorkloadGovernor</span><span class="p">()</span><span class="w"> </span>
+<span class="k">RETURNS</span><span class="w"> </span><span class="n">SYSNAME</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">SCHEMABINDING</span><span class="w"> </span>
+<span class="k">AS</span><span class="w"> </span>
+<span class="k">BEGIN</span><span class="w"> </span>
+<span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="nf">APP_NAME</span><span class="p">()</span><span class="w"> </span><span class="ow">LIKE</span><span class="w"> </span><span class="s1">&#39;%Excel%&#39;</span><span class="w"></span>
+<span class="w">        </span><span class="k">RETURN</span><span class="w"> </span><span class="s1">&#39;DepartmentA&#39;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="nf">HOST_NAME</span><span class="p">()</span><span class="w"> </span><span class="ow">LIKE</span><span class="w"> </span><span class="s1">&#39;%THAT_MACHINE_OR_APP_SERVER%&#39;</span><span class="w"></span>
+<span class="w">        </span><span class="k">RETURN</span><span class="w"> </span><span class="s1">&#39;LowPriority&#39;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">RETURN</span><span class="w"> </span><span class="k">NULL</span><span class="w"></span>
+<span class="k">END</span><span class="w"></span>
+<span class="k">GO</span><span class="w"></span>
+
+<span class="k">ALTER</span><span class="w"> </span><span class="n">RESOURCE</span><span class="w"> </span><span class="n">GOVERNOR</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="p">(</span><span class="n">CLASSIFIER_FUNCTION</span><span class="o">=</span><span class="n">dbo</span><span class="p">.</span><span class="n">fnClassWorkloadGovernor</span><span class="p">);</span><span class="w"></span>
+<span class="k">ALTER</span><span class="w"> </span><span class="n">RESOURCE</span><span class="w"> </span><span class="n">GOVERNOR</span><span class="w"> </span><span class="k">RECONFIGURE</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+
+<p>There you go... now you have a fully working resource governor, but look out that If you want to delete that classifier function, first you have to remove it from the resource governor (look the SCHEMABINDING at the create up there).</p>
+<p>To disable Resource Governor</p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="n">RESOURCE</span><span class="w"> </span><span class="n">GOVERNOR</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="p">(</span><span class="n">CLASSIFIER_FUNCTION</span><span class="o">=</span><span class="k">null</span><span class="p">)</span><span class="w"></span>
+<span class="k">ALTER</span><span class="w"> </span><span class="n">RESOURCE</span><span class="w"> </span><span class="n">GOVERNOR</span><span class="w"> </span><span class="k">RECONFIGURE</span><span class="w"></span>
+
+<span class="k">ALTER</span><span class="w"> </span><span class="n">RESOURCE</span><span class="w"> </span><span class="n">GOVERNOR</span><span class="w"> </span><span class="n">DISABLE</span><span class="w"></span>
+<span class="k">GO</span><span class="w"></span>
+</code></pre></div></p>
+        </div>
+
+
+        <hr>
+        <section class="w3-padding" id="translations">
+            <h4>Translations:</h4>
+            <ul>
+            </ul>
+        </section>
+
+<hr>
+<section class="w3-padding" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="https://www.sipmann.com/blocking-user-on-sql-server-based-on-schedule.html">Blocking a user on SQL Server based on a schedule</a></li>
+        <li><a href="https://www.sipmann.com/removing-user-from-sql-server-database.html">Removing a user from SQL Server database who owns a schema</a></li>
+    </ul>
+
+    <script type="application/ld+json">
+        {
+          "@context":"http://schema.org",
+          "@type":"ItemList",
+          "name": "Related Posts",
+          "itemListElement":[
+            {
+              "@type":"Article",
+              "position":1,
+              "name": "Blocking a user on SQL Server based on a schedule",
+              "url":"https://www.sipmann.com/blocking-user-on-sql-server-based-on-schedule.html",
+              "headline": "Blocking a user on SQL Server based on a schedule",
+              "image": ["/images/block_sql_server_user.png"],
+              "datePublished": "2020-11-14 07:00:00-03:00",
+              "dateModified": "2020-11-14 07:00:00-03:00",
+              "author": {
+                  "@type": "Person",
+                  "name": "Maurício Camargo Sipmann"
+              },
+              "publisher": {
+                  "@type": "Organization",
+                  "name": "Maurício Camargo Sipmann"
+                  ,
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://s.gravatar.com/avatar/7f717d69fb6d3dbc5490d47369aca3e0?s=180",
+                    "height": 180,
+                    "width": 180
+                  }
+              }
+              
+            }
+            ,
+            {
+              "@type":"Article",
+              "position":2,
+              "name": "Removing a user from SQL Server database who owns a schema",
+              "url":"https://www.sipmann.com/removing-user-from-sql-server-database.html",
+              "headline": "Removing a user from SQL Server database who owns a schema",
+              "image": ["images/sipmann.com.png"],
+              "datePublished": "2019-09-06 07:00:00-03:00",
+              "dateModified": "2019-09-06 07:00:00-03:00",
+              "author": {
+                  "@type": "Person",
+                  "name": "Maurício Camargo Sipmann"
+              },
+              "publisher": {
+                  "@type": "Organization",
+                  "name": "Maurício Camargo Sipmann"
+                  ,
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://s.gravatar.com/avatar/7f717d69fb6d3dbc5490d47369aca3e0?s=180",
+                    "height": 180,
+                    "width": 180
+                  }
+              }
+              
+            }
+          ]
+        }
+        </script>
+
+</section>
+    </article>
+    <hr>
+
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        "name": "Post: Limiting Connection Resources on SQL Server",
+        "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+            "@id": "https://www.sipmann.com",
+            "name": "Article"
+        }
+        },{
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+            "@id": "https://www.sipmann.com/category/sql-server.html",
+            "name": "SQL Server"
+        }
+        },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+            "@id": "https://www.sipmann.com/limiting-connection-resources-sql-server.html",
+            "name": "Limiting Connection Resources on SQL Server"
+        }
+        }]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Article",
+        "@id" : "https://www.sipmann.com/limiting-connection-resources-sql-server.html",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://google.com/article"
+        },
+        "headline": "Limiting Connection Resources on SQL Server",
+        "image": ["/images/sql-pool.png"],
+        "datePublished": "2019-08-12 12:00:00-03:00",
+        "dateModified": "2019-08-12 12:00:00-03:00",
+        "author": {
+            "@type": "Person",
+            "name": "Maurício Camargo Sipmann"
+            ,
+            "image": {
+              "@type": "ImageObject",
+              "id": "https://www.sipmann.com/#personlogo",
+              "url": "https://s.gravatar.com/avatar/7f717d69fb6d3dbc5490d47369aca3e0?s=180",
+              "height": 180,
+              "width": 180,
+              "caption": "Maurício Sipmann"
+            }
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Maurício Camargo Sipmann"
+            ,
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://s.gravatar.com/avatar/7f717d69fb6d3dbc5490d47369aca3e0?s=180",
+              "height": 180,
+              "width": 180
+            }
+        },
+
+        "articleSection": "
+            SQLServer
+                ,
+            Resource Governor
+        "
+    }
+    </script>
+            </div>
+
+            <div class="w3-sidebar w3-col l3 w3-collapse w3-animate-right" id="mySidebar" style="right:0;">
+<div class="w3-card w3-margin w3-margin-top" role="navigation" aria-labelledby="nav-categories">
+    <div class="w3-container w3-padding w3-blue-gray">
+        <h4 id="nav-categories">Categories</h4>
+    </div>
+    <ul class="w3-ul w3-hoverable w3-white">
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/azure.html" style="display: block">
+                Azure
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/flutter.html" style="display: block">
+                Flutter
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/front-end.html" style="display: block">
+                Front-end
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/java.html" style="display: block">
+                Java
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/linux.html" style="display: block">
+                Linux
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/mysql.html" style="display: block">
+                MySQL
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/net.html" style="display: block">
+                .NET
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/powershell.html" style="display: block">
+                PowerShell
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/random.html" style="display: block">
+                Random
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/sql-server.html" style="display: block">
+                SQL Server
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/tools.html" style="display: block">
+                Tools
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="w3-card w3-margin w3-margin-top" role="navigation" aria-labelledby="nav-recent-posts">
+    <div class="w3-container w3-padding w3-blue-gray">
+        <h4 id="nav-recent-posts">Recent Posts</h4>
+    </div>
+    <ul class="w3-ul w3-hoverable w3-white">
+        <li>
+            <a class="w3-padding" href="/monitoring-mysql-restarts-with-powershell.html">
+                Monitoring MySQL restarts with PowerShell
+            </a>
+        </li>
+        <li>
+            <a class="w3-padding" href="/mysql-dual-password-functionality.html">
+                Changing a MySQL user password across multiple application instances without downtime
+            </a>
+        </li>
+        <li>
+            <a class="w3-padding" href="/apache-nifi-json-to-sql-replacing-underscore.html">
+                Apache Nifi JSON to SQL Replacing underscore
+            </a>
+        </li>
+        <li>
+            <a class="w3-padding" href="/blocking-user-on-sql-server-based-on-schedule.html">
+                Blocking a user on SQL Server based on a schedule
+            </a>
+        </li>
+        <li>
+            <a class="w3-padding" href="/select_specific_fields_with_efcore.html">
+                How to set columns on select using Entity Framework
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="w3-margin w3-margin-top" role="navigation" aria-labelledby="buy-me-a-coffee">
+    <div class="w3-container w3-padding">
+        <a href="https://www.buymeacoffee.com/sipmann" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;"></a>
+    </div>
+</div>            </div>
+
+        </div>
+    </div>
+    <footer class="w3-container w3-dark-gray w3-padding-32 w3-margin-top">
+        <div class="w3-bar">
+            <a class="w3-bar-item" href="https://twitter.com/MSipmann" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a>
+            <a class="w3-bar-item" href="https://github.com/sipmann" target="_blank" rel="noopener noreferrer"><i class="fa fa-github-square fa-lg"></i> Github</a>
+            <a class="w3-bar-item" href="http://br.linkedin.com/in/sipmann" target="_blank" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a>
+        </div>
+    </footer>
+    <!-- <script data-ad-client="ca-pub-3097623931513783" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+    
+        <!-- Google Analytics -->
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-8072083-2']);
+            _gaq.push(['_trackPageview']);
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+        <!-- End Google Analytics Code -->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-BW422MP4C1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-BW422MP4C1');
+	</script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Person",
+        "name": "Sipmann",
+        "url": "https://www.sipmann.com"
+        , "sameAs": [
+                "https://twitter.com/MSipmann",
+                "https://github.com/sipmann",
+                "http://br.linkedin.com/in/sipmann"
+        ]
+    }
+    </script>
+
+    <script>
+
+        // Get the Sidebar
+        var mySidebar = document.getElementById("mySidebar");
+
+        // Get the DIV with overlay effect
+        var overlayBg = document.getElementById("myOverlay");
+
+        function w3_open() {
+            if (mySidebar.style.display === 'block') {
+                mySidebar.style.display = 'none';
+                overlayBg.style.display = "none";
+            } else {
+                mySidebar.style.display = 'block';
+                overlayBg.style.display = "block";
+            }
+        }
+
+        function w3_close() {
+            mySidebar.style.display = "none";
+            overlayBg.style.display = "none";
+        }
+
+    </script>
+
+</body>
+
+</html>

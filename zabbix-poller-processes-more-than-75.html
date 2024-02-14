@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zabbix poller processes more than 75% - Sipmann</title>
+
+    <meta name="monetization" content="$coil.xrptipbot.com/uH6DA7YAQ7y0_IvXt4p0VQ">
+
+
+    <meta property="og:site_name" content="Sipmann">     <meta property="og:type" content="article">
+
+
+    <link rel="alternate" hreflang="x-default" href="https://www.sipmann.com/zabbix-poller-processes-more-than-75.html">
+    <link rel="alternate" hreflang="pt" href="https://www.sipmann.com/../pt/zabbix-poller-processes-more-than-75.html">
+
+    <meta property="og:title" content="Zabbix poller processes more than 75%">
+    <meta property="og:url" content="https://www.sipmann.com/zabbix-poller-processes-more-than-75.html">
+    <meta property="article:author" content="Maurício Camargo Sipmann"> 
+    <meta name="description" content="You have Zabbix poller process more than 75% warnings on your dashboard. To solve, you have to increase the number of pollers on your config file.">
+    <meta property="og:description" content="You have Zabbix poller process more than 75% warnings on your dashboard. To solve, you have to increase the number of pollers on your config file."> 
+    <meta property="article:published_time" content=" 2020-07-02 "> 
+    <meta property="article:section" content="Linux">      <meta property="article:tag" content="Zabbix">     <meta property="article:tag" content="Shell">     <meta property="article:tag" content="Zabbix Poller">     <meta property="article:tag" content="Poller proccess more than 75%">  
+    <meta property="og:locale" content="en">
+    <meta property="og:image" content="https://www.sipmann.com/images/sipmann.com.png">       <link href="https://www.sipmann.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Sipmann ATOM Feed">       <link rel="stylesheet" href="/theme/css/w3.css">
+    <link href="/theme/css/pygments/native.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <link rel="preload" as="script" href="https://ssl.google-analytics.com">
+        <link rel="dns-prefetch" href="https://ssl.google-analytics.com">    
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: "Raleway", sans-serif
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        pre {
+            display: block;
+            padding: 9.5px;
+            margin: 0 0 10px;
+            font-size: 13px;
+            line-height: 1.428571429;
+            word-break: break-all;
+            word-wrap: break-word;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .banner_img {
+            background-position: 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            /*background-attachment: fixed;*/
+            height: 100px;
+        }
+        
+        article img {
+            max-width: -webkit-fill-available;
+        }
+        
+		.highlight {
+			overflow-x: auto;
+		}
+		
+		p > a {
+			color: blue;
+		}
+		
+		.w3-container p {
+			text-indent: 10px;
+			text-align: justify;
+		}
+		
+        @media (min-width: 993px) {
+            #mySidebar {
+                position: initial !important;
+                background: #f1f1f1 !important;
+            }
+        }
+
+        @media screen and (prefers-color-scheme: dark) {
+            .w3-light-gray {
+                background-color: #2f3237 !important;
+                color: white !important;
+            }
+
+            #mySidebar {
+                position: initial !important;
+                background: #2f3237 !important;
+            }
+
+            hr {
+                border-color: #1c1d1e;
+            }
+        }
+    </style>
+</head>
+
+<body class="w3-light-gray">
+    <div class="w3-top">
+        <nav class="w3-bar w3-dark-gray w3-card-4">
+            <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();" type="button">
+                <i class="fa fa-bars"></i> &nbsp;Menu</button>
+                <a href="/" class="w3-bar-item w3-button">Home</a>
+            <a class="w3-bar-item w3-button w3-light-gray" href="https://www.sipmann.com/en/">en</a>
+            <a class="w3-bar-item w3-button" href="https://www.sipmann.com/pt/">pt</a>
+        </nav>
+    </div>
+
+    <header class="w3-container w3-center" style="padding:22px 0 0 0;">
+        <div style="height: 130px;width:100%; background-image: url('/images/header.webp');background-size: cover;"></div>
+    </header>
+    <div class="w3-content w3-margin-top" style="max-width:1400px;">
+        <div class="w3-row">
+
+            <div class="w3-col l9 s12">
+    <article class="w3-card-4 w3-margin w3-white">
+        <div class="w3-container">
+            <h1><b><a href="https://www.sipmann.com/zabbix-poller-processes-more-than-75.html" title="Permalink to Zabbix poller processes more than 75%">Zabbix poller processes more than 75%</a></b></h1>
+            <h5>
+                <i class="fa fa-calendar"></i><time class="w3-opacity" datetime="2020-07-02T19:00:00-03:00"> Thu 02 July 2020</time>
+            </h5>
+        </div>
+        
+        <div class="w3-container">
+            <p><p>Hey folks, this is the third post about tweaking the Zabbix configurations. All changes that I've suggested here were based on a Zabbix Server with 50+ hosts. Another thing that can happen to your server, it's the poller get overwhelmed by the amount of servers that need to be polled plus the ones that are not responding. Bellow two images where you can see the log and the graphic where you can see the usage percent. </p>
+<p><img alt="Dashboard log about the poller processes" src="/images/zabbix_pooler.png"></p>
+<p><img alt="Graph showing the utilization percent of each collector" src="/images/zabbix_pooler_3.png"></p>
+<p>To solve, let's go back to the <code>zabbix_server.conf</code> file and find two variables, <code>StartPollers</code> and <code>StartPollersUnreachable</code>. Increase them as needed. There's no magic number, you must see what works for you. But keep in mind that the <code>StartPollersUnreachable</code> is responsible for that host that can't be "reached"  (of course) and will hold your poller more time.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">### Option: StartPollers</span>
+<span class="c1">#       Number of pre-forked instances of pollers.</span>
+<span class="c1">#</span>
+<span class="c1"># Mandatory: no</span>
+<span class="c1"># Range: 0-1000</span>
+<span class="c1"># Default:</span>
+<span class="na">StartPollers</span><span class="o">=</span><span class="s">20</span>
+
+<span class="c1">#...</span>
+
+<span class="c1">### Option: StartPollersUnreachable</span>
+<span class="c1">#       Number of pre-forked instances of pollers for unreachable hosts (including IPMI and Java).</span>
+<span class="c1">#       At least one poller for unreachable hosts must be running if regular, IPMI or Java pollers</span>
+<span class="c1">#       are started.</span>
+<span class="c1">#</span>
+<span class="c1"># Mandatory: no</span>
+<span class="c1"># Range: 0-1000</span>
+<span class="c1"># Default:</span>
+<span class="na">StartPollersUnreachable</span><span class="o">=</span><span class="s">5</span>
+</code></pre></div>
+
+<p>After the change, restart the server and wait a few moments and take a look again at your dashboard. Bellow the effect that I've got.</p>
+<p><img alt="Graph showing the new utilization percent of the processes after the changes" src="/images/zabbix_pooler_4.png"></p></p>
+        </div>
+
+
+        <hr>
+        <section class="w3-padding" id="translations">
+            <h4>Translations:</h4>
+            <ul>
+                <li><a href="../pt/zabbix-poller-processes-more-than-75.html">pt - Zabbix poller processes more than 75%</a></li>
+            </ul>
+        </section>
+
+<hr>
+<section class="w3-padding" id="related-posts">
+    <h4>Related Posts:</h4>
+    <ul>
+        <li><a href="https://www.sipmann.com/zabbix-running-on-low-memory-mode.html">Zabbix Running on Low Memory Mode</a></li>
+        <li><a href="https://www.sipmann.com/zabbix-server-out-of-memory-crash.html">Zabbix Server Out of Memory</a></li>
+        <li><a href="https://www.sipmann.com/zabbix-icmp-pinger-processes-more-than-75.html">Zabbix ICMP pinger processes more than 75%</a></li>
+        <li><a href="https://www.sipmann.com/using_git_hooks_easy_your_life.html">Using git hooks to easy your life</a></li>
+    </ul>
+
+    <script type="application/ld+json">
+        {
+          "@context":"http://schema.org",
+          "@type":"ItemList",
+          "name": "Related Posts",
+          "itemListElement":[
+            {
+              "@type":"Article",
+              "position":1,
+              "name": "Zabbix Running on Low Memory Mode",
+              "url":"https://www.sipmann.com/zabbix-running-on-low-memory-mode.html",
+              "headline": "Zabbix Running on Low Memory Mode",
+              "image": ["/images/zabbix_low_memory.png"],
+              "datePublished": "2020-10-20 19:00:00-03:00",
+              "dateModified": "2020-10-20 19:00:00-03:00",
+              "author": {
+                  "@type": "Person",
+                  "name": "Maurício Camargo Sipmann"
+              },
+              "publisher": {
+                  "@type": "Organization",
+                  "name": "Maurício Camargo Sipmann"
+                  ,
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://s.gravatar.com/avatar/7f717d69fb6d3dbc5490d47369aca3e0?s=180",
+                    "height": 180,
+                    "width": 180
+                  }
+              }
+              
+            }
+            ,
+            {
+              "@type":"Article",
+              "position":2,
+              "name": "Zabbix Server Out of Memory",
+              "url":"https://www.sipmann.com/zabbix-server-out-of-memory-crash.html",
+              "headline": "Zabbix Server Out of Memory",
+              "image": ["images/sipmann.com.png"],
+              "datePublished": "2020-02-27 19:00:00-03:00",
+              "dateModified": "2020-02-27 19:00:00-03:00",
+              "author": {
+                  "@type": "Person",
+                  "name": "Maurício Camargo Sipmann"
+              },
+              "publisher": {
+                  "@type": "Organization",
+                  "name": "Maurício Camargo Sipmann"
+                  ,
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://s.gravatar.com/avatar/7f717d69fb6d3dbc5490d47369aca3e0?s=180",
+                    "height": 180,
+                    "width": 180
+                  }
+              }
+              
+            }
+            ,
+            {
+              "@type":"Article",
+              "position":3,
+              "name": "Zabbix ICMP pinger processes more than 75%",
+              "url":"https://www.sipmann.com/zabbix-icmp-pinger-processes-more-than-75.html",
+              "headline": "Zabbix ICMP pinger processes more than 75%",
+              "image": ["images/sipmann.com.png"],
+              "datePublished": "2020-05-25 16:00:00-03:00",
+              "dateModified": "2020-05-25 16:00:00-03:00",
+              "author": {
+                  "@type": "Person",
+                  "name": "Maurício Camargo Sipmann"
+              },
+              "publisher": {
+                  "@type": "Organization",
+                  "name": "Maurício Camargo Sipmann"
+                  ,
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://s.gravatar.com/avatar/7f717d69fb6d3dbc5490d47369aca3e0?s=180",
+                    "height": 180,
+                    "width": 180
+                  }
+              }
+              
+            }
+            ,
+            {
+              "@type":"Article",
+              "position":4,
+              "name": "Using git hooks to easy your life",
+              "url":"https://www.sipmann.com/using_git_hooks_easy_your_life.html",
+              "headline": "Using git hooks to easy your life",
+              "image": ["images/sipmann.com.png"],
+              "datePublished": "2019-07-30 20:00:00-03:00",
+              "dateModified": "2019-07-30 20:00:00-03:00",
+              "author": {
+                  "@type": "Person",
+                  "name": "Maurício Camargo Sipmann"
+              },
+              "publisher": {
+                  "@type": "Organization",
+                  "name": "Maurício Camargo Sipmann"
+                  ,
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://s.gravatar.com/avatar/7f717d69fb6d3dbc5490d47369aca3e0?s=180",
+                    "height": 180,
+                    "width": 180
+                  }
+              }
+              
+            }
+          ]
+        }
+        </script>
+
+</section>
+    </article>
+    <hr>
+
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        "name": "Post: Zabbix poller processes more than 75%",
+        "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+            "@id": "https://www.sipmann.com",
+            "name": "Article"
+        }
+        },{
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+            "@id": "https://www.sipmann.com/category/linux.html",
+            "name": "Linux"
+        }
+        },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+            "@id": "https://www.sipmann.com/zabbix-poller-processes-more-than-75.html",
+            "name": "Zabbix poller processes more than 75%"
+        }
+        }]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Article",
+        "@id" : "https://www.sipmann.com/zabbix-poller-processes-more-than-75.html",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://google.com/article"
+        },
+        "headline": "Zabbix poller processes more than 75%",
+        "image": ["images/sipmann.com.png"],
+        "datePublished": "2020-07-02 19:00:00-03:00",
+        "dateModified": "2020-07-02 19:00:00-03:00",
+        "author": {
+            "@type": "Person",
+            "name": "Maurício Camargo Sipmann"
+            ,
+            "image": {
+              "@type": "ImageObject",
+              "id": "https://www.sipmann.com/#personlogo",
+              "url": "https://s.gravatar.com/avatar/7f717d69fb6d3dbc5490d47369aca3e0?s=180",
+              "height": 180,
+              "width": 180,
+              "caption": "Maurício Sipmann"
+            }
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Maurício Camargo Sipmann"
+            ,
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://s.gravatar.com/avatar/7f717d69fb6d3dbc5490d47369aca3e0?s=180",
+              "height": 180,
+              "width": 180
+            }
+        },
+
+        "articleSection": "
+            Zabbix
+                ,
+            Shell
+                ,
+            Zabbix Poller
+                ,
+            Poller proccess more than 75%
+        "
+    }
+    </script>
+            </div>
+
+            <div class="w3-sidebar w3-col l3 w3-collapse w3-animate-right" id="mySidebar" style="right:0;">
+<div class="w3-card w3-margin w3-margin-top" role="navigation" aria-labelledby="nav-categories">
+    <div class="w3-container w3-padding w3-blue-gray">
+        <h4 id="nav-categories">Categories</h4>
+    </div>
+    <ul class="w3-ul w3-hoverable w3-white">
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/azure.html" style="display: block">
+                Azure
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/flutter.html" style="display: block">
+                Flutter
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/front-end.html" style="display: block">
+                Front-end
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/java.html" style="display: block">
+                Java
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/linux.html" style="display: block">
+                Linux
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/mysql.html" style="display: block">
+                MySQL
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/net.html" style="display: block">
+                .NET
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/powershell.html" style="display: block">
+                PowerShell
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/random.html" style="display: block">
+                Random
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/sql-server.html" style="display: block">
+                SQL Server
+            </a>
+        </li>
+        <li style="padding: 0 !important;">
+            <a class="w3-padding" href="https://www.sipmann.com/category/tools.html" style="display: block">
+                Tools
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="w3-card w3-margin w3-margin-top" role="navigation" aria-labelledby="nav-recent-posts">
+    <div class="w3-container w3-padding w3-blue-gray">
+        <h4 id="nav-recent-posts">Recent Posts</h4>
+    </div>
+    <ul class="w3-ul w3-hoverable w3-white">
+        <li>
+            <a class="w3-padding" href="/monitoring-mysql-restarts-with-powershell.html">
+                Monitoring MySQL restarts with PowerShell
+            </a>
+        </li>
+        <li>
+            <a class="w3-padding" href="/mysql-dual-password-functionality.html">
+                Changing a MySQL user password across multiple application instances without downtime
+            </a>
+        </li>
+        <li>
+            <a class="w3-padding" href="/apache-nifi-json-to-sql-replacing-underscore.html">
+                Apache Nifi JSON to SQL Replacing underscore
+            </a>
+        </li>
+        <li>
+            <a class="w3-padding" href="/blocking-user-on-sql-server-based-on-schedule.html">
+                Blocking a user on SQL Server based on a schedule
+            </a>
+        </li>
+        <li>
+            <a class="w3-padding" href="/select_specific_fields_with_efcore.html">
+                How to set columns on select using Entity Framework
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="w3-margin w3-margin-top" role="navigation" aria-labelledby="buy-me-a-coffee">
+    <div class="w3-container w3-padding">
+        <a href="https://www.buymeacoffee.com/sipmann" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;"></a>
+    </div>
+</div>            </div>
+
+        </div>
+    </div>
+    <footer class="w3-container w3-dark-gray w3-padding-32 w3-margin-top">
+        <div class="w3-bar">
+            <a class="w3-bar-item" href="https://twitter.com/MSipmann" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a>
+            <a class="w3-bar-item" href="https://github.com/sipmann" target="_blank" rel="noopener noreferrer"><i class="fa fa-github-square fa-lg"></i> Github</a>
+            <a class="w3-bar-item" href="http://br.linkedin.com/in/sipmann" target="_blank" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-lg"></i> Linkedin</a>
+        </div>
+    </footer>
+    <!-- <script data-ad-client="ca-pub-3097623931513783" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+    
+        <!-- Google Analytics -->
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-8072083-2']);
+            _gaq.push(['_trackPageview']);
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+        <!-- End Google Analytics Code -->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-BW422MP4C1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-BW422MP4C1');
+	</script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Person",
+        "name": "Sipmann",
+        "url": "https://www.sipmann.com"
+        , "sameAs": [
+                "https://twitter.com/MSipmann",
+                "https://github.com/sipmann",
+                "http://br.linkedin.com/in/sipmann"
+        ]
+    }
+    </script>
+
+    <script>
+
+        // Get the Sidebar
+        var mySidebar = document.getElementById("mySidebar");
+
+        // Get the DIV with overlay effect
+        var overlayBg = document.getElementById("myOverlay");
+
+        function w3_open() {
+            if (mySidebar.style.display === 'block') {
+                mySidebar.style.display = 'none';
+                overlayBg.style.display = "none";
+            } else {
+                mySidebar.style.display = 'block';
+                overlayBg.style.display = "block";
+            }
+        }
+
+        function w3_close() {
+            mySidebar.style.display = "none";
+            overlayBg.style.display = "none";
+        }
+
+    </script>
+
+</body>
+
+</html>
